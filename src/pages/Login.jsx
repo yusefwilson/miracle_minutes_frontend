@@ -9,10 +9,7 @@ export default function Login()
     const {loggedIn, setLoggedIn} = useContext(LoginContext);
     const navigate = useNavigate();
 
-    if(loggedIn)
-    {
-        navigate('/');
-    }
+    if(loggedIn) { navigate('/'); }
 
     const handleChange = (event) =>
     {

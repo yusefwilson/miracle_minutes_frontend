@@ -1,7 +1,8 @@
 import './App.css';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
 
 export const LoginContext = createContext({loggedIn: false, setLoggedIn: () => {}}); //declare context with filler values
 
@@ -16,7 +17,7 @@ export default function App()
     {
       setLoggedIn(true);
     }
-  });
+  }, []);
 
   return (
     <LoginContext.Provider value={{loggedIn,setLoggedIn}}>

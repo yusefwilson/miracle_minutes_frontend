@@ -1,8 +1,10 @@
 import './App.css';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Home from './pages/Home';
 import { createContext, useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 export const LoginContext = createContext({loggedIn: false, setLoggedIn: () => {}}); //declare context with filler values
 
@@ -21,10 +23,15 @@ export default function App()
 
   return (
     <LoginContext.Provider value={{loggedIn,setLoggedIn}}>
-      <div className="App">
-        <Login />
-        <Signup />
-      </div>
+      <Router>
+        <div className="App">
+          <Routes>
+            <Route path='/' element={<Home/>}/>
+            <Route path='/login' element={<Login/>}/>
+            <Route path='/signup' element={<Signup/>}/>
+          </Routes>
+        </div>
+      </Router>
     </LoginContext.Provider>
   );
 }

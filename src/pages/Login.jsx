@@ -1,11 +1,18 @@
 import { useContext, useState } from 'react';
 import { LoginContext } from '../App';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login()
 {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const {loggedIn, setLoggedIn} = useContext(LoginContext);
+    const navigate = useNavigate();
+
+    if(loggedIn)
+    {
+        navigate('/');
+    }
 
     const handleChange = (event) =>
     {

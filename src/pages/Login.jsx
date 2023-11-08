@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { LoginContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ export default function Login()
     const {loggedIn, setLoggedIn} = useContext(LoginContext);
     const navigate = useNavigate();
 
-    if(loggedIn) { navigate('/'); }
+    useEffect( () => { if(loggedIn) { navigate('/');} });
 
     const handleChange = (event) =>
     {

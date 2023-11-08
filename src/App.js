@@ -1,13 +1,16 @@
-import './App.css';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import Home from './pages/Home';
 import { createContext, useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import './App.css';
 
-export const LoginContext = createContext({loggedIn: false, setLoggedIn: () => {}}); //declare context with filler values
+// componentss
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Home from './pages/Home';
+import Navbar from './components/Navbar';
+import Dashboard from './pages/Dashboard';
+
+export const LoginContext = createContext({loggedIn: false, setLoggedIn: (newValue) => {}}); //declare context with filler values
 
 export default function App()
 {
@@ -31,6 +34,8 @@ export default function App()
             <Route path='/' element={<Home/>}/>
             <Route path='/login' element={<Login/>}/>
             <Route path='/signup' element={<Signup/>}/>
+            <Route path='/dashboard' element={<Dashboard/>}/>
+            <Route path='/*' element={<h1>404 Not Found</h1>}/>
           </Routes>
         </div>
       </Router>

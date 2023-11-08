@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { LoginContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,10 +7,12 @@ export default function Login()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const {loggedIn, setLoggedIn} = useContext(LoginContext);
+    const {loggedIn} = useContext(LoginContext);
     const navigate = useNavigate();
 
-    if(loggedIn) { navigate('/'); }
+    console.log("in signup with loggedIn " + loggedIn);
+
+    useEffect( () => { console.log("in signup useeffect with loggedIn " + loggedIn); if(loggedIn) { navigate('/');} });
 
     const handleChange = (event) =>
     {

@@ -21,7 +21,7 @@ export default function Navbar()
             <ul>
             <li><Link to="/">Home</Link></li>
             {loggedIn ? <li><Link to="/dashboard">Dashboard</Link></li> : <li><Link to="/login">Login</Link></li>}
-            {loggedIn ? <li><Link to="/signup">Signup</Link></li> : <li><Link to="/signup">Signup</Link></li>}
+            {loggedIn ? <div /> : <li><Link to="/signup">Signup</Link></li>}
             {loggedIn ? <li><Link to="/" onClick={logout}>Logout</Link></li> : <div></div>}
             </ul>
         </nav>

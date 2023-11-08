@@ -33,16 +33,16 @@ export default function Login()
         //log in - needs to be hooked up to backend
         setLoggedIn(true);
 
-        console.log('Submitted event with email: ' + email + ' and password: ' + password);
+        console.log('Submitted login event with email: ' + email + ' and password: ' + password);
     }
 
     return (
         <div className="Login">
             <h1>Login</h1>
-            <form noValidate onSubmit={handleSubmit} className="flex flex-col w-full gap-4">
+            <form noValidate onSubmit={handleSubmit} className="loginForm">
                 <input type="email" placeholder="Email" name="email" onChange={handleChange} />
                 <input type="password" placeholder="Password" name="password" onChange={handleChange} />
-                <button type="submit">Submit</button>
+                <button type="submit">Log in</button>
             </form>
         </div>
     )

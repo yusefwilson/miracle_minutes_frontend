@@ -10,8 +10,6 @@ export default function Login()
     const {loggedIn} = useContext(LoginContext);
     const navigate = useNavigate();
 
-    console.log("in signup with loggedIn " + loggedIn);
-
     useEffect( () => { console.log("in signup useeffect with loggedIn " + loggedIn); if(loggedIn) { navigate('/');} });
 
     const handleChange = (event) =>

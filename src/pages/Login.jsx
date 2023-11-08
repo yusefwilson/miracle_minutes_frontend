@@ -9,7 +9,7 @@ export default function Login()
     const {loggedIn, setLoggedIn} = useContext(LoginContext);
     const navigate = useNavigate();
 
-    useEffect( () => { if(loggedIn) { navigate('/');} });
+    useEffect( () => { if(loggedIn) { navigate('/dashboard');} });
 
     const handleChange = (event) =>
     {
@@ -32,6 +32,8 @@ export default function Login()
 
         //log in - needs to be hooked up to backend
         setLoggedIn(true);
+
+        navigate('/dashboard');
 
         console.log('Submitted login event with email: ' + email + ' and password: ' + password);
     }

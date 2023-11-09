@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { LoginContext } from '../App';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Login()
 {
@@ -26,12 +27,13 @@ export default function Login()
         }
     }
 
-    const handleSubmit = (event) =>
+    const handleSubmit = async (event) =>
     {
         event.preventDefault(); //prevent refresh
 
         //log in - needs to be hooked up to backend
-        setLoggedIn(true);
+        let response = await axios.post('http://localhost:3001/api/login', {email: email, password: password});
+        console.log(response);
 
         navigate('/dashboard');
 

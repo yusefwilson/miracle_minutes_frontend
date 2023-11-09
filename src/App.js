@@ -1,7 +1,8 @@
 import { createContext, useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import './App.css';
+
+import axios from 'axios';
 
 // componentss
 import Login from './pages/Login';
@@ -11,6 +12,8 @@ import Navbar from './components/Navbar';
 import Dashboard from './pages/Dashboard';
 
 export const LoginContext = createContext({loggedIn: false, setLoggedIn: (newValue) => {}}); //declare context with filler values
+
+axios.defaults.baseURL = 'http://localhost:3001/api';
 
 export default function App()
 {
@@ -28,7 +31,7 @@ export default function App()
   return (
     <LoginContext.Provider value={{loggedIn,setLoggedIn}}>
       <Router>
-        <div className="App">
+        <div className="flex flex-col gap-y-2.5">
           <Navbar/>
           <Routes>
             <Route path='/' element={<Home/>}/>

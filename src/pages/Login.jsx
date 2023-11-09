@@ -32,7 +32,7 @@ export default function Login()
         event.preventDefault(); //prevent refresh
 
         //log in - needs to be hooked up to backend
-        let response = await axios.post('http://localhost:3001/api/login', {email: email, password: password});
+        let response = await axios.post('/login', {email: email, password: password});
         console.log(response);
 
         navigate('/dashboard');

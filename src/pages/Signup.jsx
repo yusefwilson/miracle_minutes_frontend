@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { LoginContext } from '../App';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Login()
 {
@@ -30,7 +31,7 @@ export default function Login()
         }
     }
 
-    const handleSubmit = (event) =>
+    const handleSubmit = async (event) =>
     {
         event.preventDefault(); //prevent refresh
 
@@ -40,6 +41,8 @@ export default function Login()
             return;
         }
         //signup needs to be hooked up to backend
+        let response = await axios.post('/signup', {email: email, password: password});
+        console.log("SIGNUP RESPONSE: ", response);
 
         console.log('Submitted signup event with email: ' + email + ' and password: ' + password + ' and confirmPassword: ' + confirmPassword);
     }

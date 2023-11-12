@@ -33,7 +33,7 @@ export default function Login()
 
         //log in - needs to be hooked up to backend
         let response = await axios.post('/login', {email: email, password: password});
-        console.log(response);
+        console.log("LOGIN RESPONSE: ", response);
 
         navigate('/dashboard');
 

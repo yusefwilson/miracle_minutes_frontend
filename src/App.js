@@ -39,7 +39,7 @@ export default function App()
             <Route path='/login' element={<Login/>}/>
             <Route path='/signup' element={<Signup/>}/>
             <Route path='/dashboard' element={<Dashboard/>}/>
-            <Route path='/verify' element={<Verify email=''/>}/>
+            <Route path='/verify' element={<Verify/>}/>
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>

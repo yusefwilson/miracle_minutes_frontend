@@ -2,9 +2,9 @@ import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-export default function Verify({starting_email}) //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
+export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
 {
-    const [email, setEmail] = useState(starting_email);
+    const [email, setEmail] = useState('');
     const [code, setCode] = useState('');
     const navigate = useNavigate();
 

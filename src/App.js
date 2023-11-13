@@ -10,6 +10,7 @@ import Signup from './pages/Signup';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import Dashboard from './pages/Dashboard';
+import Verify from './pages/Verify';
 
 export const LoginContext = createContext({loggedIn: false, setLoggedIn: (newValue) => {}}); //declare context with filler values
 
@@ -38,6 +39,7 @@ export default function App()
             <Route path='/login' element={<Login/>}/>
             <Route path='/signup' element={<Signup/>}/>
             <Route path='/dashboard' element={<Dashboard/>}/>
+            <Route path='/verify' element={<Verify email=''/>}/>
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>

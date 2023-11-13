@@ -8,6 +8,7 @@ export default function Login()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const {loggedIn, setLoggedIn} = useContext(LoginContext);
+    const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
 
     useEffect( () => { if(loggedIn) { navigate('/dashboard');} });
@@ -35,7 +36,29 @@ export default function Login()
         let response = await axios.post('/login', {email: email, password: password});
         console.log("LOGIN RESPONSE: ", response);
 
-        navigate('/dashboard');
+        if(response.data.hasOwnProperty("error"))
+        {
+            switch(response.data.error.name)
+            {
+                case "UserNotConfirmedException":
+                    setErrorMessage("Your account is not verified! Please check your email for a verification code.");
+                    break;
+                case "InvalidParameterException":
+                    setErrorMessage("Please enter a valid email address and password.");
+                    break;
+                case "NotAuthorizedException":
+                    setErrorMessage("Incorrect password!");
+                    break;
+                default:
+                    setErrorMessage("An unknown error has occurred. Please try again.");
+                    break;
+            }
+        }
+        else
+        {
+            setErrorMessage('');
+            navigate('/dashboard');
+        }
 
         console.log('Submitted login event with email: ' + email + ' and password: ' + password);
     }
@@ -48,6 +71,7 @@ export default function Login()
                 <input type="password" placeholder="Password" name="password" onChange={handleChange} />
                 <button type="submit">Log in</button>
             </form>
+            {errorMessage !== '' ? <p>{errorMessage}</p> : null}
         </div>
     )
 }

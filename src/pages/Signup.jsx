@@ -9,6 +9,7 @@ export default function Login()
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const {loggedIn} = useContext(LoginContext);
+    const [errorMessage, setErrorMessage] = useState(''); //for displaying error messages
     const navigate = useNavigate();
 
     useEffect( () => { console.log("in signup useeffect with loggedIn " + loggedIn); if(loggedIn) { navigate('/');} });
@@ -42,6 +43,28 @@ export default function Login()
         }
         //signup needs to be hooked up to backend
         let response = await axios.post('/signup', {email: email, password: password});
+
+        if(response.data.hasOwnProperty("error"))
+        {
+            switch(response.data.error.name)
+            {
+                case "UsernameExistsException":
+                    setErrorMessage("Email already in use! Please log in or use a different email.");
+                    break;
+                case "InvalidParameterException":
+                    setErrorMessage("Please enter a valid email address and password.");
+                    break;
+                default:
+                    setErrorMessage("An unknown error has occurred. Please try again.");
+                    break;
+            }
+        }
+        else
+        {
+            setErrorMessage('');
+            navigate('/verify');
+        }
+
         console.log("SIGNUP RESPONSE: ", response);
 
         console.log('Submitted signup event with email: ' + email + ' and password: ' + password + ' and confirmPassword: ' + confirmPassword);
@@ -56,6 +79,7 @@ export default function Login()
                 <input type="password" placeholder="Confirm Password" name="confirmPassword" onChange={handleChange}/>
                 <button type="submit">Sign up</button>
             </form>
+            {errorMessage !== '' ? <p>{errorMessage}</p> : null}
         </div>
     )
 }

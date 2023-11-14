@@ -56,6 +56,7 @@ export default function Login()
         }
         else
         {
+            setLoggedIn(true);
             setErrorMessage('');
             navigate('/dashboard');
         }
@@ -64,9 +65,9 @@ export default function Login()
     }
 
     return (
-        <div className="bg-green-800 flex justify-center">
-            <form noValidate onSubmit={handleSubmit} className="flex flex-col bg-pink-800 w-1/4">
-                <h1>Login</h1>
+        <div className="bg-green-800 flex justify-center h-full">
+            <form noValidate onSubmit={handleSubmit} className="flex flex-col grid content-center bg-pink-800 w-1/4">
+                <h1 className='text-center'>Login</h1>
                 <input type="email" placeholder="Email" name="email" onChange={handleChange} />
                 <input type="password" placeholder="Password" name="password" onChange={handleChange} />
                 <button type="submit">Log in</button>

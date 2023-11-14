@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -57,9 +57,9 @@ export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
     }
 
     return (
-        <div className='bg-yellow-400 flex justify-center'>
-            <form noValidate onSubmit={handleSubmit} className="flex flex-col w-1/4 bg-pink-800">
-                <h1>Check your inbox and input your email and verification code!</h1>
+        <div className='bg-green-800 flex justify-center h-full'>
+            <form noValidate onSubmit={handleSubmit} className="flex flex-col w-1/4 grid content-center bg-pink-800">
+                <h1 className='text-center'>Check your inbox and input your email and verification code!</h1>
                 <input type="email" placeholder="Email" name="email" onChange={handleChange}/>
                 <input type="code" placeholder="Code" name="code" onChange={handleChange}/>
                 <button type="submit">Verify</button>

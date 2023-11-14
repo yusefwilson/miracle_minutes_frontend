@@ -32,7 +32,7 @@ export default function App()
   return (
     <LoginContext.Provider value={{loggedIn,setLoggedIn}}>
       <Router>
-        <div className="flex flex-col bg-black">
+        <div className="flex flex-col bg-gray-600">
           <Navbar/>
           <Routes>
             <Route path='/' element={<Home/>}/>

@@ -16,14 +16,12 @@ export default function Navbar()
   }
 
   return (
-    <div className="flex">
-        <nav className="">
-            <ul>
-            <li><Link to="/">Home</Link></li>
-            {loggedIn ? <li><Link to="/dashboard">Dashboard</Link></li> : <li><Link to="/login">Login</Link></li>}
-            {loggedIn ? <div /> : <li><Link to="/signup">Signup</Link></li>}
-            {loggedIn ? <li><Link to="/" onClick={logout}>Logout</Link></li> : <div></div>}
-            </ul>
+    <div className="flex bg-red-800 justify-center">
+        <nav className="flex gap-x-2.5">
+            <Link to="/">Home</Link>
+            {loggedIn ? <Link to="/dashboard">Dashboard</Link> : <Link to="/login">Login</Link>}
+            {loggedIn ? null : <Link to="/signup">Signup</Link>}
+            {loggedIn ? <Link to="/" onClick={logout}>Logout</Link> : null}
         </nav>
     </div>
   );

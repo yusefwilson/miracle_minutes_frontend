@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from 'react';
 import { LoginContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 export default function Login()
 {
@@ -56,6 +57,9 @@ export default function Login()
         }
         else
         {
+            Cookies.set('miracle_minutes_refresh_token', response.data.result.AuthenticationResult.RefreshToken, {expires: 30, path: ''});
+            Cookies.set('miracle_minutes_id_token', response.data.result.AuthenticationResult.IdToken, {expires: 1, path: ''});
+            console.log(document.cookie);
             setLoggedIn(true);
             setErrorMessage('');
             navigate('/dashboard');

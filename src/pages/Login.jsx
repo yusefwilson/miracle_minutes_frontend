@@ -57,8 +57,8 @@ export default function Login()
         }
         else
         {
-            Cookies.set('miracle_minutes_refresh_token', response.data.result.AuthenticationResult.RefreshToken, {expires: 30, path: ''});
-            Cookies.set('miracle_minutes_id_token', response.data.result.AuthenticationResult.IdToken, {expires: 1, path: ''});
+            Cookies.set('miracle_minutes_refresh_token', response.data.refresh_token, {expires: 30, path: ''});
+            Cookies.set('miracle_minutes_access_token', response.data.access_token, {expires: 1, path: ''});
             console.log(document.cookie);
             setLoggedIn(true);
             setErrorMessage('');

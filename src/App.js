@@ -16,7 +16,7 @@ export const LoginContext = createContext({loggedIn: false, setLoggedIn: (newVal
 
 axios.defaults.baseURL = 'http://localhost:3001/api';
 
-const refresh_tokens = async () =>
+const refresh_access_token = async () =>
 {
   try
   {
@@ -25,8 +25,9 @@ const refresh_tokens = async () =>
     if (cookie_refresh_token)
     {
       const refresh_token_result = await axios.post('/refresh', {refresh_token: cookie_refresh_token});
-      const { access_token } = refresh_token_result.data;
-      return { access_token };
+      const access_token = refresh_token_result.data.access_token;
+
+      return access_token;
     }
 
     return undefined;
@@ -49,11 +50,18 @@ export default function App()
     async function check_tokens_and_login()
     {
       // refresh tokens
-      const refresh_result = await refresh_tokens();
+      const access_token = await refresh_access_token();
 
-      if(refresh_result)
+      if(access_token)
       {
-        Cookies.set('miracle_minutes_access_token', refresh_result.access_token, {expires: 1, path: ''});
+        Cookies.set('miracle_minutes_access_token', access_token, {expires: 1, path: ''});
+        
+        // now check if token valid
+        const verify_token_result = await axios.post('/verify_token', {access_token});
+        const token_valid = !verify_token_result.data.hasOwnProperty('error');
+
+        //if so, log in
+        setLoggedIn(token_valid);
       }
 
       // if refreshing failed, abort and just set logged in to false
@@ -61,16 +69,7 @@ export default function App()
       {
         Cookies.remove('miracle_minutes_refresh_token');
         Cookies.remove('miracle_minutes_access_token');
-        return;
       }
-
-      // now check if token valid
-      const access_token = Cookies.get('miracle_minutes_access_token');
-      const verify_token_result = await axios.post('/verify_token', {access_token});
-      const token_valid = !verify_token_result.data.hasOwnProperty('error');
-
-      //if so, log in
-      setLoggedIn(token_valid);
     }
     check_tokens_and_login();
   }, []);

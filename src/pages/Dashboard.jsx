@@ -30,6 +30,7 @@ export default function Dashboard()
                 setUser(user_response.data);
             }        
         }   
+        
         if(!loggedIn) { navigate('/login'); return; }
         console.log("Dashboard page loaded");
         get_user_data();

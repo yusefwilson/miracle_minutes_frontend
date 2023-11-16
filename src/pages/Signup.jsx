@@ -46,18 +46,7 @@ export default function Login()
 
         if(response.data.hasOwnProperty("error"))
         {
-            switch(response.data.error.name)
-            {
-                case "UsernameExistsException":
-                    setErrorMessage("Email already in use! Please log in or use a different email.");
-                    break;
-                case "InvalidParameterException":
-                    setErrorMessage("Please enter a valid email address and password.");
-                    break;
-                default:
-                    setErrorMessage("An unknown error has occurred. Please try again.");
-                    break;
-            }
+            setErrorMessage(response.data.error);
         }
         else
         {

@@ -57,8 +57,8 @@ export default function App()
         Cookies.set('miracle_minutes_access_token', access_token, {expires: 1, path: ''});
         
         // now check if token valid
-        const verify_token_result = await axios.post('/verify_token', {access_token});
-        const token_valid = !verify_token_result.data.hasOwnProperty('error');
+        const user_token_result = await axios.post('/user', {access_token});
+        const token_valid = !user_token_result.data.hasOwnProperty('error');
 
         //if so, log in
         setLoggedIn(token_valid);

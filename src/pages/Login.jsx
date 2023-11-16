@@ -39,27 +39,13 @@ export default function Login()
 
         if(response.data.hasOwnProperty("error"))
         {
-            switch(response.data.error.name)
-            {
-                case "UserNotConfirmedException":
-                    setErrorMessage("Your account is not verified! Please check your email for a verification code.");
-                    break;
-                case "InvalidParameterException":
-                    setErrorMessage("Please enter a valid email address and password.");
-                    break;
-                case "NotAuthorizedException":
-                    setErrorMessage("Incorrect password!");
-                    break;
-                default:
-                    setErrorMessage("An unknown error has occurred. Please try again.");
-                    break;
-            }
+            setErrorMessage(response.data.error);
         }
+
         else
         {
             Cookies.set('miracle_minutes_refresh_token', response.data.refresh_token, {expires: 30, path: ''});
             Cookies.set('miracle_minutes_access_token', response.data.access_token, {expires: 1, path: ''});
-            console.log(document.cookie);
             setLoggedIn(true);
             setErrorMessage('');
             navigate('/dashboard');

@@ -1,13 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { LoginContext } from '../App';
 
 export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
 {
     const [email, setEmail] = useState('');
     const [code, setCode] = useState('');
     const [errorMessage, setErrorMessage] = useState(''); //for displaying error messages
+    const {loggedIn} = useContext(LoginContext); //get the login state and the function to set the login state from the context
     const navigate = useNavigate();
+
+    useEffect( () => { if(loggedIn) { navigate('/dashboard');} });
 
     const handleChange = (event) =>
     {
@@ -33,19 +37,7 @@ export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
 
         if(response.data.hasOwnProperty("error"))
         {
-            switch(response.data.error.name)
-            {
-                case "InvalidParameterException":
-                    setErrorMessage("Please enter a valid email and code.");
-                    break;
-                case "ExpiredCodeException":
-                    setErrorMessage("Code has expired or is incorrect! Please request a new code or try again.");
-                    break;
-                default:
-                    setErrorMessage("An unknown error has occurred. Please try again.");
-                    break;
-            }   
-            
+            setErrorMessage(response.data.error);   
         }
         else
         {

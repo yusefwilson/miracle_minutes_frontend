@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { LoginContext } from '../App';
+import Cookies from 'js-cookie';
 
 export default function Navbar()
 {
@@ -11,8 +12,9 @@ export default function Navbar()
   const logout = () =>
   {
     setLoggedIn(false);
-    //remove the token cookie
-    document.cookie="miracle_minutes_token=; expires=Sun, 20 Aug 2000 12:00:00 UTC";  
+    //remove the token cookies
+    Cookies.remove('miracle_minutes_refresh_token');
+    Cookies.remove('miracle_minutes_access_token');
   }
 
   return (

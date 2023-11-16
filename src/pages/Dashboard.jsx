@@ -35,7 +35,7 @@ export default function Dashboard()
         console.log("Dashboard page loaded");
         get_user_data();
         console.log("User: ", user);
-    }, []);
+    });
 
     return (
         <div className="bg-green-800 flex flex-col grid content-center justify-center h-full">

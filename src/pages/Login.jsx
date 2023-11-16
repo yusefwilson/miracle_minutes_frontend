@@ -55,8 +55,8 @@ export default function Login()
     }
 
     return (
-        <div className="bg-green-200 flex justify-center h-full">
-            <form noValidate onSubmit={handleSubmit} className="flex flex-col grid content-center bg-pink-300 w-1/4">
+        <div className="bg-green-200 flex justify-center h-full grid content-center">
+            <form noValidate onSubmit={handleSubmit} className="flex flex-col bg-pink-300">
                 <h1 className='text-center'>Login</h1>
                 <input type="email" placeholder="Email" name="email" onChange={handleChange} />
                 <input type="password" placeholder="Password" name="password" onChange={handleChange} />

@@ -18,7 +18,7 @@ export default function Navbar()
   }
 
   return (
-    <div className="flex bg-red-800 justify-center">
+    <div className="flex bg-red-200 justify-center">
         <nav className="flex gap-x-2.5">
             <Link to="/">Home</Link>
             {loggedIn ? <Link to="/dashboard">Dashboard</Link> : <Link to="/login">Login</Link>}

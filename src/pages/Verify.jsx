@@ -49,8 +49,8 @@ export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
     }
 
     return (
-        <div className='bg-green-800 flex justify-center h-full'>
-            <form noValidate onSubmit={handleSubmit} className="flex flex-col w-1/4 grid content-center bg-pink-800">
+        <div className='bg-green-200 flex justify-center h-full'>
+            <form noValidate onSubmit={handleSubmit} className="flex flex-col w-1/4 grid content-center bg-pink-300">
                 <h1 className='text-center'>Check your inbox and input your email and verification code!</h1>
                 <input type="email" placeholder="Email" name="email" onChange={handleChange}/>
                 <input type="code" placeholder="Code" name="code" onChange={handleChange}/>

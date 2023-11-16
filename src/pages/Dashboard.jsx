@@ -38,7 +38,7 @@ export default function Dashboard()
     });
 
     return (
-        <div className="bg-green-800 flex flex-col grid content-center justify-center h-full">
+        <div className="bg-green-200 flex flex-col grid content-center justify-center h-full">
             <h1>Dashboard</h1>
             <p>Email: {user.email}</p>
             <p>Purchases: {user.purchases}</p>

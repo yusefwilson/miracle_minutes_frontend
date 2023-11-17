@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import Sidebar from "../components/Sidebar";
 import Articles from "../components/Articles";
 
+
 export default function Dashboard()
 {   
     const navigate = useNavigate();
@@ -46,13 +47,16 @@ export default function Dashboard()
     switch(currentComponent)
     {
         case 'Profile':
+            const purchase_string = user.purchases?.map( (purchase) => {return purchase.S}).join(", ");
+
             renderedComponent = (
-            <div className="bg-pink-300 flex flex-col">
+            <div className="bg-yellow-300 flex flex-col">
                 <h1 className="text-center">Profile</h1>
                 <p>Email: {user.email}</p>
-                <p>Purchases: {user.purchases}</p>
+                <p>Purchases: {purchase_string}</p>
                 <p>Referral code: {user.referral_code}</p>
             </div>);
+
             break;
         case 'Articles':
             renderedComponent = <Articles/>;

@@ -3,12 +3,16 @@ import { LoginContext } from "../App";
 import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import Sidebar from "../components/Sidebar";
+import Articles from "../components/Articles";
 
 export default function Dashboard()
 {   
     const navigate = useNavigate();
     const {loggedIn} = useContext(LoginContext);
     const [user, setUser] = useState({});
+    const components = ['Profile', 'Articles', 'Settings'];
+    const [currentComponent, setCurrentComponent] = useState('Profile');
 
     useEffect( () =>
     {
@@ -37,14 +41,31 @@ export default function Dashboard()
         console.log("User: ", user);
     }, [loggedIn]);
 
-    return (
-        <div className="bg-green-200 flex flex-col grid content-center justify-center h-full">
+    let renderedComponent = <div></div>;
+
+    switch(currentComponent)
+    {
+        case 'Profile':
+            renderedComponent = (
             <div className="bg-pink-300 flex flex-col">
-                <h1 className="text-center">Dashboard</h1>
+                <h1 className="text-center">Profile</h1>
                 <p>Email: {user.email}</p>
                 <p>Purchases: {user.purchases}</p>
                 <p>Referral code: {user.referral_code}</p>
-            </div>
+            </div>);
+            break;
+        case 'Articles':
+            renderedComponent = <Articles/>;
+            break;
+        case 'Settings':
+            renderedComponent = <div>Settings</div>;
+            break;
+    }
+
+    return (
+        <div className="bg-green-200 flex flex-row h-full">
+            <Sidebar components={components} setCurrentComponent={setCurrentComponent}/>
+            {renderedComponent}
         </div>
     );
 }

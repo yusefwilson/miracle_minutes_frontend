@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { LoginContext } from '../App';
 
@@ -10,8 +10,20 @@ export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
     const [errorMessage, setErrorMessage] = useState(''); //for displaying error messages
     const {loggedIn} = useContext(LoginContext); //get the login state and the function to set the login state from the context
     const navigate = useNavigate();
+    const location = useLocation();
 
-    useEffect( () => { if(loggedIn) { navigate('/dashboard');} });
+    useEffect( () =>
+    {
+        if(loggedIn)
+        {
+            navigate('/dashboard');
+        }
+        else
+        {
+            const e = new URLSearchParams(location.search).get('e');
+            setEmail(e);
+        }
+    }, [location.search, loggedIn, navigate]);
 
     const handleChange = (event) =>
     {
@@ -52,7 +64,7 @@ export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
         <div className='bg-green-200 flex justify-center h-full'>
             <form noValidate onSubmit={handleSubmit} className="flex flex-col w-1/4 grid content-center bg-pink-300">
                 <h1 className='text-center'>Check your inbox and input your email and verification code!</h1>
-                <input type="email" placeholder="Email" name="email" onChange={handleChange}/>
+                <input type="email" placeholder="Email" name="email" onChange={handleChange} value={email}/>
                 <input type="code" placeholder="Code" name="code" onChange={handleChange}/>
                 <button type="submit">Verify</button>
             </form>

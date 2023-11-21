@@ -9,12 +9,12 @@ export default function ForgotPassword()
     const [submitted, setSubmitted] = useState(false);
     const navigate = useNavigate();
     const {loggedIn} = useContext(LoginContext);
-    const [errorMessage, setErrorMessage] = useState(''); //for displaying error messages
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => 
     {
         if(loggedIn) {navigate('/dashboard');}
-    }, []);
+    }, [loggedIn, navigate]);
 
     const isValidEmail = (email) =>
     {
@@ -45,7 +45,7 @@ export default function ForgotPassword()
                 <input placeholder="Email" onChange={handleChange}></input>
                 <button type="submit">Send reset email</button>
             </form>
-            {submitted ? <h1>Check your email for a reset code. You can use it <a href="/reset">here</a>.</h1> : null}
+            {submitted ? <h1>Check your email for a reset code. You can use it <a href={"/reset?e=" + email}>here</a>.</h1> : null}
             {errorMessage !== '' ? <h1>{errorMessage}</h1> : null}
         </div>
     );

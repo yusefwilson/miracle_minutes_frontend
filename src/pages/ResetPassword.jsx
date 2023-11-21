@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
 
 export default function ResetPassword()
@@ -10,6 +10,13 @@ export default function ResetPassword()
     const [code, setCode] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
+    const location = useLocation();
+
+    useEffect( () =>
+    {
+        const e = new URLSearchParams(location.search).get('e');
+        setEmail(e);
+    }, [location.search]);
 
     const handleChange = (event) =>
     {
@@ -58,8 +65,8 @@ export default function ResetPassword()
         <div className="bg-green-200 flex justify-center h-full grid content-center">
             <form noValidate onSubmit={handleSubmit} className="flex flex-col bg-pink-300">
                 <h1>Enter your new password, and the code you received via email.</h1>
+                <input placeholder="Email" onChange={handleChange} name="email" value={email}></input>
                 <input placeholder="Code" onChange={handleChange} name="code"></input>
-                <input placeholder="Email" onChange={handleChange} name="email"></input>
                 <input placeholder="New password" onChange={handleChange} name="password"></input>
                 <input placeholder="Confirm new password" onChange={handleChange} name="confirmPassword"></input>
                 <button type="submit">Reset password</button>

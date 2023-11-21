@@ -51,12 +51,8 @@ export default function Login()
         else
         {
             setErrorMessage('');
-            navigate('/verify');
+            navigate('/verify?e=' + email);
         }
-
-        console.log("SIGNUP RESPONSE: ", response);
-
-        console.log('Submitted signup event with email: ' + email + ' and password: ' + password + ' and confirmPassword: ' + confirmPassword);
     }
 
     return (

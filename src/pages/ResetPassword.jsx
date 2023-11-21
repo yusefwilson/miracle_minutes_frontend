@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function ResetPassword({email})
@@ -6,6 +8,7 @@ export default function ResetPassword({email})
     const [confirmPassword, setConfirmPassword] = useState('');
     const [code, setCode] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();
 
     const handleChange = (event) =>
     {
@@ -34,7 +37,7 @@ export default function ResetPassword({email})
             return;
         }
         //send reset request to server
-        const reset_result = await axios.post('/reset', {password, email, code})
+        const reset_result = await axios.post('/reset', {password, email: 'yusefwilsonx@gmail.com', code})
 
         if(reset_result.data.hasOwnProperty("error"))
         {
@@ -48,7 +51,7 @@ export default function ResetPassword({email})
     }
 
     return (
-        errorMessage == '' ?
+        errorMessage === '' ?
         <div className="bg-green-200 flex justify-center h-full grid content-center">
             <form noValidate onSubmit={handleSubmit} className="flex flex-col bg-pink-300">
                 <h1>Enter your new password, and the code you received via email.</h1>

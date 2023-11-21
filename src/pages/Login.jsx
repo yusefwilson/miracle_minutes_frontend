@@ -36,7 +36,7 @@ export default function Login()
         //log in - needs to be hooked up to backend
         let response = await axios.post('/login', {email: email, password: password});
 
-        if(response.data.hasOwnProperty("error"))
+        if(response.data.hasOwnProperty('error'))
         {
             setErrorMessage(response.data.error);
         }
@@ -52,14 +52,14 @@ export default function Login()
     }
 
     return (
-        <div className="bg-green-200 flex justify-center h-full grid content-center">
-            <form noValidate onSubmit={handleSubmit} className="flex flex-col bg-pink-300">
+        <div className='bg-green-200 flex justify-center h-full grid content-center'>
+            <form noValidate onSubmit={handleSubmit} className='flex flex-col bg-pink-300'>
                 <h1 className='text-center'>Login</h1>
-                <input type="email" placeholder="Email" name="email" onChange={handleChange} />
-                <input type="password" placeholder="Password" name="password" onChange={handleChange} />
-                <button type="submit">Log in</button>
+                <input type='email' placeholder='Email' name='email' onChange={handleChange} />
+                <input type='password' placeholder='Password' name='password' onChange={handleChange} />
+                <button type='submit'>Log in</button>
             </form>
-            <h1><a href="/forgot">Forgot your password?</a></h1>
+            <h1><a href='/forgot'>Forgot your password?</a></h1>
             {errorMessage !== '' ? <p>{errorMessage}</p> : null}
         </div>
     );

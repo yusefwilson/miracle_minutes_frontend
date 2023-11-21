@@ -1,9 +1,9 @@
-import { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { LoginContext } from "../App";
-import Dropdown from "./Dropdown";
-import axios from "axios";
-import Cookies from "js-cookie";
+import { useEffect, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { LoginContext } from '../App';
+import Dropdown from './Dropdown';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
 export default function Articles()
 {
@@ -33,14 +33,14 @@ export default function Articles()
 
     //render error messages or article
     return (
-        <div className="flex flex-col justify-center bg-pink-300">
+        <div className='flex flex-col justify-center bg-pink-300'>
             <h1>Articles</h1>
             {errorMessage === '' ?
-            <div className="flex flex-col gap-y-2.5">
+            <div className='flex flex-col gap-y-2.5'>
                 {articles.map((newsletter) => <Dropdown title={newsletter.title} content={newsletter.content}/>)}
             </div>
             :
-            <div className="flex flex-col gap-y-2.5">
+            <div className='flex flex-col gap-y-2.5'>
                 <p>{errorMessage}</p>
             </div>
             }

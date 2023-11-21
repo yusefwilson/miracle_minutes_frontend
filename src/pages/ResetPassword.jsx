@@ -1,7 +1,7 @@
-import { useEffect, useState, useContext } from "react";
-import { useLocation, useNavigate} from "react-router-dom";
-import axios from "axios";
-import { LoginContext } from "../App";
+import { useEffect, useState, useContext } from 'react';
+import { useLocation, useNavigate} from 'react-router-dom';
+import axios from 'axios';
+import { LoginContext } from '../App';
 
 export default function ResetPassword()
 {
@@ -53,7 +53,7 @@ export default function ResetPassword()
         //send reset request to server
         const reset_result = await axios.post('/reset', {password, email, code})
 
-        if(reset_result.data.hasOwnProperty("error"))
+        if(reset_result.data.hasOwnProperty('error'))
         {
             setErrorMessage(reset_result.data.error);
         }
@@ -65,14 +65,14 @@ export default function ResetPassword()
     }
 
     return (
-        <div className="bg-green-200 flex justify-center h-full grid content-center">
-            <form noValidate onSubmit={handleSubmit} className="flex flex-col bg-pink-300">
+        <div className='bg-green-200 flex justify-center h-full grid content-center'>
+            <form noValidate onSubmit={handleSubmit} className='flex flex-col bg-pink-300'>
                 <h1>Enter your new password, and the code you received via email.</h1>
-                <input placeholder="Email" onChange={handleChange} name="email" value={email}></input>
-                <input placeholder="Code" onChange={handleChange} name="code"></input>
-                <input placeholder="New password" onChange={handleChange} name="password"></input>
-                <input placeholder="Confirm new password" onChange={handleChange} name="confirmPassword"></input>
-                <button type="submit">Reset password</button>
+                <input placeholder='Email' onChange={handleChange} name='email' value={email}></input>
+                <input placeholder='Code' onChange={handleChange} name='code'></input>
+                <input placeholder='New password' onChange={handleChange} name='password'></input>
+                <input placeholder='Confirm new password' onChange={handleChange} name='confirmPassword'></input>
+                <button type='submit'>Reset password</button>
             </form>
             {errorMessage !== '' ? <h1>{errorMessage}</h1> : null}
         </div>

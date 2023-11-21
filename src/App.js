@@ -79,7 +79,7 @@ export default function App()
   return (
     <LoginContext.Provider value={{loggedIn,setLoggedIn}}>
       <Router>
-        <div className="flex flex-col justify-center bg-gray-600 h-screen">
+        <div className='flex flex-col justify-center bg-gray-600 h-screen'>
           <Navbar/>
           <Routes>
             <Route path='/' element={<Home/>}/>
@@ -89,7 +89,7 @@ export default function App()
             <Route path='/verify' element={<Verify/>}/>
             <Route path='/forgot' element={<ForgotPassword/>}/>
             <Route path='/reset' element={<ResetPassword/>}/>
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path='*' element={<Navigate to='/' replace />} />
           </Routes>
         </div>
       </Router>

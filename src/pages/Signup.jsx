@@ -44,7 +44,7 @@ export default function Login()
         //signup needs to be hooked up to backend
         let response = await axios.post('/signup', {email: email, password: password});
 
-        if(response.data.hasOwnProperty("error"))
+        if(response.data.hasOwnProperty('error'))
         {
             setErrorMessage(response.data.error);
         }
@@ -56,13 +56,13 @@ export default function Login()
     }
 
     return (
-        <div className="bg-green-200 flex justify-center h-full grid content-center">
-            <form noValidate onSubmit={handleSubmit} className="bg-pink-300 flex flex-col">
+        <div className='bg-green-200 flex justify-center h-full grid content-center'>
+            <form noValidate onSubmit={handleSubmit} className='bg-pink-300 flex flex-col'>
                 <h1 className='text-center'>Signup</h1>
-                <input type="email" placeholder="Email" name="email" onChange={handleChange}/>
-                <input type="password" placeholder="Password" name="password" onChange={handleChange}/>
-                <input type="password" placeholder="Confirm Password" name="confirmPassword" onChange={handleChange}/>
-                <button type="submit">Sign up</button>
+                <input type='email' placeholder='Email' name='email' onChange={handleChange}/>
+                <input type='password' placeholder='Password' name='password' onChange={handleChange}/>
+                <input type='password' placeholder='Confirm Password' name='confirmPassword' onChange={handleChange}/>
+                <button type='submit'>Sign up</button>
             </form>
             {errorMessage !== '' ? <p>{errorMessage}</p> : null}
         </div>

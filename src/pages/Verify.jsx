@@ -43,7 +43,7 @@ export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
 
         let response = await axios.post('/verify', {email: email, code: code});
 
-        if(response.data.hasOwnProperty("error"))
+        if(response.data.hasOwnProperty('error'))
         {
             setErrorMessage(response.data.error);   
         }
@@ -56,11 +56,11 @@ export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
 
     return (
         <div className='bg-green-200 flex justify-center h-full'>
-            <form noValidate onSubmit={handleSubmit} className="flex flex-col w-1/4 grid content-center bg-pink-300">
+            <form noValidate onSubmit={handleSubmit} className='flex flex-col w-1/4 grid content-center bg-pink-300'>
                 <h1 className='text-center'>Check your inbox and input your email and verification code!</h1>
-                <input type="email" placeholder="Email" name="email" onChange={handleChange} value={email}/>
-                <input type="code" placeholder="Code" name="code" onChange={handleChange}/>
-                <button type="submit">Verify</button>
+                <input type='email' placeholder='Email' name='email' onChange={handleChange} value={email}/>
+                <input type='code' placeholder='Code' name='code' onChange={handleChange}/>
+                <button type='submit'>Verify</button>
             </form>
             {/* <button onClick={handleResend}>Resend</button> */}
             {errorMessage !== '' ? <p>{errorMessage}</p> : null}

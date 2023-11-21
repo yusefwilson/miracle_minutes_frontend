@@ -4,13 +4,15 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 
 import axios from 'axios';
 
-// componentss
+// components
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import Dashboard from './pages/Dashboard';
 import Verify from './pages/Verify';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 
 export const LoginContext = createContext({loggedIn: false, setLoggedIn: (newValue) => {}}); //declare context with filler values
 
@@ -85,6 +87,8 @@ export default function App()
             <Route path='/signup' element={<Signup/>}/>
             <Route path='/dashboard' element={<Dashboard/>}/>
             <Route path='/verify' element={<Verify/>}/>
+            <Route path='/forgot' element={<ForgotPassword/>}/>
+            <Route path='/reset' element={<ResetPassword/>}/>
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>

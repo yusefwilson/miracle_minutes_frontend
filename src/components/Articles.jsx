@@ -28,7 +28,7 @@ export default function Articles()
         if(article_result.error) { setErrorMessage(article_result.error); return; }
         setArticles(article_result.articles);
 
-    }, []);
+    }, [loggedIn, navigate]);
 
 
     //render error messages or article

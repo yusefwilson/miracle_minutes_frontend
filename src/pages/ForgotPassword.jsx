@@ -13,7 +13,7 @@ export default function ForgotPassword()
 
     useEffect(() => 
     {
-        if(loggedIn) {navigate('/dashboard');}
+        if(loggedIn) { navigate('/dashboard'); }
     }, [loggedIn, navigate]);
 
     const isValidEmail = (email) =>

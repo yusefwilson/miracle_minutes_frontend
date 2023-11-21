@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
+import { LoginContext } from "../App";
 
 export default function ResetPassword()
 {
@@ -11,12 +12,14 @@ export default function ResetPassword()
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
+    const {loggedIn} = useContext(LoginContext);
 
     useEffect( () =>
     {
+        if(loggedIn) {navigate('/dashboard');}
         const e = new URLSearchParams(location.search).get('e');
         setEmail(e);
-    }, [location.search]);
+    }, [location.search, loggedIn, navigate]);
 
     const handleChange = (event) =>
     {

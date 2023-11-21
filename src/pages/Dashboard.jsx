@@ -31,16 +31,13 @@ export default function Dashboard()
 
             else
             {
-                console.log("User data: ", user_response.data);
                 setUser(user_response.data);
             }        
         }   
         
         if(!loggedIn) { navigate('/login'); return; }
-        console.log("Dashboard page loaded");
         get_user_data();
-        console.log("User: ", user);
-    }, [loggedIn]);
+    }, [loggedIn, navigate]);
 
     let renderedComponent = <div></div>;
 
@@ -63,6 +60,8 @@ export default function Dashboard()
             break;
         case 'Settings':
             renderedComponent = <div>Settings</div>;
+            break;
+        default:
             break;
     }
 

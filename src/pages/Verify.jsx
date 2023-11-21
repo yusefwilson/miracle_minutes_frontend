@@ -14,10 +14,7 @@ export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
 
     useEffect( () =>
     {
-        if(loggedIn)
-        {
-            navigate('/dashboard');
-        }
+        if(loggedIn) { navigate('/dashboard'); }
         else
         {
             const e = new URLSearchParams(location.search).get('e');
@@ -45,7 +42,6 @@ export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
         event.preventDefault(); //prevent refresh
 
         let response = await axios.post('/verify', {email: email, code: code});
-        //console.log("VERIFY RESPONSE: ", response);
 
         if(response.data.hasOwnProperty("error"))
         {
@@ -56,8 +52,6 @@ export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
             setErrorMessage('');
             navigate('/login');
         }
-
-        //console.log('Submitted verify event with email: ' + email + ' and code: ' + code);
     }
 
     return (

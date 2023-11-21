@@ -12,7 +12,7 @@ export default function Login()
     const [errorMessage, setErrorMessage] = useState(''); //for displaying error messages
     const navigate = useNavigate();
 
-    useEffect( () => { console.log("in signup useeffect with loggedIn " + loggedIn); if(loggedIn) { navigate('/');} });
+    useEffect( () => { if(loggedIn) { navigate('/dashboard');} });
 
     const handleChange = (event) =>
     {

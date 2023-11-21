@@ -35,7 +35,6 @@ export default function Login()
 
         //log in - needs to be hooked up to backend
         let response = await axios.post('/login', {email: email, password: password});
-        console.log("LOGIN RESPONSE: ", response);
 
         if(response.data.hasOwnProperty("error"))
         {
@@ -50,8 +49,6 @@ export default function Login()
             setErrorMessage('');
             navigate('/dashboard');
         }
-
-        console.log('Submitted login event with email: ' + email + ' and password: ' + password);
     }
 
     return (

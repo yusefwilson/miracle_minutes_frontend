@@ -6,7 +6,6 @@ import Cookies from 'js-cookie';
 import Sidebar from '../components/Sidebar';
 import Articles from '../components/Articles';
 
-
 export default function Dashboard()
 {   
     const navigate = useNavigate();
@@ -39,7 +38,7 @@ export default function Dashboard()
         get_user_data();
     }, [loggedIn, navigate]);
 
-    let renderedComponent = <div></div>;
+    let renderedComponent = <div/>;
 
     switch(currentComponent)
     {

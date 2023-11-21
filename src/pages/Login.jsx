@@ -59,7 +59,7 @@ export default function Login()
                 <input type='password' placeholder='Password' name='password' onChange={handleChange} />
                 <button type='submit'>Log in</button>
             </form>
-            <h1><a href='/forgot'>Forgot your password?</a></h1>
+            <h1><a className='text-blue-500 underline hover:text-dark-blue-500'href='/forgot'>Forgot your password?</a></h1>
             {errorMessage !== '' ? <p>{errorMessage}</p> : null}
         </div>
     );

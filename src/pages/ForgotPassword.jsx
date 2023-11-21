@@ -45,7 +45,7 @@ export default function ForgotPassword()
                 <input placeholder='Email' onChange={handleChange}></input>
                 <button type='submit'>Send reset email</button>
             </form>
-            {submitted ? <h1>Check your email for a reset code. You can use it <a href={'/reset?e=' + email}>here</a>.</h1> : null}
+            {submitted ? <h1>Check your email for a reset code. You can use it <a className='text-blue-500 underline hover:text-dark-blue-500' href={'/reset?e=' + email}>here</a>.</h1> : null}
             {errorMessage !== '' ? <h1>{errorMessage}</h1> : null}
         </div>
     );

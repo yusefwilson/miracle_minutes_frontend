@@ -2,8 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export default function ResetPassword({email})
+export default function ResetPassword()
 {
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [code, setCode] = useState('');
@@ -14,6 +15,9 @@ export default function ResetPassword({email})
     {
         switch(event.target.name)
         {
+            case 'email':
+                setEmail(event.target.value);
+                break;
             case 'password':
                 setPassword(event.target.value);
                 break;
@@ -37,7 +41,7 @@ export default function ResetPassword({email})
             return;
         }
         //send reset request to server
-        const reset_result = await axios.post('/reset', {password, email: 'yusefwilsonx@gmail.com', code})
+        const reset_result = await axios.post('/reset', {password, email, code})
 
         if(reset_result.data.hasOwnProperty("error"))
         {
@@ -51,19 +55,16 @@ export default function ResetPassword({email})
     }
 
     return (
-        errorMessage === '' ?
         <div className="bg-green-200 flex justify-center h-full grid content-center">
             <form noValidate onSubmit={handleSubmit} className="flex flex-col bg-pink-300">
                 <h1>Enter your new password, and the code you received via email.</h1>
                 <input placeholder="Code" onChange={handleChange} name="code"></input>
+                <input placeholder="Email" onChange={handleChange} name="email"></input>
                 <input placeholder="New password" onChange={handleChange} name="password"></input>
                 <input placeholder="Confirm new password" onChange={handleChange} name="confirmPassword"></input>
                 <button type="submit">Reset password</button>
             </form>
-        </div>
-        :
-        <div>
-            <h1>{errorMessage}</h1>
+            {errorMessage !== '' ? <h1>{errorMessage}</h1> : null}
         </div>
     );
 }

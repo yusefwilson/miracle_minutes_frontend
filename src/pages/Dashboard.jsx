@@ -64,6 +64,8 @@ export default function Dashboard()
             break;
     }
 
+    console.log('rendered component: ', renderedComponent);
+
     return (
         <div className='bg-green-200 flex flex-row h-full'>
             <Sidebar components={components} setCurrentComponent={setCurrentComponent}/>

@@ -57,8 +57,8 @@ export default function Articles()
 
     //render error messages or article
     return (
-        <div className='flex flex-col justify-center bg-yellow-300'>
-            <h1>Articles</h1>
+        <div className='flex flex-col grid content-start justify-center bg-yellow-300 w-full'>
+            <h1 className='text-center'>Articles</h1>
 
             {articles !== undefined && articles !== null && articles.length > 0 &&
             <div className='flex flex-col gap-y-2.5'>

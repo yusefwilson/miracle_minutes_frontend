@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import Sidebar from '../components/Sidebar';
 import Articles from '../components/Articles';
+import Profile from '../components/Profile';
 
 export default function Dashboard()
 {   
@@ -43,16 +44,10 @@ export default function Dashboard()
     switch(currentComponent)
     {
         case 'Profile':
-            const purchase_string = user.purchases?.map( (purchase) => {return purchase.S}).join(', ');
-
-            renderedComponent = (
-            <div className='bg-yellow-300 flex flex-col'>
-                <h1 className='text-center'>Profile</h1>
-                <p>Email: {user.email}</p>
-                <p>Purchases: {purchase_string}</p>
-                <p>Referral code: {user.referral_code}</p>
-            </div>);
-
+            renderedComponent =
+            (Object.keys(user).length === 0 ? 
+            <p>Loading...</p> :
+            <Profile user={user}/>)
             break;
         case 'Articles':
             renderedComponent = <Articles/>;

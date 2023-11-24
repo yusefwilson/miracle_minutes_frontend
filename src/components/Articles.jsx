@@ -65,10 +65,6 @@ export default function Articles()
                 {articles?.map((article) => <Dropdown key={article.category} title={article.category} content={article.article}/>)}
             </div>}
 
-            {errorMessage === '' && articles === null && <div>Loading...</div>}
-
-            {errorMessage === '' && articles !== null && articles.length === 0 && <div>You have not purchased any articles. If you have, and are seeing this message, contact support.</div>}
-
             <div className="div">{errorMessage}</div>
         </div>
     );

@@ -60,10 +60,9 @@ export default function Articles()
         <div className='flex flex-col grid content-start justify-center bg-yellow-300 w-full'>
             <h1 className='text-center'>Articles</h1>
 
-            {articles !== undefined && articles !== null && articles.length > 0 &&
             <div className='flex flex-col gap-y-2.5'>
                 {articles?.map((article) => <Dropdown key={article.category} title={article.category} content={article.article}/>)}
-            </div>}
+            </div>
 
             <div className="div">{errorMessage}</div>
         </div>

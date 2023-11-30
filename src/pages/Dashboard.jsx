@@ -44,10 +44,7 @@ export default function Dashboard()
     switch(currentComponent)
     {
         case 'Profile':
-            renderedComponent =
-            (Object.keys(user).length === 0 ? 
-            <p>Loading...</p> :
-            <Profile user={user}/>)
+            renderedComponent = <Profile user={user}/>;
             break;
         case 'Articles':
             renderedComponent = <Articles/>;

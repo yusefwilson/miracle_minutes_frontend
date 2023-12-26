@@ -31,23 +31,25 @@ export default function Login()
 
     const handleSubmit = async (event) =>
     {
-        event.preventDefault(); //prevent refresh
-
-        //log in - needs to be hooked up to backend
-        let response = await axios.post('/login', {email: email, password: password});
-
-        if(response.data.hasOwnProperty('error'))
+        try
         {
-            setErrorMessage(response.data.error);
-        }
+            event.preventDefault(); //prevent refresh
 
-        else
-        {
+            //log in - needs to be hooked up to backend
+            let response = await axios.post('/login', {email: email, password: password});
+
+            console.log('response: ', response.data);
+
             Cookies.set('miracle_minutes_refresh_token', response.data.refresh_token, {expires: 30, path: ''});
             Cookies.set('miracle_minutes_access_token', response.data.access_token, {expires: 1, path: ''});
             setLoggedIn(true);
             setErrorMessage('');
             navigate('/dashboard');
+        }
+
+        catch(error)
+        {
+            setErrorMessage(error.response.data.error);
         }
     }
 

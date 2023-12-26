@@ -30,24 +30,26 @@ export default function Articles()
 
         async function get_articles()
         {
-            // send access token and get article
-            const access_token = Cookies.get('miracle_minutes_access_token');
-            const date = _get_utc_date();
-            console.log("current date: ", date);
-            const article_result = await axios.post('/articles', {date, access_token: access_token});
-            
-            if(article_result.data.hasOwnProperty('error'))
+            try
             {
-                setErrorMessage(article_result.data.error);
-                return;
-            }
+                //send access token and get article
+                const access_token = Cookies.get('miracle_minutes_access_token');
 
-            else
-            {
+                const date = _get_utc_date();
+                console.log("current date: ", date);
+
+                const article_result = await axios.post('/articles', {date, access_token: access_token});
+                console.log("article result: ", article_result);
+                
                 const articles = article_result.data.articles;
                 setArticles(articles);
                 setErrorMessage('');
                 console.log("set articles: ", articles);
+            }
+            catch (error)
+            {
+                console.log('articles error: ', error);
+                setErrorMessage(error.response.data.error);
             }
         }
         get_articles();

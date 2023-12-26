@@ -34,24 +34,32 @@ export default function Login()
 
     const handleSubmit = async (event) =>
     {
-        event.preventDefault(); //prevent refresh
+        try
+        {
+            event.preventDefault(); //prevent refresh
 
-        if(password !== confirmPassword)
-        {
-            alert('Passwords do not match!');
-            return;
-        }
-        //signup needs to be hooked up to backend
-        let response = await axios.post('/signup', {email: email, password: password});
+            if(password !== confirmPassword)
+            {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            let response = await axios.post('/signup', {email: email, password: password});
 
-        if(response.data.hasOwnProperty('error'))
-        {
-            setErrorMessage(response.data.error);
+            if(response.data.hasOwnProperty('error'))
+            {
+                setErrorMessage(response.data.error);
+            }
+            else
+            {
+                setErrorMessage('');
+                navigate('/verify?e=' + email);
+            }
         }
-        else
+
+        catch(error)
         {
-            setErrorMessage('');
-            navigate('/verify?e=' + email);
+            setErrorMessage(error.response.data.error);
         }
     }
 
@@ -66,5 +74,5 @@ export default function Login()
             </form>
             {errorMessage !== '' ? <p>{errorMessage}</p> : null}
         </div>
-    )
+    );
 }

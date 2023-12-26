@@ -19,24 +19,24 @@ export default function Dashboard()
     {
         const get_user_data = async () => 
         {
-            const access_token = Cookies.get('miracle_minutes_access_token');
-            const user_response = await axios.post('/user', {access_token});
+            try
+            {
+                const access_token = Cookies.get('miracle_minutes_access_token');
+                const user_response = await axios.post('/user', {access_token});
+                setUser(user_response.data);
+            }
             
-            if(user_response.data.hasOwnProperty('error'))
+            catch (error)
             {
                 Cookies.remove('miracle_minutes_access_token');
                 Cookies.remove('miracle_minutes_refresh_token');
                 navigate('/login');
             }
-
-            else
-            {
-                setUser(user_response.data);
-            }        
         }   
         
         if(!loggedIn) { navigate('/login'); return; }
         get_user_data();
+        
     }, [loggedIn, navigate]);
 
     let renderedComponent = <div/>;

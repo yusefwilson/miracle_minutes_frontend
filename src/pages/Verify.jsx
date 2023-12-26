@@ -39,19 +39,23 @@ export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
 
     const handleSubmit = async (event) =>
     {
-        event.preventDefault(); //prevent refresh
-
-        let response = await axios.post('/verify', {email: email, code: code});
-
-        if(response.data.hasOwnProperty('error'))
+        try
         {
-            setErrorMessage(response.data.error);   
-        }
-        else
-        {
+            event.preventDefault(); //prevent refresh
+
+            let response = await axios.post('/verify', {email: email, code: code});
+            console.log('verify response: ', response);
+
             setErrorMessage('');
             navigate('/login');
         }
+
+        catch (error)
+        {
+            console.log('verify error: ', error);
+            setErrorMessage(error.response.data.error);
+        }
+        
     }
 
     return (

@@ -3,7 +3,7 @@ import { LoginContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-export default function Login()
+export default function Signup()
 {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -43,18 +43,12 @@ export default function Login()
                 alert('Passwords do not match!');
                 return;
             }
-            
-            let response = await axios.post('/signup', {email: email, password: password});
 
-            if(response.data.hasOwnProperty('error'))
-            {
-                setErrorMessage(response.data.error);
-            }
-            else
-            {
-                setErrorMessage('');
-                navigate('/verify?e=' + email);
-            }
+            let response = await axios.post('/signup', {email: email, password: password});
+            console.log('signup response: ', response);
+
+            setErrorMessage('');
+            navigate('/verify?e=' + email);
         }
 
         catch(error)

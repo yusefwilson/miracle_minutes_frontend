@@ -44,23 +44,28 @@ export default function ResetPassword()
 
     const handleSubmit = async (event) =>
     {
-        event.preventDefault();
-        if(password !== confirmPassword)
+        try
         {
-            alert('Passwords do not match!');
-            return;
-        }
-        //send reset request to server
-        const reset_result = await axios.post('/reset', {password, email, code})
+            event.preventDefault();
+            
+            if(password !== confirmPassword)
+            {
+                alert('Passwords do not match!');
+                return;
+            }
 
-        if(reset_result.data.hasOwnProperty('error'))
-        {
-            setErrorMessage(reset_result.data.error);
-        }
-        else
-        {
+            //send reset request to server
+            const reset_result = await axios.post('/reset', {password, email, code});
+            console.log('reset result: ', reset_result);
+
             setErrorMessage('');
             navigate('/login');
+        }
+
+        catch (error)
+        {
+            console.log('reset error: ', error);
+            setErrorMessage(error.response.data.error);
         }
     }
 

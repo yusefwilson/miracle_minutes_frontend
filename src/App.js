@@ -15,7 +15,8 @@ import ResetPassword from './pages/ResetPassword';
 
 export const LoginContext = createContext({loggedIn: false, setLoggedIn: (newValue) => {}}); //declare context with filler values
 
-axios.defaults.baseURL = 'http://localhost:3001/api';
+//axios.defaults.baseURL = 'http://localhost:3001/api';
+axios.defaults.baseURL = 'https://e8ps8qunza.execute-api.us-east-1.amazonaws.com/api';
 
 const refresh_access_token = async () =>
 {

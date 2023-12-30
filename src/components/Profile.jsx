@@ -6,13 +6,13 @@ import axios from 'axios';
 
 export default function Profile({user})
 {
-    const [errorMessage, setErrorMessage] = useState('');
-    const {set_logged_in: setLoggedIn} = useContext(LoginContext);
+    const [error_message, set_error_message] = useState('');
+    const {set_logged_in} = useContext(LoginContext);
     const navigate = useNavigate();
 
     const logout_and_redirect_to_forgot = () =>
     {
-        setLoggedIn(false);
+        set_logged_in(false);
         //remove the token cookies
         Cookies.remove('miracle_minutes_refresh_token');
         Cookies.remove('miracle_minutes_access_token');
@@ -32,7 +32,7 @@ export default function Profile({user})
 
         catch (error)
         {
-            setErrorMessage('There has been an error. Please try again.');
+            set_error_message('There has been an error. Please try again.');
             console.log('error: ', error);
         }
     }
@@ -52,7 +52,7 @@ export default function Profile({user})
         </p>
         <p className='text-center'>Referral code: {user.referral_code}</p>
         <button className='underline text-blue-500' onClick={logout_and_redirect_to_forgot}>Change password (will log you out)</button>
-        <p className='text-center'>{errorMessage !== '' ? errorMessage : null}</p>
+        <p className='text-center'>{error_message !== '' ? error_message : null}</p>
     </div>
     );
 }

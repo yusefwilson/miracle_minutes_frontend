@@ -7,11 +7,11 @@ export default function Navbar()
 {
 
   //get the login state and the function to set the login state from the context
-  const {logged_in: loggedIn, set_logged_in: setLoggedIn} = useContext(LoginContext);
+  const {logged_in, set_logged_in} = useContext(LoginContext);
 
   const logout = () =>
   {
-    setLoggedIn(false);
+    set_logged_in(false);
     //remove the token cookies
     Cookies.remove('miracle_minutes_refresh_token');
     Cookies.remove('miracle_minutes_access_token');
@@ -21,9 +21,9 @@ export default function Navbar()
     <div className='flex bg-red-200 justify-center'>
         <nav className='flex gap-x-2.5'>
             <Link to='/'>Home</Link>
-            {loggedIn ? <Link to='/dashboard'>Dashboard</Link> : <Link to='/login'>Login</Link>}
-            {loggedIn ? null : <Link to='/signup'>Signup</Link>}
-            {loggedIn ? <Link to='/' onClick={logout}>Logout</Link> : null}
+            {logged_in ? <Link to='/dashboard'>Dashboard</Link> : <Link to='/login'>Login</Link>}
+            {logged_in ? null : <Link to='/signup'>Signup</Link>}
+            {logged_in ? <Link to='/' onClick={logout}>Logout</Link> : null}
         </nav>
     </div>
   );

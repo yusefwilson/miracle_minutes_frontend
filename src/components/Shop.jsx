@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
 
-import { print_object_array, print_array } from "../helpers.js";
+import { print_object_array } from "../helpers.js";
 
 export default function Shop({ user })
 {
@@ -33,7 +33,7 @@ export default function Shop({ user })
 
         get_all_products();
         set_current_products(user.purchases);
-    }, []);
+    }, [user.purchases]);
 
     const redirect_to_checkout = async (desired_products) =>
     {
@@ -77,21 +77,21 @@ export default function Shop({ user })
 
     // take the user's purchases, subtract them from the current products, and only display the remaining products as checkboxes
     return (
-        <div className='bg-yellow-300 flex flex-col w-full grid content-start'>
+        <div className='bg-yellow-300 flex flex-col justify-center space-y-4'>
             <h1 className='text-center'>Shop</h1>
             {all_products?.map( (product) =>
             {
                 // if the user has already purchased the product, make the checkbox uncheckable
-                
+                let purchased = current_products.includes(product.name);
                 return (
-                    <div key={product.name} className='flex flex-row w-full grid content-start'>
-                        <p className='text-center'>{product.name}</p>
-                        <p className='text-center'>{product.price}</p>
-                        <input name={product.name} type='checkbox' onChange={onToggle} disabled={current_products.includes(product.name)}/>
+                    <div key={product.name} className='flex flex-row space-x-4 justify-center'>
+                        <p className='text-center'>{product.name + (purchased ? ' (purchased)' : '')}</p>
+                        <p className='text-center'>{'$' + (product.price / 100).toString()}</p>
+                        <input name={product.name} type='checkbox' onChange={onToggle} disabled={purchased}/>
                     </div>
                 );
             })}
-            <button className='underline text-blue-500' onClick={redirect_to_checkout}>Checkout</button>
+            <button className='underline text-blue-500 bg-pink-200' onClick={redirect_to_checkout}>Checkout</button>
             <p className='text-center'>{error_message !== '' ? error_message : null}</p>
         </div>
     );

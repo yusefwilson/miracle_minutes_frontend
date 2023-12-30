@@ -50,7 +50,7 @@ export default function Dashboard()
     switch(current_component)
     {
         case 'Profile':
-            rendered_component = <Profile user={user}/>;
+            rendered_component = <Profile user={user} set_current_component={set_current_component}/>;
             break;
         case 'Articles':
             rendered_component = <Articles/>;

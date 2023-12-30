@@ -20,13 +20,13 @@ const _get_utc_date = () =>
 export default function Articles()
 {
     const navigate = useNavigate();
-    const [articles, setArticles] = useState(null); // list of article
-    const {loggedIn} = useContext(LoginContext);
-    const [errorMessage, setErrorMessage] = useState(''); // error message
+    const [articles, set_articles] = useState(null); // list of article
+    const {logged_in} = useContext(LoginContext);
+    const [error_message, set_error_message] = useState(''); // error message
     
     useEffect(() =>
     {
-        if(!loggedIn) { navigate('/login'); return;}
+        if(!logged_in) { navigate('/login'); return;}
 
         async function get_articles()
         {
@@ -42,19 +42,19 @@ export default function Articles()
                 console.log("article result: ", article_result);
                 
                 const articles = article_result.data.articles;
-                setArticles(articles);
-                setErrorMessage('');
+                set_articles(articles);
+                set_error_message('');
                 console.log("set articles: ", articles);
             }
             catch (error)
             {
                 console.log('articles error: ', error);
-                setErrorMessage(error.response.data.error);
+                set_error_message(error.response.data.error);
             }
         }
         get_articles();
 
-    }, [loggedIn, navigate]);
+    }, [logged_in, navigate]);
 
 
     //render error messages or article
@@ -66,7 +66,7 @@ export default function Articles()
                 {articles?.map((article) => <Dropdown key={article.category} title={article.category} content={article.article}/>)}
             </div>
 
-            <div className="div">{errorMessage}</div>
+            <div className="div">{error_message}</div>
         </div>
     );
 }

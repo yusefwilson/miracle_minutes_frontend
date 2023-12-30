@@ -14,10 +14,10 @@ import Shop from '../components/Shop';
 export default function Dashboard()
 {   
     const navigate = useNavigate();
-    const {loggedIn} = useContext(LoginContext);
+    const {logged_in} = useContext(LoginContext);
     const [user, setUser] = useState({});
     const components = ['Profile', 'Articles', 'Shop', 'Settings'];
-    const [currentComponent, setCurrentComponent] = useState('Profile');
+    const [current_component, set_current_component] = useState('Profile');
 
     useEffect( () =>
     {
@@ -40,26 +40,26 @@ export default function Dashboard()
             }
         }   
         
-        if(!loggedIn) { navigate('/login'); return; }
+        if(!logged_in) { navigate('/login'); return; }
         get_user_data();
         
-    }, [loggedIn, navigate]);
+    }, [logged_in, navigate]);
 
-    let renderedComponent = <div/>;
+    let rendered_component = <div/>;
 
-    switch(currentComponent)
+    switch(current_component)
     {
         case 'Profile':
-            renderedComponent = <Profile user={user}/>;
+            rendered_component = <Profile user={user}/>;
             break;
         case 'Articles':
-            renderedComponent = <Articles/>;
+            rendered_component = <Articles/>;
             break;
         case 'Settings':
-            renderedComponent = <div>Settings</div>;
+            rendered_component = <div>Settings</div>;
             break;
         case 'Shop':
-            renderedComponent = <Shop user={user}/>;
+            rendered_component = <Shop user={user}/>;
             break;
         default:
             break;
@@ -67,8 +67,8 @@ export default function Dashboard()
 
     return (
         <div className='bg-green-200 flex flex-row h-full'>
-            <Sidebar components={components} setCurrentComponent={setCurrentComponent}/>
-            {renderedComponent}
+            <Sidebar components={components} set_current_component={set_current_component}/>
+            {rendered_component}
         </div>
     );
 }

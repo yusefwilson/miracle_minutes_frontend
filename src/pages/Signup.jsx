@@ -5,40 +5,40 @@ import axios from 'axios';
 
 export default function Signup()
 {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const {loggedIn} = useContext(LoginContext);
-    const [errorMessage, setErrorMessage] = useState(''); //for displaying error messages
+    const [email, set_email] = useState('');
+    const [password, set_password] = useState('');
+    const [confirm_password, set_confirm_password] = useState('');
+    const {logged_in} = useContext(LoginContext);
+    const [error_message, set_error_message] = useState(''); //for displaying error messages
     const navigate = useNavigate();
 
-    useEffect( () => { if(loggedIn) { navigate('/dashboard');} });
+    useEffect( () => { if(logged_in) { navigate('/dashboard');} });
 
-    const handleChange = (event) =>
+    const handle_change = (event) =>
     {
         switch(event.target.name)
         {
             case 'email':
-                setEmail(event.target.value);
+                set_email(event.target.value);
                 break;
             case 'password':
-                setPassword(event.target.value);
+                set_password(event.target.value);
                 break;
             case 'confirmPassword':
-                setConfirmPassword(event.target.value);
+                set_confirm_password(event.target.value);
                 break;
             default:
                 break;
         }
     }
 
-    const handleSubmit = async (event) =>
+    const handle_submit = async (event) =>
     {
         try
         {
             event.preventDefault(); //prevent refresh
 
-            if(password !== confirmPassword)
+            if(password !== confirm_password)
             {
                 alert('Passwords do not match!');
                 return;
@@ -47,26 +47,26 @@ export default function Signup()
             let response = await axios.post('/signup', {email: email, password: password});
             console.log('signup response: ', response);
 
-            setErrorMessage('');
+            set_error_message('');
             navigate('/verify?e=' + email);
         }
 
         catch(error)
         {
-            setErrorMessage(error.response.data.error);
+            set_error_message(error.response.data.error);
         }
     }
 
     return (
         <div className='bg-green-200 flex justify-center h-full grid content-center'>
-            <form noValidate onSubmit={handleSubmit} className='bg-pink-300 flex flex-col'>
+            <form noValidate onSubmit={handle_submit} className='bg-pink-300 flex flex-col'>
                 <h1 className='text-center'>Signup</h1>
-                <input type='email' placeholder='Email' name='email' onChange={handleChange}/>
-                <input type='password' placeholder='Password' name='password' onChange={handleChange}/>
-                <input type='password' placeholder='Confirm Password' name='confirmPassword' onChange={handleChange}/>
+                <input type='email' placeholder='Email' name='email' onChange={handle_change}/>
+                <input type='password' placeholder='Password' name='password' onChange={handle_change}/>
+                <input type='password' placeholder='Confirm Password' name='confirmPassword' onChange={handle_change}/>
                 <button type='submit'>Sign up</button>
             </form>
-            {errorMessage !== '' ? <p>{errorMessage}</p> : null}
+            {error_message !== '' ? <p>{error_message}</p> : null}
         </div>
     );
 }

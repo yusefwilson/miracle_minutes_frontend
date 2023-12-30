@@ -7,7 +7,7 @@ export default function Navbar()
 {
 
   //get the login state and the function to set the login state from the context
-  const {loggedIn, setLoggedIn} = useContext(LoginContext);
+  const {logged_in: loggedIn, set_logged_in: setLoggedIn} = useContext(LoginContext);
 
   const logout = () =>
   {

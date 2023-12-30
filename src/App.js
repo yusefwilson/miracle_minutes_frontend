@@ -13,7 +13,7 @@ import Verify from './pages/Verify';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 
-export const LoginContext = createContext({loggedIn: false, setLoggedIn: (newValue) => {}}); //declare context with filler values
+export const LoginContext = createContext({logged_in: false, set_logged_in: () => {}}); //declare context with filler values
 
 //axios.defaults.baseURL = 'http://localhost:3001/api';
 axios.defaults.baseURL = 'https://e8ps8qunza.execute-api.us-east-1.amazonaws.com/api';
@@ -45,7 +45,7 @@ const refresh_access_token = async () =>
 
 export default function App()
 {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [logged_in, set_logged_in] = useState(false);
 
   useEffect(() => 
   {
@@ -63,7 +63,7 @@ export default function App()
         const token_valid = !user_token_result.data.hasOwnProperty('error');
 
         //if so, log in
-        setLoggedIn(token_valid);
+        set_logged_in(token_valid);
       }
 
       // if refreshing failed, abort and just set logged in to false
@@ -77,7 +77,7 @@ export default function App()
   }, []);
 
   return (
-    <LoginContext.Provider value={{loggedIn,setLoggedIn}}>
+    <LoginContext.Provider value={{logged_in, set_logged_in}}>
       <Router>
         <div className='flex flex-col justify-center bg-gray-600 h-screen'>
           <Navbar/>

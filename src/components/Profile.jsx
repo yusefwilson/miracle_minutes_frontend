@@ -7,7 +7,7 @@ import axios from 'axios';
 export default function Profile({user})
 {
     const [errorMessage, setErrorMessage] = useState('');
-    const {setLoggedIn} = useContext(LoginContext);
+    const {set_logged_in: setLoggedIn} = useContext(LoginContext);
     const navigate = useNavigate();
 
     const logout_and_redirect_to_forgot = () =>

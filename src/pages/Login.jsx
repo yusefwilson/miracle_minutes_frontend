@@ -6,30 +6,30 @@ import Cookies from 'js-cookie';
 
 export default function Login()
 {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const {loggedIn, setLoggedIn} = useContext(LoginContext);
-    const [errorMessage, setErrorMessage] = useState('');
+    const [email, set_email] = useState('');
+    const [password, set_password] = useState('');
+    const {logged_in, set_logged_in} = useContext(LoginContext);
+    const [error_message, set_error_message] = useState('');
     const navigate = useNavigate();
 
-    useEffect( () => { if(loggedIn) { navigate('/dashboard');} });
+    useEffect( () => { if(logged_in) { navigate('/dashboard');} });
 
-    const handleChange = (event) =>
+    const handle_change = (event) =>
     {
         switch(event.target.name)
         {
             case 'email':
-                setEmail(event.target.value);
+                set_email(event.target.value);
                 break;
             case 'password':
-                setPassword(event.target.value);
+                set_password(event.target.value);
                 break;
             default:
                 break;
         }
     }
 
-    const handleSubmit = async (event) =>
+    const handle_submit = async (event) =>
     {
         try
         {
@@ -42,27 +42,27 @@ export default function Login()
 
             Cookies.set('miracle_minutes_refresh_token', response.data.refresh_token, {expires: 30, path: ''});
             Cookies.set('miracle_minutes_access_token', response.data.access_token, {expires: 1, path: ''});
-            setLoggedIn(true);
-            setErrorMessage('');
+            set_logged_in(true);
+            set_error_message('');
             navigate('/dashboard');
         }
 
         catch(error)
         {
-            setErrorMessage(error.response.data.error);
+            set_error_message(error.response.data.error);
         }
     }
 
     return (
         <div className='bg-green-200 flex justify-center h-full grid content-center'>
-            <form noValidate onSubmit={handleSubmit} className='flex flex-col bg-pink-300'>
+            <form noValidate onSubmit={handle_submit} className='flex flex-col bg-pink-300'>
                 <h1 className='text-center'>Login</h1>
-                <input type='email' placeholder='Email' name='email' onChange={handleChange} />
-                <input type='password' placeholder='Password' name='password' onChange={handleChange} />
+                <input type='email' placeholder='Email' name='email' onChange={handle_change} />
+                <input type='password' placeholder='Password' name='password' onChange={handle_change} />
                 <button type='submit'>Log in</button>
             </form>
             <h1 className='text-center'><a className='underline text-blue-500' href='/forgot'>Forgot your password?</a></h1>
-            {errorMessage !== '' ? <p>{errorMessage}</p> : null}
+            {error_message !== '' ? <p>{error_message}</p> : null}
         </div>
     );
 }

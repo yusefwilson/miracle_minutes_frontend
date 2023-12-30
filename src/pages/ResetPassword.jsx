@@ -5,50 +5,50 @@ import { LoginContext } from '../App';
 
 export default function ResetPassword()
 {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [code, setCode] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
+    const [email, set_email] = useState('');
+    const [password, set_password] = useState('');
+    const [confirm_password, set_confirm_password] = useState('');
+    const [code, set_code] = useState('');
+    const [error_message, set_error_message] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
-    const {loggedIn} = useContext(LoginContext);
+    const {logged_in} = useContext(LoginContext);
 
     useEffect( () =>
     {
-        if(loggedIn) {navigate('/dashboard');}
+        if(logged_in) {navigate('/dashboard');}
         const e = new URLSearchParams(location.search).get('e');
-        setEmail(e);
-    }, [location.search, loggedIn, navigate]);
+        set_email(e);
+    }, [location.search, logged_in, navigate]);
 
-    const handleChange = (event) =>
+    const handle_change = (event) =>
     {
         switch(event.target.name)
         {
             case 'email':
-                setEmail(event.target.value);
+                set_email(event.target.value);
                 break;
             case 'password':
-                setPassword(event.target.value);
+                set_password(event.target.value);
                 break;
             case 'confirmPassword':
-                setConfirmPassword(event.target.value);
+                set_confirm_password(event.target.value);
                 break;
             case 'code':
-                setCode(event.target.value);
+                set_code(event.target.value);
                 break;
             default:
                 break;
         }
     }
 
-    const handleSubmit = async (event) =>
+    const handle_submit = async (event) =>
     {
         try
         {
             event.preventDefault();
             
-            if(password !== confirmPassword)
+            if(password !== confirm_password)
             {
                 alert('Passwords do not match!');
                 return;
@@ -58,28 +58,28 @@ export default function ResetPassword()
             const reset_result = await axios.post('/reset', {password, email, code});
             console.log('reset result: ', reset_result);
 
-            setErrorMessage('');
+            set_error_message('');
             navigate('/login');
         }
 
         catch (error)
         {
             console.log('reset error: ', error);
-            setErrorMessage(error.response.data.error);
+            set_error_message(error.response.data.error);
         }
     }
 
     return (
         <div className='bg-green-200 flex justify-center h-full grid content-center'>
-            <form noValidate onSubmit={handleSubmit} className='flex flex-col bg-pink-300'>
+            <form noValidate onSubmit={handle_submit} className='flex flex-col bg-pink-300'>
                 <h1>Enter your new password, and the code you received via email.</h1>
-                <input placeholder='Email' onChange={handleChange} name='email' value={email}></input>
-                <input placeholder='Code' onChange={handleChange} name='code'></input>
-                <input placeholder='New password' onChange={handleChange} name='password'></input>
-                <input placeholder='Confirm new password' onChange={handleChange} name='confirmPassword'></input>
+                <input placeholder='Email' onChange={handle_change} name='email' value={email}></input>
+                <input placeholder='Code' onChange={handle_change} name='code'></input>
+                <input placeholder='New password' onChange={handle_change} name='password'></input>
+                <input placeholder='Confirm new password' onChange={handle_change} name='confirmPassword'></input>
                 <button type='submit'>Reset password</button>
             </form>
-            {errorMessage !== '' ? <h1>{errorMessage}</h1> : null}
+            {error_message !== '' ? <h1>{error_message}</h1> : null}
         </div>
     );
 }

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
 
@@ -11,8 +10,6 @@ export default function Shop({ user })
     const [all_products, set_all_products] = useState([]); // [ {name: 'product1', price: 1}, {name: 'product2', price: 2} ] (price is per month in cents)
     const [current_products, set_current_products] = useState([]);
     const [desired_products, set_desired_products] = useState([]);
-
-    const navigate = useNavigate();
 
     useEffect(() =>
     {
@@ -35,15 +32,17 @@ export default function Shop({ user })
         set_current_products(user.purchases);
     }, [user.purchases]);
 
-    const redirect_to_checkout = async (desired_products) =>
+    const redirect_to_checkout = async () =>
     {
         try
         {
             const access_token = Cookies.get('miracle_minutes_access_token');
             console.log('access token: ', access_token);
-            const checkout_link = await axios.post('/checkout', { access_token, desired_products });
-            console.log('checkout link: ', checkout_link.data);
-            navigate(checkout_link.data);
+            console.log('desired products: ', desired_products);
+            const checkout_url_result = await axios.post('/checkout', { access_token, desired_products });
+            console.log('checkout data: ', checkout_url_result.data);
+            console.log('checkout link: ', checkout_url_result.data.checkout_url);
+            window.location.href = checkout_url_result.data.checkout_url;
         }
 
         catch (error)
@@ -53,7 +52,7 @@ export default function Shop({ user })
         }
     }
 
-    const onToggle = (event) =>
+    const on_toggle = (event) =>
     {
         console.log('event: ', event);
 
@@ -62,7 +61,9 @@ export default function Shop({ user })
 
         if(product_checked)
         {
-            set_desired_products([...desired_products, product_name]);
+            let new_desired_products = desired_products;
+            new_desired_products.push(product_name);
+            set_desired_products(new_desired_products);
         }
 
         else
@@ -87,7 +88,7 @@ export default function Shop({ user })
                     <div key={product.name} className='flex flex-row space-x-4 justify-center'>
                         <p className='text-center'>{product.name + (purchased ? ' (purchased)' : '')}</p>
                         <p className='text-center'>{'$' + (product.price / 100).toString()}</p>
-                        <input name={product.name} type='checkbox' onChange={onToggle} disabled={purchased}/>
+                        <input name={product.name} type='checkbox' onChange={on_toggle} disabled={purchased}/>
                     </div>
                 );
             })}

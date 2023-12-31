@@ -13,7 +13,7 @@ import Verify from './pages/Verify';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 
-export const LoginContext = createContext({logged_in: false, set_logged_in: () => {}}); //declare context with filler values
+export const LOGIN_CONTEXT = createContext({logged_in: false, set_logged_in: () => {}}); //declare context with filler values
 
 //axios.defaults.baseURL = 'http://localhost:3001/api';
 axios.defaults.baseURL = 'https://e8ps8qunza.execute-api.us-east-1.amazonaws.com/api';
@@ -77,7 +77,7 @@ export default function App()
   }, []);
 
   return (
-    <LoginContext.Provider value={{logged_in, set_logged_in}}>
+    <LOGIN_CONTEXT.Provider value={{logged_in, set_logged_in}}>
       <Router>
         <div className='flex flex-col justify-center bg-gray-600 h-screen'>
           <Navbar/>
@@ -93,6 +93,6 @@ export default function App()
           </Routes>
         </div>
       </Router>
-    </LoginContext.Provider>
+    </LOGIN_CONTEXT.Provider>
   );
 }

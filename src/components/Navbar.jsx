@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
-import { LoginContext } from '../App';
+import { LOGIN_CONTEXT } from '../App';
 import Cookies from 'js-cookie';
 
 export default function Navbar()
 {
 
   //get the login state and the function to set the login state from the context
-  const {logged_in, set_logged_in} = useContext(LoginContext);
+  const {logged_in, set_logged_in} = useContext(LOGIN_CONTEXT);
 
   const logout = () =>
   {

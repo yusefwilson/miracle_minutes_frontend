@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LoginContext } from '../App';
+import { LOGIN_CONTEXT } from '../App';
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
@@ -14,7 +14,7 @@ import Shop from '../components/Shop';
 export default function Dashboard()
 {   
     const navigate = useNavigate();
-    const {logged_in} = useContext(LoginContext);
+    const {logged_in} = useContext(LOGIN_CONTEXT);
     const [user, setUser] = useState({});
     const components = ['Profile', 'Articles', 'Shop', 'Settings'];
     const [current_component, set_current_component] = useState('Profile');

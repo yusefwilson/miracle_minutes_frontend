@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LoginContext } from '../App';
+import { LOGIN_CONTEXT } from '../App';
 import Dropdown from './Dropdown';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -21,7 +21,7 @@ export default function Articles()
 {
     const navigate = useNavigate();
     const [articles, set_articles] = useState(null); // list of article
-    const {logged_in} = useContext(LoginContext);
+    const {logged_in} = useContext(LOGIN_CONTEXT);
     const [error_message, set_error_message] = useState(''); // error message
     
     useEffect(() =>

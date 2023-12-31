@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 import { useLocation, useNavigate} from 'react-router-dom';
 import axios from 'axios';
-import { LoginContext } from '../App';
+import { LOGIN_CONTEXT } from '../App';
 
 export default function ResetPassword()
 {
@@ -12,7 +12,7 @@ export default function ResetPassword()
     const [error_message, set_error_message] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
-    const {logged_in} = useContext(LoginContext);
+    const {logged_in} = useContext(LOGIN_CONTEXT);
 
     useEffect( () =>
     {

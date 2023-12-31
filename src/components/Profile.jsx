@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { LoginContext } from '../App'
+import { LOGIN_CONTEXT } from '../App'
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -7,7 +7,7 @@ import axios from 'axios';
 export default function Profile({user, set_current_component})
 {
     const [error_message, set_error_message] = useState('');
-    const {set_logged_in} = useContext(LoginContext);
+    const {set_logged_in} = useContext(LOGIN_CONTEXT);
     const navigate = useNavigate();
 
     const logout_and_redirect_to_forgot = () =>

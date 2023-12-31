@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from 'react';
-import { LoginContext } from '../App';
+import { LOGIN_CONTEXT } from '../App';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -8,7 +8,7 @@ export default function Login()
 {
     const [email, set_email] = useState('');
     const [password, set_password] = useState('');
-    const {logged_in, set_logged_in} = useContext(LoginContext);
+    const {logged_in, set_logged_in} = useContext(LOGIN_CONTEXT);
     const [error_message, set_error_message] = useState('');
     const navigate = useNavigate();
 

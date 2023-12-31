@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from 'react';
-import { LoginContext } from '../App';
+import { LOGIN_CONTEXT } from '../App';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -8,7 +8,7 @@ export default function Signup()
     const [email, set_email] = useState('');
     const [password, set_password] = useState('');
     const [confirm_password, set_confirm_password] = useState('');
-    const {logged_in} = useContext(LoginContext);
+    const {logged_in} = useContext(LOGIN_CONTEXT);
     const [error_message, set_error_message] = useState(''); //for displaying error messages
     const navigate = useNavigate();
 

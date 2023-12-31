@@ -1,14 +1,14 @@
 import { useState, useEffect, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { LoginContext } from '../App';
+import { LOGIN_CONTEXT } from '../App';
 
 export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
 {
     const [email, set_email] = useState('');
     const [code, set_code] = useState('');
     const [error_message, set_error_message] = useState(''); //for displaying error messages
-    const {logged_in} = useContext(LoginContext); //get the login state and the function to set the login state from the context
+    const {logged_in} = useContext(LOGIN_CONTEXT); //get the login state and the function to set the login state from the context
     const navigate = useNavigate();
     const location = useLocation();
 

@@ -1,14 +1,14 @@
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { LoginContext } from '../App';
+import { LOGIN_CONTEXT } from '../App';
 
 export default function ForgotPassword()
 {
     const [email, set_email] = useState('');
     const [submitted, set_submitted] = useState(false);
     const navigate = useNavigate();
-    const {logged_in} = useContext(LoginContext);
+    const {logged_in} = useContext(LOGIN_CONTEXT);
     const [error_message, set_error_message] = useState('');
 
     useEffect(() => 

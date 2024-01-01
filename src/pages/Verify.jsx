@@ -43,7 +43,7 @@ export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
         {
             event.preventDefault(); //prevent refresh
 
-            let response = await axios.post('/verify', {email, code});
+            await axios.post('/verify', {email, code});
 
             set_error_message('');
             navigate('/login');

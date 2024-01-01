@@ -12,7 +12,7 @@ export default function Login()
     const [error_message, set_error_message] = useState('');
     const navigate = useNavigate();
 
-    useEffect( () => { if(logged_in) { navigate('/dashboard');} });
+    useEffect( () => { if(logged_in) { navigate('/dashboard'); } });
 
     const handle_change = (event) =>
     {
@@ -52,14 +52,16 @@ export default function Login()
     }
 
     return (
-        <div className='bg-green-200 flex justify-center h-full grid content-center'>
-            <form noValidate onSubmit={handle_submit} className='flex flex-col bg-pink-300'>
-                <h1 className='text-center'>Login</h1>
-                <input type='email' placeholder='Email' name='email' onChange={handle_change} />
-                <input type='password' placeholder='Password' name='password' onChange={handle_change} />
-                <button type='submit'>Log in</button>
-            </form>
-            <h1 className='text-center'><a className='underline text-blue-500' href='/forgot'>Forgot your password?</a></h1>
+        <div className='bg-white flex justify-center h-full grid content-center'>
+            <div className='flex flex-col bg-gray-400 p-24 rounded-md shadow-lg'>
+                <form className='flex flex-col space-y-2' noValidate onSubmit={handle_submit}>
+                    <h1 className='text-center'>Login</h1>
+                    <input className='bg-gray-300 rounded' type='email' placeholder='Email' name='email' onChange={handle_change} />
+                    <input className='bg-gray-300 rounded' type='password' placeholder='Password' name='password' onChange={handle_change} />
+                    <button className='bg-purple-300 rounded hover:text-white' type='submit'>Log in</button>
+                </form>
+                <h1 className='text-center'><a className='underline text-white' href='/forgot'>Forgot your password?</a></h1>
+            </div>
             {error_message !== '' ? <p>{error_message}</p> : null}
         </div>
     );

@@ -8,6 +8,8 @@ export default function Navbar()
 
   //get the login state and the function to set the login state from the context
   const {logged_in, set_logged_in} = useContext(LOGIN_CONTEXT);
+  
+  const button_style_string = 'hover:text-white hover:bg-purple-200 rounded p-4 ';
 
   const logout = () =>
   {
@@ -18,13 +20,15 @@ export default function Navbar()
   }
 
   return (
-    <div className='flex bg-red-200 justify-center'>
-        <nav className='flex gap-x-2.5'>
-            <Link to='/'>Home</Link>
-            {logged_in ? <Link to='/dashboard'>Dashboard</Link> : <Link to='/login'>Login</Link>}
-            {logged_in ? null : <Link to='/signup'>Signup</Link>}
-            {logged_in ? <Link to='/' onClick={logout}>Logout</Link> : null}
-        </nav>
+    <div className='flex flex-row bg-gray-200 justify-between'>
+      <div className='flex'>
+        <Link className={button_style_string} to='/'>Home</Link>
+      </div>
+      <div className='flex'>
+        {logged_in ? <Link className={button_style_string} to='/dashboard'>Dashboard</Link> : <Link className={button_style_string} to='/login'>Login</Link>}
+        {logged_in ? null : <Link className={button_style_string} to='/signup'>Sign Up</Link>}
+        {logged_in ? <Link className={button_style_string} to='/' onClick={logout}>Logout</Link> : null}
+      </div>          
     </div>
   );
 }

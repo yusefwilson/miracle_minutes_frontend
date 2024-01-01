@@ -39,14 +39,14 @@ export default function ForgotPassword()
     };
 
     return (
-        <div className='bg-green-200 flex justify-center h-full grid content-center'>
-            <form noValidate onSubmit={handle_submit} className='flex flex-col bg-pink-300'>
+        <div className='bg-white flex justify-center h-full grid content-center'>
+            <form noValidate onSubmit={handle_submit} className='flex flex-col bg-gray-400 p-16 rounded-md shadow-lg space-y-2'>
                 <h1>Forgot your password? Enter your email to receive a reset code.</h1>
-                <input placeholder='Email' onChange={handle_change}></input>
-                <button type='submit'>Send reset email</button>
+                <input className='bg-gray-300 rounded h-8 p-4' placeholder='Email' onChange={handle_change}></input>
+                <button className='bg-purple-300 rounded hover:text-white h-8' type='submit'>Send reset email</button>
             </form>
             {submitted ? <h1>Check your email for a reset code. You can use it <a className='text-blue-500 underline hover:text-dark-blue-500' href={'/reset?e=' + email}>here</a>.</h1> : null}
-            {error_message !== '' ? <h1>{error_message}</h1> : null}
+            {error_message !== '' ? <h1 className='text-center text-red-300'>{error_message}</h1> : null}
         </div>
     );
 }

@@ -25,8 +25,8 @@ export default function Navbar()
         <Link className={button_style_string} to='/'>Home</Link>
       </div>
       <div className='flex'>
-        {logged_in ? <Link className={button_style_string} to='/dashboard'>Dashboard</Link> : <Link className={button_style_string} to='/login'>Login</Link>}
-        {logged_in ? null : <Link className={button_style_string} to='/signup'>Sign Up</Link>}
+        {logged_in ? <Link className={button_style_string} to='/dashboard'>Dashboard</Link> : <Link className={button_style_string} to='/login'>Log in</Link>}
+        {logged_in ? null : <Link className={button_style_string} to='/signup'>Sign up</Link>}
         {logged_in ? <Link className={button_style_string} to='/' onClick={logout}>Logout</Link> : null}
       </div>          
     </div>

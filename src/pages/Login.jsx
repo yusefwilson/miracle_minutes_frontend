@@ -53,16 +53,16 @@ export default function Login()
 
     return (
         <div className='bg-white flex justify-center h-full grid content-center'>
-            <div className='flex flex-col bg-gray-400 p-24 rounded-md shadow-lg'>
+            <div className='flex flex-col bg-gray-400 p-16 rounded-md shadow-lg'>
                 <form className='flex flex-col space-y-2' noValidate onSubmit={handle_submit}>
-                    <h1 className='text-center'>Login</h1>
-                    <input className='bg-gray-300 rounded' type='email' placeholder='Email' name='email' onChange={handle_change} />
-                    <input className='bg-gray-300 rounded' type='password' placeholder='Password' name='password' onChange={handle_change} />
-                    <button className='bg-purple-300 rounded hover:text-white' type='submit'>Log in</button>
+                    <h1 className='text-center text-5xl p-4'>Log in</h1>
+                    <input className='bg-gray-300 rounded h-8 p-4' type='email' placeholder='Email' name='email' onChange={handle_change} />
+                    <input className='bg-gray-300 rounded h-8 p-4' type='password' placeholder='Password' name='password' onChange={handle_change} />
+                    <button className='bg-purple-300 rounded hover:text-white h-8' type='submit'>Log in</button>
                 </form>
-                <h1 className='text-center'><a className='underline text-white' href='/forgot'>Forgot your password?</a></h1>
+                <h1 className='text-center'> <a className='underline text-white' href='/forgot'>Forgot your password?</a> </h1>
             </div>
-            {error_message !== '' ? <p>{error_message}</p> : null}
+            {error_message !== '' ? <p className='text-center text-red-300'>{error_message}</p> : null}
         </div>
     );
 }

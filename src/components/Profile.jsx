@@ -24,16 +24,13 @@ export default function Profile({user, set_current_component})
         try
         {
             const access_token = Cookies.get('miracle_minutes_access_token');
-            console.log('access token: ', access_token);
             const portal_link_result = await axios.post('/portal', { access_token });
-            console.log('portal link: ', portal_link_result.data.portal_url);
             window.open(portal_link_result.data.portal_url, '_blank', 'noopener,noreferrer');
         }
 
         catch (error)
         {
             set_error_message('There has been an error. Please try again.');
-            console.log('error: ', error);
         }
     }
 

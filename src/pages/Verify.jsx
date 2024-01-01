@@ -44,7 +44,6 @@ export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
             event.preventDefault(); //prevent refresh
 
             let response = await axios.post('/verify', {email, code});
-            console.log('verify response: ', response);
 
             set_error_message('');
             navigate('/login');
@@ -52,7 +51,6 @@ export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
 
         catch (error)
         {
-            console.log('verify error: ', error);
             set_error_message(error.response.data.error);
         }
         

@@ -45,7 +45,6 @@ export default function Signup()
             }
 
             let response = await axios.post('/signup', {email: email, password: password});
-            console.log('signup response: ', response);
 
             set_error_message('');
             navigate('/verify?e=' + email);

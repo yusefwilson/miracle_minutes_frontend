@@ -56,7 +56,6 @@ export default function ResetPassword()
 
             //send reset request to server
             const reset_result = await axios.post('/reset', {password, email, code});
-            console.log('reset result: ', reset_result);
 
             set_error_message('');
             navigate('/login');
@@ -64,7 +63,6 @@ export default function ResetPassword()
 
         catch (error)
         {
-            console.log('reset error: ', error);
             set_error_message(error.response.data.error);
         }
     }

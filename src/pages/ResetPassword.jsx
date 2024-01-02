@@ -76,7 +76,7 @@ export default function ResetPassword()
                     <input className='bg-gray-300 rounded h-8 p-4' placeholder='Code' onChange={handle_change} name='code'></input>
                     <input className='bg-gray-300 rounded h-8 p-4' placeholder='New password' onChange={handle_change} name='password'></input>
                     <input className='bg-gray-300 rounded h-8 p-4' placeholder='Confirm new password' onChange={handle_change} name='confirmPassword'></input>
-                    <button className='bg-purple-300 rounded hover:text-white h-8' type='submit'>Reset password</button>
+                    <button className='bg-purple-400 rounded hover:bg-white h-8' type='submit'>Reset password</button>
                 </form>
             </div>
             

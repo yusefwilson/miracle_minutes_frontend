@@ -47,7 +47,7 @@ export default function Profile({user, set_current_component})
 
     <div className='bg-white w-full justify-center grid content-center'>
 
-        <div className='bg-gray-400 p-16 rounded shadow-lg space-y-8'>
+        <div className='bg-gray-400 p-16 rounded shadow-lg space-y-8 flex flex-col'>
             <h1 className='text-center text-5xl'>Profile</h1>
             <p className='text-center bg-gray-300 rounded p-2'>Email: {user.email}</p>
 
@@ -55,7 +55,7 @@ export default function Profile({user, set_current_component})
                 user.purchases?.length > 0 ?
                 <div className='flex flex-row bg-gray-300 rounded'>
                     <p className='text-center bg-gray-300 rounded p-2'>Purchases: {purchase_string}</p>
-                    <button className='text-center text-white bg-purple-400 rounded-md   p-1 border-2 border-gray-300' onClick={redirect_to_portal}>Manage</button>
+                    <button className='text-center bg-purple-400 rounded-md p-1 border-2 border-gray-300 hover:bg-white' onClick={redirect_to_portal}>Manage</button>
                 </div>
                 
                 :

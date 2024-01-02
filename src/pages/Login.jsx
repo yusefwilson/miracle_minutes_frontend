@@ -56,8 +56,8 @@ export default function Login()
             <div className='flex flex-col bg-gray-400 p-16 rounded-md shadow-lg'>
                 <form className='flex flex-col space-y-2' noValidate onSubmit={handle_submit}>
                     <h1 className='text-center text-5xl p-4'>Log in</h1>
-                    <input className='bg-gray-300 rounded h-8 p-4' type='email' placeholder='Email' name='email' onChange={handle_change} />
-                    <input className='bg-gray-300 rounded h-8 p-4' type='password' placeholder='Password' name='password' onChange={handle_change} />
+                    <input className='bg-gray-300 rounded h-8 p-4 focus:outline-none' type='email' placeholder='Email' name='email' onChange={handle_change} />
+                    <input className='bg-gray-300 rounded h-8 p-4 focus:outline-none' type='password' placeholder='Password' name='password' onChange={handle_change} />
                     <button className='bg-purple-400 rounded hover:bg-white h-8' type='submit'>Log in</button>
                 </form>
                 <h1 className='text-center'> <a className='underline text-white' href='/forgot'>Forgot your password?</a> </h1>

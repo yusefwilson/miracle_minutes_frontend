@@ -56,16 +56,32 @@ export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
         
     }
 
+    const handle_resend = async () =>
+    {
+        try
+        {
+            await axios.post('/reset', {email});
+            set_error_message('');
+        }
+
+        catch (error)
+        {
+            set_error_message(error.response.data.error);
+        }
+    }
+
     return (
-        <div className='bg-green-200 flex justify-center h-full'>
-            <form noValidate onSubmit={handle_submit} className='flex flex-col w-1/4 grid content-center bg-pink-300'>
-                <h1 className='text-center'>Check your inbox and input your email and verification code!</h1>
-                <input type='email' placeholder='Email' name='email' onChange={handle_change} value={email}/>
-                <input type='code' placeholder='Code' name='code' onChange={handle_change}/>
-                <button type='submit'>Verify</button>
-            </form>
-            {/* <button onClick={handleResend}>Resend</button> */}
-            {error_message !== '' ? <p>{error_message}</p> : null}
+        <div className='bg-white flex justify-center h-full grid content-center'>
+            <div className='flex flex-col bg-gray-400 p-16 rounded-md shadow-lg'>
+                <form className='flex flex-col grid content-center space-y-2' noValidate onSubmit={handle_submit}>
+                    <h1 className='text-center'>Check your inbox and input your email and verification code!</h1>
+                    <input className='bg-gray-300 rounded h-8 p-4 focus:outline-none' type='email' placeholder='Email' name='email' onChange={handle_change} value={email}/>
+                    <input className='bg-gray-300 rounded h-8 p-4 focus:outline-none' type='code' placeholder='Code' name='code' onChange={handle_change}/>
+                    <button className='bg-purple-400 rounded hover:bg-white h-8' type='submit'>Verify</button>
+                    <button className='underline text-white' onClick={handle_resend}>Didn't get your code? Resend.</button>
+                </form>
+            </div>
+            {error_message !== '' ? <p className='text-center text-red-300'>{error_message}</p> : null}
         </div>
     );
 }

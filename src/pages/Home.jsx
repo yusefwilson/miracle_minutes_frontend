@@ -1,9 +1,9 @@
 export default function Home()
 {
     return (
-        <div className='bg-green-200 flex flex-col h-full'>
+        <div className='bg-white flex flex-col h-full p-2'>
             <div className='flex justify-center'>
-                <h1>Home</h1>
+                <h1 className='text-5xl'>Home</h1>
             </div>
         </div>
     );

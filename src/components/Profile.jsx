@@ -49,23 +49,25 @@ export default function Profile({user, set_current_component})
 
         <div className='bg-gray-400 p-16 rounded shadow-lg space-y-8'>
             <h1 className='text-center text-5xl'>Profile</h1>
-            <p className='text-center bg-gray-300 rounded'>Email: {user.email}</p>
+            <p className='text-center bg-gray-300 rounded p-2'>Email: {user.email}</p>
 
             {
                 user.purchases?.length > 0 ?
-                <p className='text-center bg-gray-300 rounded'>Purchases: {purchase_string} 
-                    <button className='text-center underline text-blue-500 p-4' onClick={redirect_to_portal}>Manage</button>
-                </p>
+                <div className='flex flex-row bg-gray-300 rounded'>
+                    <p className='text-center bg-gray-300 rounded p-2'>Purchases: {purchase_string}</p>
+                    <button className='text-center text-white bg-purple-400 rounded-md   p-1 border-2 border-gray-300' onClick={redirect_to_portal}>Manage</button>
+                </div>
+                
                 :
-                <p className='text-center bg-gray-300 rounded'>Purchases: None. Visit 
+                <p className='text-center bg-gray-300 rounded p-2'>Purchases: None. Visit 
                     <button className='text-center underline text-purple-600 p-1' onClick={() => set_current_component('Shop')}>Shop!</button>
                 </p>
             }
             
-            <p className='text-center bg-gray-300 rounded'>Referral code: {user.referral_code}</p>
-            <button className='underline text-white text-center' onClick={logout_and_redirect_to_forgot}>Change password (will log you out)</button>
-            <p className='text-center'>{error_message !== '' ? error_message : null}</p>
+            <p className='text-center bg-gray-300 rounded p-2'>Referral code: {user.referral_code}</p>
+            <button className='underline text-white text-center' onClick={logout_and_redirect_to_forgot}>Change password (will log you out)</button>    
         </div>
+        <p className='text-center text-red-300'>{error_message !== '' ? error_message : null}</p>
 
     </div>
     );

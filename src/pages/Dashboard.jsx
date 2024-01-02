@@ -53,7 +53,7 @@ export default function Dashboard()
             rendered_component = <Profile user={user} set_current_component={set_current_component}/>;
             break;
         case 'Articles':
-            rendered_component = <Articles/>;
+            rendered_component = <Articles set_current_component={set_current_component}/>;
             break;
         case 'Settings':
             rendered_component = <div>Settings</div>;
@@ -66,7 +66,7 @@ export default function Dashboard()
     }
 
     return (
-        <div className='bg-green-200 flex flex-row h-full'>
+        <div className='bg-white flex flex-row h-full'>
             <Sidebar components={components} set_current_component={set_current_component}/>
             {rendered_component}
         </div>

@@ -58,9 +58,7 @@ export default function Shop({ user })
 
         else
         {
-            console.log('removing product: ', product_name);
             const new_desired_products = desired_products.filter( (product) => product !== product_name);
-            console.log('new_desired_products: ', new_desired_products);
             set_desired_products(new_desired_products);
         }
     }
@@ -93,15 +91,15 @@ export default function Shop({ user })
 
                             <div className='flex flex-row space-x-2'>
                                 <p className='text-center'>{'$' + (product.price / 100).toString()}</p>
-                                <input className='appearance-none w-4 h-4 border-2 border-purple-200 rounded-full mt-1 bg-white checked:bg-purple-500
-                                checked:border-0 disabled:border-steel-400 disabled:bg-steel-400'
-                                name={product.name} type='checkbox' onChange={on_toggle} disabled={purchased}/>
+                                <input disabled={purchased} className='appearance-none w-4 h-4 border-2 border-purple-200 rounded-full mt-1 bg-white checked:bg-purple-500
+                                checked:border-0 disabled:border-gray-400 disabled:bg-gray-400'
+                                name={product.name} type='checkbox' onChange={on_toggle} />
                             </div>
 
                         </div>
                     );
                 })}
-                <button className='bg-purple-300 rounded p-2 hover:bg-white' onClick={redirect_to_checkout}>Checkout</button>
+                <button className='bg-purple-400 rounded p-2 hover:bg-white shadow-lg' onClick={redirect_to_checkout}>Checkout</button>
                 
             </div>
             <p className='text-center text-red-300'>{error_message !== '' ? error_message : null}</p>

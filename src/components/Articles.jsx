@@ -17,7 +17,7 @@ const _get_utc_date = () =>
     return utcDateString;
 }
 
-export default function Articles()
+export default function Articles({set_current_component})
 {
     const navigate = useNavigate();
     const [articles, set_articles] = useState(null); // list of article
@@ -38,12 +38,16 @@ export default function Articles()
                 const date = _get_utc_date();
 
                 const article_result = await axios.post('/articles', {date, access_token: access_token});
+                console.log(article_result.data.articles);
                 const articles = article_result.data.articles;
                 set_articles(articles);
+                console.log(articles);
                 set_error_message('');
             }
             catch (error)
             {
+                console.log(error.response.data.error);
+                set_articles([]);
                 set_error_message(error.response.data.error);
             }
         }
@@ -54,14 +58,26 @@ export default function Articles()
 
     //render error messages or article
     return (
-        <div className='flex flex-col grid content-start justify-center bg-yellow-300 w-full'>
-            <h1 className='text-center'>Articles</h1>
+        articles === null ?
 
-            <div className='flex flex-col gap-y-2.5'>
-                {articles?.map((article) => <Dropdown key={article.category} title={article.category} content={article.article}/>)}
+        <div className='h-full w-full flex justify-center grid content-center'>
+            <img src='gifs/purple_loading_gif.gif' alt='Loading...' width='300'></img>
+        </div>
+
+        :
+
+        <div className='flex flex-col grid content-center justify-center bg-white w-full'>
+            <div className='bg-gray-400 rounded p-16'>
+                <h1 className='text-center text-5xl'>Articles</h1>
+                <div className='flex flex-col gap-y-2.5'>
+                    {articles.map((article) => <Dropdown key={article.category} title={article.category} content={article.article}/>)}
+                    {articles.length === 0 ? <div className='text-center text-white'>
+                    Nothing for today! Visit the
+                    <button className='p-1 text-purple-500 underline' onClick={() => set_current_component('Shop')}>Shop</button>
+                    to buy some articles!</div> : null}
+                </div>
             </div>
-
-            <div className="div">{error_message}</div>
+            <div className='text-center text-red-300'>{'Error: ' + error_message}</div>
         </div>
     );
 }

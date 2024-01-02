@@ -9,7 +9,7 @@ export default function Navbar()
   //get the login state and the function to set the login state from the context
   const {logged_in, set_logged_in} = useContext(LOGIN_CONTEXT);
   
-  const button_style_string = 'hover:text-white hover:bg-purple-200 rounded p-4 ';
+  const button_style_string = 'hover:bg-gray-400 rounded p-4';
 
   const logout = () =>
   {
@@ -20,7 +20,7 @@ export default function Navbar()
   }
 
   return (
-    <div className='flex flex-row bg-gray-200 justify-between'>
+    <div className='flex flex-row bg-purple-200 justify-between p-2'>
       <div className='flex'>
         <Link className={button_style_string} to='/'>Home</Link>
       </div>

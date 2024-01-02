@@ -58,7 +58,9 @@ export default function Shop({ user })
 
         else
         {
-            const new_desired_products = desired_products.filter( (product) => product.name !== product_name);
+            console.log('removing product: ', product_name);
+            const new_desired_products = desired_products.filter( (product) => product !== product_name);
+            console.log('new_desired_products: ', new_desired_products);
             set_desired_products(new_desired_products);
         }
     }
@@ -70,27 +72,39 @@ export default function Shop({ user })
 
         all_products.length === 0 ?
         
-        <p>Loading...</p>
+        <div className='h-full w-full flex justify-center grid content-center'>
+            <img src='gifs/purple_loading_gif.gif' alt='Loading...' width='300'></img>
+        </div>
         
         :
-        <div className='bg-yellow-300 w-full flex flex-row justify-center'>
-            <div className='bg-red-300 flex flex-col justify-center space-y-4'>
-                <h1 className='text-center'>Shop</h1>
+        <div className='bg-white w-full justify-center grid content-center'>
+
+
+            <div className='bg-gray-400 flex flex-col justify-center space-y-4 rounded p-16'>
+                <h1 className='text-center text-5xl'>Shop</h1>
                 {all_products?.map( (product) =>
                 {
                     // if the user has already purchased the product, make the checkbox uncheckable
                     let purchased = current_products.includes(product.name);
                     return (
-                        <div key={product.name} className='flex flex-row space-x-4 justify-center bg-green-200'>
+                        <div key={product.name} className='flex flex-row space-x-4 justify-between bg-gray-200 rounded p-2'>
+
                             <p className='text-center'>{product.name + (purchased ? ' (purchased)' : '')}</p>
-                            <p className='text-center'>{'$' + (product.price / 100).toString()}</p>
-                            <input name={product.name} type='checkbox' onChange={on_toggle} disabled={purchased}/>
+
+                            <div className='flex flex-row space-x-2'>
+                                <p className='text-center'>{'$' + (product.price / 100).toString()}</p>
+                                <input className='appearance-none w-4 h-4 border-2 border-purple-200 rounded-full mt-1 bg-white checked:bg-purple-500
+                                checked:border-0 disabled:border-steel-400 disabled:bg-steel-400'
+                                name={product.name} type='checkbox' onChange={on_toggle} disabled={purchased}/>
+                            </div>
+
                         </div>
                     );
                 })}
-                <button className='underline text-blue-500 bg-pink-200 rounded' onClick={redirect_to_checkout}>Checkout</button>
-                <p className='text-center'>{error_message !== '' ? error_message : null}</p>
+                <button className='bg-purple-300 rounded p-2 hover:bg-white' onClick={redirect_to_checkout}>Checkout</button>
+                
             </div>
+            <p className='text-center text-red-300'>{error_message !== '' ? error_message : null}</p>
         </div>
     );
 }

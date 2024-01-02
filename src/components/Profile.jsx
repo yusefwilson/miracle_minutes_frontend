@@ -39,26 +39,34 @@ export default function Profile({user, set_current_component})
     return (
     Object.keys(user).length === 0 ?
 
-    <p>Loading...</p> :
-
-    <div className='bg-yellow-300 flex flex-col w-full grid content-start space-y-4 p-4'>
-        <h1 className='text-center'>Profile</h1>
-        <p className='text-center'>Email: {user.email}</p>
-
-        {
-            user.purchases?.length > 0 ?
-            <p className='text-center'>Purchases: {purchase_string} 
-                <button className='text-center underline text-blue-500 p-4' onClick={redirect_to_portal}>Manage</button>
-            </p>
-            :
-            <p className='text-center'>Purchases: None. Visit 
-                <button className='text-center underline text-blue-500 p-1' onClick={() => set_current_component('Shop')}>Shop!</button>
-            </p>
-        }
+    <div className='h-full w-full flex justify-center grid content-center'>
+            <img src='gifs/purple_loading_gif.gif' alt='Loading...' width='300'></img>
+    </div>
         
-        <p className='text-center'>Referral code: {user.referral_code}</p>
-        <button className='underline text-blue-500' onClick={logout_and_redirect_to_forgot}>Change password (will log you out)</button>
-        <p className='text-center'>{error_message !== '' ? error_message : null}</p>
+    :
+
+    <div className='bg-white w-full justify-center grid content-center'>
+
+        <div className='bg-gray-400 p-16 rounded shadow-lg space-y-8'>
+            <h1 className='text-center text-5xl'>Profile</h1>
+            <p className='text-center bg-gray-300 rounded'>Email: {user.email}</p>
+
+            {
+                user.purchases?.length > 0 ?
+                <p className='text-center bg-gray-300 rounded'>Purchases: {purchase_string} 
+                    <button className='text-center underline text-blue-500 p-4' onClick={redirect_to_portal}>Manage</button>
+                </p>
+                :
+                <p className='text-center bg-gray-300 rounded'>Purchases: None. Visit 
+                    <button className='text-center underline text-purple-600 p-1' onClick={() => set_current_component('Shop')}>Shop!</button>
+                </p>
+            }
+            
+            <p className='text-center bg-gray-300 rounded'>Referral code: {user.referral_code}</p>
+            <button className='underline text-white text-center' onClick={logout_and_redirect_to_forgot}>Change password (will log you out)</button>
+            <p className='text-center'>{error_message !== '' ? error_message : null}</p>
+        </div>
+
     </div>
     );
 }

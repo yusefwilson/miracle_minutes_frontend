@@ -83,7 +83,7 @@ export default function App()
     logged_in === null ? 
 
     <div className='flex justify-center items-center h-screen bg-white'>
-      <img src='/gifs/rotating_hourglass.gif' alt='Loading...'/>
+      <img src='/gif/breathing_hourglass.gif' alt='Loading...' width='512'/>
     </div>
     
     :

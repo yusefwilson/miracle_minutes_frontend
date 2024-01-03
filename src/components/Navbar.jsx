@@ -21,6 +21,7 @@ export default function Navbar()
   return (
     <div className='flex shrink-0 flex-row bg-purple-200 justify-between p-2 z-10'>
       <div className='flex'>
+        <img src='/img/hourglass_purple_transparent.png' alt='Logo' width='64'/>
         <Link className={button_style_string} to='/'>Home</Link>
       </div>
       <div className='flex'>

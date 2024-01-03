@@ -58,7 +58,7 @@ export default function Login()
                     <h1 className='text-center text-5xl p-4'>Log in</h1>
                     <input className='bg-gray-300 rounded h-8 p-4 focus:outline-none' type='email' placeholder='Email' name='email' onChange={handle_change} />
                     <input className='bg-gray-300 rounded h-8 p-4 focus:outline-none' type='password' placeholder='Password' name='password' onChange={handle_change} />
-                    <button className='bg-purple-400 rounded hover:bg-white h-8' type='submit'>Log in</button>
+                    <button className='bg-purple-400 rounded hover:bg-white h-8 shadow-lg' type='submit'>Log in</button>
                 </form>
                 <h1 className='text-center'> <a className='underline text-white' href='/forgot'>Forgot your password?</a> </h1>
             </div>

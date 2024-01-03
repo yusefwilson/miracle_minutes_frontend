@@ -90,7 +90,7 @@ export default function App()
 
     <LOGIN_CONTEXT.Provider value={{logged_in, set_logged_in}}>
       <Router>
-        <div className='flex flex-col justify-center bg-gray-600 h-screen'>
+        <div className='flex flex-col justify-center bg-white h-screen'>
           <Navbar/>
           <Routes>
             <Route path='/' element={<Home/>}/>

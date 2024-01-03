@@ -21,7 +21,7 @@ export default function Navbar()
   }
 
   return (
-    <div className='flex shrink-0 flex-row bg-gradient-to-b from-purple-400 justify-between p-2 z-10'>
+    <div className='flex shrink-0 flex-row bg-gradient-to-b from-purple-500 justify-between p-2 z-10'>
       <div className='flex items-center'>
         <img className='cursor-pointer' src='/img/hourglass_purple_transparent.png' alt='Logo' width='64' onClick={() => navigate('/')}/>
         <Link className={button_style_string} to='/'>Home</Link>

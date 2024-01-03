@@ -33,7 +33,7 @@ export default function Articles()
             const access_token = Cookies.get('miracle_minutes_access_token');
             
             console.log('posting date ' + date);
-            const article_result = await axios.post('/articles', {date, access_token: access_token});
+            const article_result = await axios.post('/articles', {date: date, access_token: access_token});
             console.log(article_result.data.articles);
             const articles = article_result.data.articles;
             set_articles(articles);

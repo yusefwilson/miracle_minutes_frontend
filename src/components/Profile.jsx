@@ -60,7 +60,7 @@ export default function Profile({ user })
                 
                 :
                 <p className='text-center bg-gray-300 rounded p-2'>Purchases: None. Visit 
-                    <button className='text-center underline text-purple-600 p-1' onClick={navigate('/dashboard/shop')}>Shop!</button>
+                    <button className='text-center underline text-purple-600 p-1' onClick={() => navigate('/dashboard/shop')}>Shop!</button>
                 </p>
             }
             

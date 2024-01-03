@@ -69,7 +69,7 @@ export default function Articles()
         articles === null ?
 
         <div className='h-full w-full flex justify-center grid content-center'>
-            <img src='gifs/purple_loading_gif.gif' alt='Loading...' width='300'/>
+            <img src='/gifs/rotating_hourglass.gif' alt='Loading...' width='300'/>
         </div>
 
         :

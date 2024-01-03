@@ -9,8 +9,6 @@ import Articles from '../components/Articles';
 import Profile from '../components/Profile';
 import Shop from '../components/Shop';
 
-//import { print_object_array, print_array, print_object } from '../helpers.js';
-
 export default function Dashboard()
 {   
     const navigate = useNavigate();

@@ -38,8 +38,8 @@ export default function Login()
             //log in - needs to be hooked up to backend
             let response = await axios.post('/login', {email: email, password: password});
 
-            Cookies.set('miracle_minutes_refresh_token', response.data.refresh_token, {expires: 30, path: ''});
-            Cookies.set('miracle_minutes_access_token', response.data.access_token, {expires: 1, path: ''});
+            Cookies.set('miracle_minutes_refresh_token', response.data.refresh_token, {expires: 30, path: '/'});
+            Cookies.set('miracle_minutes_access_token', response.data.access_token, {expires: 1, path: '/'});
             set_logged_in(true);
             set_error_message('');
             navigate('/dashboard');

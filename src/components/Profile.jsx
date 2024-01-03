@@ -40,7 +40,7 @@ export default function Profile({ user })
     Object.keys(user).length === 0 ?
 
     <div className='h-full w-full flex justify-center grid content-center'>
-            <img src='gifs/purple_loading_gif.gif' alt='Loading...' width='300'></img>
+            <img src='/gifs/rotating_hourglass.gif' alt='Loading...' width='300'></img>
     </div>
         
     :

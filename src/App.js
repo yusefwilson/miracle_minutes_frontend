@@ -51,12 +51,13 @@ export default function App()
   {
     async function check_tokens_and_login()
     {
+      console.log('checking tokens and logging in');
       // refresh tokens
       const access_token = await refresh_access_token();
 
       if(access_token)
       {
-        Cookies.set('miracle_minutes_access_token', access_token, {expires: 1, path: ''});
+        Cookies.set('miracle_minutes_access_token', access_token, {expires: 1, path: '/'});
         
         // now check if token valid
         const user_token_result = await axios.post('/user', {access_token});
@@ -69,6 +70,8 @@ export default function App()
       // if refreshing failed, abort and just set logged in to false
       else
       {
+        console.log('refreshing failed');
+        set_logged_in(false);
         Cookies.remove('miracle_minutes_refresh_token');
         Cookies.remove('miracle_minutes_access_token');
       }
@@ -79,8 +82,8 @@ export default function App()
   return (
     logged_in === null ? 
 
-    <div className='flex justify-center items-center h-screen bg-gray-600'>
-      <h1 className='text-4xl text-white'>Loading...</h1>
+    <div className='flex justify-center items-center h-screen bg-white'>
+      <img src='/gifs/rotating_hourglass.gif' alt='Loading...'/>
     </div>
     
     :

@@ -66,7 +66,7 @@ export default function Dashboard()
     }
 
     return (
-        <div className='bg-white flex flex-row h-full'>
+        <div className='bg-white flex flex-row h-full grow overflow-hidden'>
             <Sidebar components={components} set_current_component={set_current_component}/>
             {rendered_component}
         </div>

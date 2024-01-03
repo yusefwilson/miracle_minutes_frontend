@@ -36,6 +36,7 @@ export default function Articles({set_current_component})
                 const access_token = Cookies.get('miracle_minutes_access_token');
 
                 const date = _get_utc_date();
+                console.log('date: ' + date);
 
                 const article_result = await axios.post('/articles', {date, access_token: access_token});
                 console.log(article_result.data.articles);
@@ -66,10 +67,10 @@ export default function Articles({set_current_component})
 
         :
 
-        <div className='flex flex-col grid content-center justify-center bg-white w-full'>
-            <div className='bg-gray-400 rounded p-16'>
+        <div className='flex flex-col grid content-center justify-center bg-white w-full overflow-y-auto'>
+            <div className='bg-gray-400 rounded overflow-y-auto p-16 space-y-8'>
                 <h1 className='text-center text-5xl'>Articles</h1>
-                <div className='flex flex-col gap-y-2.5'>
+                <div className='flex flex-col space-y-8'>
                     {articles.map((article) => <Dropdown key={article.category} title={article.category} content={article.article}/>)}
                     {articles.length === 0 ? <div className='text-center text-white'>
                     Nothing for today! Visit the
@@ -77,7 +78,7 @@ export default function Articles({set_current_component})
                     to buy some articles!</div> : null}
                 </div>
             </div>
-            <div className='text-center text-red-300'>{'Error: ' + error_message}</div>
+            <div className='text-center text-red-300'>{error_message !== '' ? 'Error: ' + error_message : null}</div>
         </div>
     );
 }

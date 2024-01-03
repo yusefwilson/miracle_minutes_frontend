@@ -5,7 +5,6 @@ import Cookies from 'js-cookie';
 
 export default function Navbar()
 {
-
   //get the login state and the function to set the login state from the context
   const {logged_in, set_logged_in} = useContext(LOGIN_CONTEXT);
   
@@ -20,7 +19,7 @@ export default function Navbar()
   }
 
   return (
-    <div className='flex flex-row bg-purple-200 justify-between p-2'>
+    <div className='flex shrink-0 flex-row bg-purple-200 justify-between p-2 z-10'>
       <div className='flex'>
         <Link className={button_style_string} to='/'>Home</Link>
       </div>

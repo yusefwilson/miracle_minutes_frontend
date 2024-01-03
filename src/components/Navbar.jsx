@@ -20,11 +20,11 @@ export default function Navbar()
 
   return (
     <div className='flex shrink-0 flex-row bg-purple-200 justify-between p-2 z-10'>
-      <div className='flex'>
+      <div className='flex items-center'>
         <img src='/img/hourglass_purple_transparent.png' alt='Logo' width='64'/>
         <Link className={button_style_string} to='/'>Home</Link>
       </div>
-      <div className='flex'>
+      <div className='flex items-center'>
         {logged_in ? <Link className={button_style_string} to='/dashboard'>Dashboard</Link> : <Link className={button_style_string} to='/login'>Log in</Link>}
         {logged_in ? null : <Link className={button_style_string} to='/signup'>Sign up</Link>}
         {logged_in ? <Link className={button_style_string} to='/' onClick={logout}>Logout</Link> : null}

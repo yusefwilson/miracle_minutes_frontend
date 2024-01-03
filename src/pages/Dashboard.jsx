@@ -14,7 +14,7 @@ export default function Dashboard()
     const navigate = useNavigate();
     const {logged_in} = useContext(LOGIN_CONTEXT);
     const [user, setUser] = useState({});
-    const components = ['Profile', 'Articles', 'Shop', 'Settings'];
+    const components = ['Profile', 'Articles', 'Shop'];
     const [current_component, set_current_component] = useState('');
     const params = useParams();
 
@@ -55,9 +55,6 @@ export default function Dashboard()
     { 
         case 'articles':
             rendered_component = <Articles set_current_component={set_current_component}/>;
-            break;
-        case 'settings':
-            rendered_component = <div>Settings</div>;
             break;
         case 'shop':
             rendered_component = <Shop user={user}/>;

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { LOGIN_CONTEXT } from '../App';
 import { useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 import Sidebar from '../components/Sidebar';
@@ -17,7 +17,8 @@ export default function Dashboard()
     const {logged_in} = useContext(LOGIN_CONTEXT);
     const [user, setUser] = useState({});
     const components = ['Profile', 'Articles', 'Shop', 'Settings'];
-    const [current_component, set_current_component] = useState('Profile');
+    const [current_component, set_current_component] = useState('');
+    const params = useParams();
 
     useEffect( () =>
     {
@@ -41,27 +42,30 @@ export default function Dashboard()
         }   
         
         if(!logged_in) { navigate('/login'); return; }
+
+        const new_current_component = params.component;
+        console.log('new_current_component: ', new_current_component);
+        if(new_current_component) { set_current_component(new_current_component); }
+
         get_user_data();
         
-    }, [logged_in, navigate]);
+    }, [logged_in, navigate, params.component]);
 
     let rendered_component = <div/>;
 
-    switch(current_component)
-    {
-        case 'Profile':
-            rendered_component = <Profile user={user} set_current_component={set_current_component}/>;
-            break;
-        case 'Articles':
+    switch(current_component.toLowerCase())
+    { 
+        case 'articles':
             rendered_component = <Articles set_current_component={set_current_component}/>;
             break;
-        case 'Settings':
+        case 'settings':
             rendered_component = <div>Settings</div>;
             break;
-        case 'Shop':
+        case 'shop':
             rendered_component = <Shop user={user}/>;
             break;
         default:
+            rendered_component = <Profile user={user} set_current_component={set_current_component}/>;
             break;
     }
 

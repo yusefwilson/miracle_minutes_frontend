@@ -45,7 +45,7 @@ const refresh_access_token = async () =>
 
 export default function App()
 {
-  const [logged_in, set_logged_in] = useState(false);
+  const [logged_in, set_logged_in] = useState(null);
 
   useEffect(() => 
   {
@@ -77,6 +77,14 @@ export default function App()
   }, []);
 
   return (
+    logged_in === null ? 
+
+    <div className='flex justify-center items-center h-screen bg-gray-600'>
+      <h1 className='text-4xl text-white'>Loading...</h1>
+    </div>
+    
+    :
+
     <LOGIN_CONTEXT.Provider value={{logged_in, set_logged_in}}>
       <Router>
         <div className='flex flex-col justify-center bg-gray-600 h-screen'>
@@ -85,7 +93,8 @@ export default function App()
             <Route path='/' element={<Home/>}/>
             <Route path='/login' element={<Login/>}/>
             <Route path='/signup' element={<Signup/>}/>
-            <Route path='/dashboard' element={<Dashboard/>}/>
+            <Route path='/dashboard/:component' element={<Dashboard/>}/>
+            <Route path='/dashboard/' element={<Dashboard/>}/>
             <Route path='/verify' element={<Verify/>}/>
             <Route path='/forgot' element={<ForgotPassword/>}/>
             <Route path='/reset' element={<ResetPassword/>}/>

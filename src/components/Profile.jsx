@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-export default function Profile({user, set_current_component})
+export default function Profile({ user })
 {
     const [error_message, set_error_message] = useState('');
     const {set_logged_in} = useContext(LOGIN_CONTEXT);
@@ -60,7 +60,7 @@ export default function Profile({user, set_current_component})
                 
                 :
                 <p className='text-center bg-gray-300 rounded p-2'>Purchases: None. Visit 
-                    <button className='text-center underline text-purple-600 p-1' onClick={() => set_current_component('Shop')}>Shop!</button>
+                    <button className='text-center underline text-purple-600 p-1' onClick={navigate('/dashboard/shop')}>Shop!</button>
                 </p>
             }
             

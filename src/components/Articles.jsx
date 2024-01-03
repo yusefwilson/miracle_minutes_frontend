@@ -17,7 +17,7 @@ const _get_utc_date = () =>
     return utcDateString;
 }
 
-export default function Articles({set_current_component})
+export default function Articles()
 {
     const navigate = useNavigate();
     const [articles, set_articles] = useState(null); // list of article
@@ -69,7 +69,7 @@ export default function Articles({set_current_component})
         articles === null ?
 
         <div className='h-full w-full flex justify-center grid content-center'>
-            <img src='gifs/purple_loading_gif.gif' alt='Loading...' width='300'></img>
+            <img src='gifs/purple_loading_gif.gif' alt='Loading...' width='300'/>
         </div>
 
         :
@@ -82,7 +82,7 @@ export default function Articles({set_current_component})
                     {articles.map((article) => <Dropdown key={article.category} title={article.category} content={article.article}/>)}
                     {articles.length === 0 ? <div className='text-center text-white'>
                     Nothing for today! Visit the
-                    <button className='p-1 text-purple-500 underline' onClick={() => set_current_component('Shop')}>Shop</button>
+                    <button className='p-1 text-purple-500 underline' onClick={() => navigate('/dashboard/shop')}>Shop</button>
                     to buy some articles!</div> : null}
                 </div>
             </div>

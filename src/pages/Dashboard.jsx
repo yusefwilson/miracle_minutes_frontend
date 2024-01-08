@@ -54,19 +54,19 @@ export default function Dashboard()
     switch(current_component.toLowerCase())
     { 
         case 'articles':
-            rendered_component = <Articles set_current_component={set_current_component}/>;
+            rendered_component = <Articles/>;
             break;
         case 'shop':
             rendered_component = <Shop user={user}/>;
             break;
         default:
-            rendered_component = <Profile user={user} set_current_component={set_current_component}/>;
+            rendered_component = <Profile user={user}/>;
             break;
     }
 
     return (
         <div className='bg-white flex flex-row h-full grow overflow-hidden'>
-            <Sidebar components={components} set_current_component={set_current_component}/>
+            <Sidebar components={components}/>
             {rendered_component}
         </div>
     );

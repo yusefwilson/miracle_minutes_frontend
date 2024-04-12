@@ -8,16 +8,15 @@ export default function Signup()
     const [email, set_email] = useState('');
     const [password, set_password] = useState('');
     const [confirm_password, set_confirm_password] = useState('');
-    const {logged_in} = useContext(LOGIN_CONTEXT);
+    const { logged_in } = useContext(LOGIN_CONTEXT);
     const [error_message, set_error_message] = useState(''); //for displaying error messages
     const navigate = useNavigate();
 
-    useEffect( () => { if(logged_in) { navigate('/dashboard');} });
+    useEffect(() => { if (logged_in) { navigate('/dashboard'); } });
 
     const handle_change = (event) =>
     {
-        switch(event.target.name)
-        {
+        switch (event.target.name) {
             case 'email':
                 set_email(event.target.value);
                 break;
@@ -34,24 +33,21 @@ export default function Signup()
 
     const handle_submit = async (event) =>
     {
-        try
-        {
+        try {
             event.preventDefault(); //prevent refresh
 
-            if(password !== confirm_password)
-            {
+            if (password !== confirm_password) {
                 alert('Passwords do not match!');
                 return;
             }
 
-            await axios.post('/signup', {email: email, password: password});
+            await axios.post('/signup', { email: email, password: password });
 
             set_error_message('');
             navigate('/verify?e=' + email);
         }
 
-        catch(error)
-        {
+        catch (error) {
             set_error_message(error.response.data.error);
         }
     }
@@ -61,10 +57,10 @@ export default function Signup()
             <div className='flex flex-col bg-gray-400 p-16 rounded-md shadow-lg'>
                 <form className='flex flex-col space-y-2' noValidate onSubmit={handle_submit}>
                     <h1 className='text-center text-5xl p-4'>Sign up</h1>
-                    <input className='bg-gray-300 rounded h-8 p-4 focus:outline-none' type='email' placeholder='Email' name='email' onChange={handle_change}/>
-                    <input className='bg-gray-300 rounded h-8 p-4 focus:outline-none' type='password' placeholder='Password' name='password' onChange={handle_change}/>
-                    <input className='bg-gray-300 rounded h-8 p-4 focus:outline-none' type='password' placeholder='Confirm Password' name='confirmPassword' onChange={handle_change}/>
-                    <button className='bg-purple-400 rounded hover:bg-white h-8 shadow-lg'type='submit'>Sign up</button>
+                    <input className='bg-gray-300 rounded h-8 p-4 focus:outline-none' type='email' placeholder='Email' name='email' onChange={handle_change} />
+                    <input className='bg-gray-300 rounded h-8 p-4 focus:outline-none' type='password' placeholder='Password' name='password' onChange={handle_change} />
+                    <input className='bg-gray-300 rounded h-8 p-4 focus:outline-none' type='password' placeholder='Confirm Password' name='confirmPassword' onChange={handle_change} />
+                    <button className='bg-purple-400 rounded hover:bg-white h-8 shadow-lg' type='submit'>Sign up</button>
                 </form>
                 <h1 className='text-center'><a className='underline text-white' href='/login'>Already have an account? Log in!</a></h1>
             </div>

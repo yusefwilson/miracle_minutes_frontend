@@ -8,12 +8,12 @@ export default function ForgotPassword()
     const [email, set_email] = useState('');
     const [submitted, set_submitted] = useState(false);
     const navigate = useNavigate();
-    const {logged_in} = useContext(LOGIN_CONTEXT);
+    const { logged_in } = useContext(LOGIN_CONTEXT);
     const [error_message, set_error_message] = useState('');
 
     useEffect(() => 
     {
-        if(logged_in) { navigate('/dashboard'); }
+        if (logged_in) { navigate('/dashboard'); }
     }, [logged_in, navigate]);
 
     const is_valid_email = (email) =>
@@ -26,9 +26,9 @@ export default function ForgotPassword()
     {
         event.preventDefault();
         //send forgot request to server
-        if(!is_valid_email(email)) {set_error_message('Invalid email address.'); return;}
+        if (!is_valid_email(email)) { set_error_message('Invalid email address.'); return; }
 
-        axios.post('/forgot', {email});
+        axios.post('/forgot', { email });
         set_submitted(true);
         set_error_message('');
     };
@@ -46,9 +46,9 @@ export default function ForgotPassword()
                 <button className='bg-purple-400 rounded hover:bg-white h-8' type='submit'>Send code</button>
             </form>
             {submitted ?
-            <h1 className='text-center'>Check your email for a reset code. You can use it <span></span>
-                <a className='text-center text-purple-500 underline hover:text-black' href={'/reset?e=' + email}>here</a>.
-            </h1> : null}
+                <h1 className='text-center'>Check your email for a reset code. You can use it <span></span>
+                    <a className='text-center text-purple-500 underline hover:text-black' href={'/reset?e=' + email}>here</a>.
+                </h1> : null}
             {error_message !== '' ? <h1 className='text-center text-red-300'>{error_message}</h1> : null}
         </div>
     );

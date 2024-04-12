@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function Dropdown({title, content})
+export default function Dropdown({ title, content })
 {
     const [is_open, set_is_open] = useState(false);
 

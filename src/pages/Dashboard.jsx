@@ -10,63 +10,60 @@ import Profile from '../components/Profile';
 import Shop from '../components/Shop';
 
 export default function Dashboard()
-{   
+{
     const navigate = useNavigate();
-    const {logged_in} = useContext(LOGIN_CONTEXT);
+    const { logged_in } = useContext(LOGIN_CONTEXT);
     const [user, setUser] = useState({});
     const components = ['Profile', 'Articles', 'Shop'];
     const [current_component, set_current_component] = useState('');
     const params = useParams();
 
-    useEffect( () =>
+    useEffect(() =>
     {
         const get_user_data = async () => 
         {
-            try
-            {
+            try {
                 const access_token = Cookies.get('miracle_minutes_access_token');
-                const user_response = await axios.post('/user', {access_token});
+                const user_response = await axios.post('/user', { access_token });
                 let user_data = user_response.data;
-                user_data.purchases = user_data.purchases.map( (purchase) => {return purchase.S});
+                user_data.purchases = user_data.purchases.map((purchase) => { return purchase.S });
                 setUser(user_data);
             }
-            
-            catch (error)
-            {
+
+            catch (error) {
                 Cookies.remove('miracle_minutes_access_token');
                 Cookies.remove('miracle_minutes_refresh_token');
                 navigate('/login');
             }
-        }   
-        
-        if(!logged_in) { navigate('/login'); return; }
+        }
+
+        if (!logged_in) { navigate('/login'); return; }
 
         const new_current_component = params.component;
         console.log('new_current_component: ', new_current_component);
-        if(new_current_component) { set_current_component(new_current_component); }
+        if (new_current_component) { set_current_component(new_current_component); }
 
         get_user_data();
-        
+
     }, [logged_in, navigate, params.component]);
 
-    let rendered_component = <div/>;
+    let rendered_component = <div />;
 
-    switch(current_component.toLowerCase())
-    { 
+    switch (current_component.toLowerCase()) {
         case 'articles':
-            rendered_component = <Articles/>;
+            rendered_component = <Articles />;
             break;
         case 'shop':
-            rendered_component = <Shop user={user}/>;
+            rendered_component = <Shop user={user} />;
             break;
         default:
-            rendered_component = <Profile user={user}/>;
+            rendered_component = <Profile user={user} />;
             break;
     }
 
     return (
         <div className='bg-white flex flex-row h-full grow overflow-hidden'>
-            <Sidebar components={components}/>
+            <Sidebar components={components} />
             {rendered_component}
         </div>
     );

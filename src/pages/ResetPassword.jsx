@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
-import { useLocation, useNavigate} from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { LOGIN_CONTEXT } from '../App';
 
@@ -12,19 +12,18 @@ export default function ResetPassword()
     const [error_message, set_error_message] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
-    const {logged_in} = useContext(LOGIN_CONTEXT);
+    const { logged_in } = useContext(LOGIN_CONTEXT);
 
-    useEffect( () =>
+    useEffect(() =>
     {
-        if(logged_in) {navigate('/dashboard');}
+        if (logged_in) { navigate('/dashboard'); }
         const e = new URLSearchParams(location.search).get('e');
         set_email(e);
     }, [location.search, logged_in, navigate]);
 
     const handle_change = (event) =>
     {
-        switch(event.target.name)
-        {
+        switch (event.target.name) {
             case 'email':
                 set_email(event.target.value);
                 break;
@@ -44,25 +43,22 @@ export default function ResetPassword()
 
     const handle_submit = async (event) =>
     {
-        try
-        {
+        try {
             event.preventDefault();
-            
-            if(password !== confirm_password)
-            {
+
+            if (password !== confirm_password) {
                 alert('Passwords do not match!');
                 return;
             }
 
             //send reset request to server
-            await axios.post('/reset', {password, email, code});
+            await axios.post('/reset', { password, email, code });
 
             set_error_message('');
             navigate('/login');
         }
 
-        catch (error)
-        {
+        catch (error) {
             set_error_message(error.response.data.error);
         }
     }
@@ -79,7 +75,7 @@ export default function ResetPassword()
                     <button className='bg-purple-400 rounded hover:bg-white h-8' type='submit'>Reset password</button>
                 </form>
             </div>
-            
+
             {error_message !== '' ? <h1 className='text-center text-red-300'>{error_message}</h1> : null}
         </div>
     );

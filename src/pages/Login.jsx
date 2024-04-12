@@ -8,16 +8,15 @@ export default function Login()
 {
     const [email, set_email] = useState('');
     const [password, set_password] = useState('');
-    const {logged_in, set_logged_in} = useContext(LOGIN_CONTEXT);
+    const { logged_in, set_logged_in } = useContext(LOGIN_CONTEXT);
     const [error_message, set_error_message] = useState('');
     const navigate = useNavigate();
 
-    useEffect( () => { if(logged_in) { navigate('/dashboard'); } });
+    useEffect(() => { if (logged_in) { navigate('/dashboard'); } });
 
     const handle_change = (event) =>
     {
-        switch(event.target.name)
-        {
+        switch (event.target.name) {
             case 'email':
                 set_email(event.target.value);
                 break;
@@ -31,22 +30,20 @@ export default function Login()
 
     const handle_submit = async (event) =>
     {
-        try
-        {
+        try {
             event.preventDefault(); //prevent refresh
 
             //log in - needs to be hooked up to backend
-            let response = await axios.post('/login', {email: email, password: password});
+            let response = await axios.post('/login', { email: email, password: password });
 
-            Cookies.set('miracle_minutes_refresh_token', response.data.refresh_token, {expires: 30, path: '/'});
-            Cookies.set('miracle_minutes_access_token', response.data.access_token, {expires: 1, path: '/'});
+            Cookies.set('miracle_minutes_refresh_token', response.data.refresh_token, { expires: 30, path: '/' });
+            Cookies.set('miracle_minutes_access_token', response.data.access_token, { expires: 1, path: '/' });
             set_logged_in(true);
             set_error_message('');
             navigate('/dashboard');
         }
 
-        catch(error)
-        {
+        catch (error) {
             set_error_message(error.response.data.error);
         }
     }

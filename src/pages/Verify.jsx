@@ -8,15 +8,14 @@ export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
     const [email, set_email] = useState('');
     const [code, set_code] = useState('');
     const [error_message, set_error_message] = useState(''); //for displaying error messages
-    const {logged_in} = useContext(LOGIN_CONTEXT); //get the login state and the function to set the login state from the context
+    const { logged_in } = useContext(LOGIN_CONTEXT); //get the login state and the function to set the login state from the context
     const navigate = useNavigate();
     const location = useLocation();
 
-    useEffect( () =>
+    useEffect(() =>
     {
-        if(logged_in) { navigate('/dashboard'); }
-        else
-        {
+        if (logged_in) { navigate('/dashboard'); }
+        else {
             const e = new URLSearchParams(location.search).get('e');
             set_email(e);
         }
@@ -24,8 +23,7 @@ export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
 
     const handle_change = (event) =>
     {
-        switch(event.target.name)
-        {
+        switch (event.target.name) {
             case 'email':
                 set_email(event.target.value);
                 break;
@@ -39,33 +37,29 @@ export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
 
     const handle_submit = async (event) =>
     {
-        try
-        {
+        try {
             event.preventDefault(); //prevent refresh
 
-            await axios.post('/verify', {email, code});
+            await axios.post('/verify', { email, code });
 
             set_error_message('');
             navigate('/login');
         }
 
-        catch (error)
-        {
+        catch (error) {
             set_error_message(error.response.data.error);
         }
-        
+
     }
 
     const handle_resend = async () =>
     {
-        try
-        {
-            await axios.post('/reset', {email});
+        try {
+            await axios.post('/reset', { email });
             set_error_message('');
         }
 
-        catch (error)
-        {
+        catch (error) {
             set_error_message(error.response.data.error);
         }
     }
@@ -75,8 +69,8 @@ export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
             <div className='flex flex-col bg-gray-400 p-16 rounded-md shadow-lg'>
                 <form className='flex flex-col grid content-center space-y-2' noValidate onSubmit={handle_submit}>
                     <h1 className='text-center'>Check your inbox and input your email and verification code!</h1>
-                    <input className='bg-gray-300 rounded h-8 p-4 focus:outline-none' type='email' placeholder='Email' name='email' onChange={handle_change} value={email}/>
-                    <input className='bg-gray-300 rounded h-8 p-4 focus:outline-none' type='code' placeholder='Code' name='code' onChange={handle_change}/>
+                    <input className='bg-gray-300 rounded h-8 p-4 focus:outline-none' type='email' placeholder='Email' name='email' onChange={handle_change} value={email} />
+                    <input className='bg-gray-300 rounded h-8 p-4 focus:outline-none' type='code' placeholder='Code' name='code' onChange={handle_change} />
                     <button className='bg-purple-400 rounded hover:bg-white h-8' type='submit'>Verify</button>
                     <button className='underline text-white' onClick={handle_resend}>Didn't get your code? Resend.</button>
                 </form>

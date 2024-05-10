@@ -12,6 +12,7 @@ import Dashboard from './pages/Dashboard';
 import Verify from './pages/Verify';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
+import Plans from './pages/Plans';
 
 export const LOGIN_CONTEXT = createContext({ logged_in: false, set_logged_in: () => { } }); //declare context with filler values
 
@@ -96,6 +97,7 @@ export default function App()
               <Route path='/verify' element={<Verify />} />
               <Route path='/forgot' element={<ForgotPassword />} />
               <Route path='/reset' element={<ResetPassword />} />
+              <Route path='/plans' element={<Plans />} />
               <Route path='*' element={<Navigate to='/' replace />} />
             </Routes>
           </div>

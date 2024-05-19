@@ -1,4 +1,4 @@
-import PlanCard from "../components/PlanCard";
+import PlanCard from '../components/PlanCard';
 
 export default function Plans()
 {

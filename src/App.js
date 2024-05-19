@@ -13,20 +13,25 @@ import Verify from './pages/Verify';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import Plans from './pages/Plans';
+import { has_error } from './helpers';
 
-export const LOGIN_CONTEXT = createContext({ logged_in: false, set_logged_in: () => { } }); //declare context with filler values
+//declare contexts with filler values
+export const LOGIN_CONTEXT = createContext({ logged_in: false, set_logged_in: () => { } });
+export const USER_CONTEXT = createContext({ user: {}, set_user: () => { } });
 
 //axios.defaults.baseURL = 'http://localhost:3001/api';
 axios.defaults.baseURL = 'https://e8ps8qunza.execute-api.us-east-1.amazonaws.com/api';
 
 const refresh_access_token = async () =>
 {
-  try {
+  try
+  {
     const cookie_refresh_token = Cookies.get('miracle_minutes_refresh_token');
 
-    if (cookie_refresh_token) {
-      const refresh_token_result = await axios.post('/refresh', { refresh_token: cookie_refresh_token });
-      const access_token = refresh_token_result.data.access_token;
+    if (cookie_refresh_token)
+    {
+      const refresh_result = await axios.post('/refresh', { refresh_token: cookie_refresh_token });
+      const access_token = refresh_result.data.access_token;
 
       return access_token;
     }
@@ -34,7 +39,8 @@ const refresh_access_token = async () =>
     return undefined;
   }
 
-  catch (error) {
+  catch (error)
+  {
     Cookies.remove('miracle_minutes_access_token');
     Cookies.remove('miracle_minutes_refresh_token');
     return undefined;
@@ -44,8 +50,9 @@ const refresh_access_token = async () =>
 export default function App()
 {
   const [logged_in, set_logged_in] = useState(null);
+  const [user, set_user] = useState({});
 
-  useEffect(() => 
+  useEffect(() =>
   {
     async function check_tokens_and_login()
     {
@@ -53,19 +60,25 @@ export default function App()
       // refresh tokens
       const access_token = await refresh_access_token();
 
-      if (access_token) {
+      if (access_token)
+      {
         Cookies.set('miracle_minutes_access_token', access_token, { expires: 1, path: '/' });
 
         // now check if token valid
         const user_token_result = await axios.post('/user', { access_token });
-        const token_valid = !user_token_result.data.hasOwnProperty('error');
+        const token_valid = !has_error(user_token_result.data);
 
-        //if so, log in
+        // put user details into context
+        if (token_valid)
+        {
+          set_user(user_token_result.data);
+        }
         set_logged_in(token_valid);
       }
 
       // if refreshing failed, abort and just set logged in to false
-      else {
+      else
+      {
         console.log('refreshing failed');
         set_logged_in(false);
         Cookies.remove('miracle_minutes_refresh_token');
@@ -85,23 +98,25 @@ export default function App()
       :
 
       <LOGIN_CONTEXT.Provider value={{ logged_in, set_logged_in }}>
-        <Router>
-          <div className='flex flex-col justify-center bg-white h-screen'>
-            <Navbar />
-            <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path='/login' element={<Login />} />
-              <Route path='/signup' element={<Signup />} />
-              <Route path='/dashboard/:component' element={<Dashboard />} />
-              <Route path='/dashboard/' element={<Dashboard />} />
-              <Route path='/verify' element={<Verify />} />
-              <Route path='/forgot' element={<ForgotPassword />} />
-              <Route path='/reset' element={<ResetPassword />} />
-              <Route path='/plans' element={<Plans />} />
-              <Route path='*' element={<Navigate to='/' replace />} />
-            </Routes>
-          </div>
-        </Router>
+        <USER_CONTEXT.Provider value={{ user, set_user }}>
+          <Router>
+            <div className='flex flex-col justify-center bg-white h-screen'>
+              <Navbar />
+              <Routes>
+                <Route path='/' element={<Home />} />
+                <Route path='/login' element={<Login />} />
+                <Route path='/signup' element={<Signup />} />
+                <Route path='/dashboard/:component' element={<Dashboard />} />
+                <Route path='/dashboard/' element={<Dashboard />} />
+                <Route path='/verify' element={<Verify />} />
+                <Route path='/forgot' element={<ForgotPassword />} />
+                <Route path='/reset' element={<ResetPassword />} />
+                <Route path='/plans' element={<Plans />} />
+                <Route path='*' element={<Navigate to='/' replace />} />
+              </Routes>
+            </div>
+          </Router>
+        </USER_CONTEXT.Provider>
       </LOGIN_CONTEXT.Provider>
   );
 }

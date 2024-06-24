@@ -1,13 +1,13 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export default function PlanCard({ name, price, description, features, id })
 {
-
+    const navigate = useNavigate();
     const button_style_string = 'bg-purple-300 text-center hover:bg-black text-black font-bold py-2 px-4 border-2 border-black hover:border-transparent hover:text-white rounded-full cursor-pointer mx-2';
 
     const on_free_trial = () =>
     {
-        console.log('Free trial started for plan: ', id);
+        navigate('/signup?p=' + id);
     }
 
     return (
@@ -21,7 +21,7 @@ export default function PlanCard({ name, price, description, features, id })
                 <ul>
                     {features.map((feature, index) => <li key={index}>{'- ' + feature}</li>)}
                 </ul>
-                <Link className={button_style_string} to='/signup' onClick={on_free_trial}>Start Free Trial!</Link>
+                <button className={button_style_string} onClick={on_free_trial}>Start Free Trial!</button>
             </div>
         </div>
     );

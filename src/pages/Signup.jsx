@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 import { LOGIN_CONTEXT } from '../App';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Signup()
@@ -12,11 +12,15 @@ export default function Signup()
     const [error_message, set_error_message] = useState(''); //for displaying error messages
     const navigate = useNavigate();
 
+    const location = useLocation();
+    const plan_to_buy_id = new URLSearchParams(location.search).get('p');
+
     useEffect(() => { if (logged_in) { navigate('/dashboard'); } });
 
     const handle_change = (event) =>
     {
-        switch (event.target.name) {
+        switch (event.target.name)
+        {
             case 'email':
                 set_email(event.target.value);
                 break;
@@ -33,10 +37,12 @@ export default function Signup()
 
     const handle_submit = async (event) =>
     {
-        try {
+        try
+        {
             event.preventDefault(); //prevent refresh
 
-            if (password !== confirm_password) {
+            if (password !== confirm_password)
+            {
                 alert('Passwords do not match!');
                 return;
             }
@@ -44,27 +50,30 @@ export default function Signup()
             await axios.post('/signup', { email: email, password: password });
 
             set_error_message('');
-            navigate('/verify?e=' + email);
+            navigate('/verify?e=' + email + '&p=' + plan_to_buy_id);
         }
 
-        catch (error) {
+        catch (error)
+        {
             set_error_message(error.response.data.error);
         }
     }
 
+    //styles
+    const login_button_style_string = 'bg-purple-300 hover:bg-black text-black font-bold py-2 px-4 border-2 border-black hover:border-transparent hover:text-white rounded-full cursor-pointer mx-2';
+    const input_field_style = 'bg-gray-300 rounded h-12 p-4 border-gray-600 border-2 focus:outline-none';
+
     return (
-        <div className='bg-white flex justify-center h-full grid content-center'>
-            <div className='flex flex-col bg-gray-400 p-16 rounded-md shadow-lg'>
-                <form className='flex flex-col space-y-2' noValidate onSubmit={handle_submit}>
-                    <h1 className='text-center text-5xl p-4'>Sign up</h1>
-                    <input className='bg-gray-300 rounded h-8 p-4 focus:outline-none' type='email' placeholder='Email' name='email' onChange={handle_change} />
-                    <input className='bg-gray-300 rounded h-8 p-4 focus:outline-none' type='password' placeholder='Password' name='password' onChange={handle_change} />
-                    <input className='bg-gray-300 rounded h-8 p-4 focus:outline-none' type='password' placeholder='Confirm Password' name='confirmPassword' onChange={handle_change} />
-                    <button className='bg-purple-400 rounded hover:bg-white h-8 shadow-lg' type='submit'>Sign up</button>
-                </form>
-                <h1 className='text-center'><a className='underline text-white' href='/login'>Already have an account? Log in!</a></h1>
-            </div>
-            {error_message !== '' ? <p className='text-center text-red-300'>{error_message}</p> : null}
+        <div className='bg-slate-200 flex justify-center items-center h-full'>
+            <form className='bg-gray-400 flex flex-col justify-center p-16 rounded-md shadow-lg border-2 border-black h-2/3 w-2/3 xl:w-1/3 space-y-8' noValidate onSubmit={handle_submit}>
+                <h1 className='text-center text-5xl p-4'>Sign up</h1>
+                <h1>Already have an account? <a className='underline text-white' href='/login'>Log in!</a></h1>
+                <input className={input_field_style} type='email' placeholder='Email' name='email' onChange={handle_change} />
+                <input className={input_field_style} type='password' placeholder='Password' name='password' onChange={handle_change} />
+                <input className={input_field_style} type='password' placeholder='Confirm Password' name='confirmPassword' onChange={handle_change} />
+                <button className={login_button_style_string} type='submit'>Sign up</button>
+                {error_message !== '' ? <p className='text-center text-red-300'>{error_message}</p> : null}
+            </form>
         </div>
     );
 }

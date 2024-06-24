@@ -10,8 +10,8 @@ export default function Navbar()
   const { logged_in, set_logged_in } = useContext(LOGIN_CONTEXT);
   const navigate = useNavigate();
 
-  const login_button_style_string = 'bg-transparent hover:bg-black text-black font-bold py-2 px-4 border-2 border-black hover:border-transparent hover:text-white rounded-full cursor-pointer mx-2';
-  const signup_button_style_string = 'bg-black hover:bg-purple-700 text-white font-bold py-2 px-4 border-2 border-black rounded-full cursor-pointer mx-2';
+  const login_button_style_string = 'bg-transparent hover:bg-black text-center text-black font-bold py-2 px-4 border-2 border-black hover:border-transparent hover:text-white rounded-full cursor-pointer mx-2';
+  const signup_button_style_string = 'bg-black hover:bg-purple-700 text-center text-white font-bold py-2 px-4 border-2 border-black rounded-full cursor-pointer mx-2';
 
   const logout = () =>
   {

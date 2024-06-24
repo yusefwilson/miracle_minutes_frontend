@@ -91,7 +91,7 @@ export default function App()
   return (
     logged_in === null ?
 
-      <div className='flex justify-center items-center h-screen bg-white'>
+      <div className='flex justify-center items-center h-screen bg-blue-100'>
         <img src='/gif/breathing_hourglass.gif' alt='Loading...' width='512' />
       </div>
 
@@ -100,7 +100,7 @@ export default function App()
       <LOGIN_CONTEXT.Provider value={{ logged_in, set_logged_in }}>
         <USER_CONTEXT.Provider value={{ user, set_user }}>
           <Router>
-            <div className='flex flex-col justify-center bg-white h-screen'>
+            <div className='flex flex-col justify-center bg-blue-100 h-screen'>
               <Navbar />
               <Routes>
                 <Route path='/' element={<Home />} />

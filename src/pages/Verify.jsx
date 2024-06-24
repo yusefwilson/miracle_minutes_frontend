@@ -11,11 +11,13 @@ export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
     const { logged_in } = useContext(LOGIN_CONTEXT); //get the login state and the function to set the login state from the context
     const navigate = useNavigate();
     const location = useLocation();
+    const plan_to_buy_id = new URLSearchParams(location.search).get('p');
 
     useEffect(() =>
     {
         if (logged_in) { navigate('/dashboard'); }
-        else {
+        else
+        {
             const e = new URLSearchParams(location.search).get('e');
             set_email(e);
         }
@@ -23,7 +25,8 @@ export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
 
     const handle_change = (event) =>
     {
-        switch (event.target.name) {
+        switch (event.target.name)
+        {
             case 'email':
                 set_email(event.target.value);
                 break;
@@ -37,16 +40,18 @@ export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
 
     const handle_submit = async (event) =>
     {
-        try {
+        try
+        {
             event.preventDefault(); //prevent refresh
 
             await axios.post('/verify', { email, code });
 
             set_error_message('');
-            navigate('/login');
+            navigate('/login?p=' + plan_to_buy_id);
         }
 
-        catch (error) {
+        catch (error)
+        {
             set_error_message(error.response.data.error);
         }
 
@@ -54,12 +59,14 @@ export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
 
     const handle_resend = async () =>
     {
-        try {
+        try
+        {
             await axios.post('/reset', { email });
             set_error_message('');
         }
 
-        catch (error) {
+        catch (error)
+        {
             set_error_message(error.response.data.error);
         }
     }

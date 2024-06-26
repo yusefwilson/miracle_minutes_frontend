@@ -100,7 +100,7 @@ export default function App()
       <LOGIN_CONTEXT.Provider value={{ logged_in, set_logged_in }}>
         <USER_CONTEXT.Provider value={{ user, set_user }}>
           <Router>
-            <div className='flex flex-col justify-center bg-blue-100 h-screen'>
+            <div className='flex flex-col bg-blue-100 h-screen'>
               <Navbar />
               <Routes>
                 <Route path='/' element={<Home />} />

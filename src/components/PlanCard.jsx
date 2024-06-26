@@ -11,7 +11,7 @@ export default function PlanCard({ name, price, description, features, id })
     }
 
     return (
-        <div className='flex flex-col border-4 w-1/5 h-3/5 rounded-lg'>
+        <div className='bg-gray-400 flex flex-col border-2 border-black rounded-lg'>
             <div className='flex flex-col grow p-8 gap-4'>
                 <h2 className='text-2xl font-bold'>{name}</h2>
                 <h3 className='text-xl font-bold'>${price + '/month'}</h3>

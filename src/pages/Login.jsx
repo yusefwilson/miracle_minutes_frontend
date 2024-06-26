@@ -56,7 +56,7 @@ export default function Login()
 
     return (
         <div className='bg-slate-200 flex justify-center items-center h-full'>
-            <form className='flex flex-col justify-center bg-gray-400 p-16 rounded-md shadow-lg border-2 border-black h-2/3 w-2/3 xl:w-1/3 space-y-8' noValidate onSubmit={handle_submit}>
+            <form className='flex flex-col justify-center bg-gray-400 p-16 rounded-md shadow-lg border-2 border-black h-4/5 w-2/3 xl:w-1/3 space-y-8' noValidate onSubmit={handle_submit}>
                 <h1 className='text-center text-5xl p-4'>Log in</h1>
                 <h2>Need an account? <a className='text-white underline' href='/signup'>Create one!</a></h2>
                 <input className='bg-gray-300 rounded h-12 p-4 border-gray-600 border-2 focus:outline-none' type='email' placeholder='Email' name='email' onChange={handle_change} />

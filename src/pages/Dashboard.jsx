@@ -62,7 +62,7 @@ export default function Dashboard()
     }
 
     return (
-        <div className='bg-white flex flex-row h-full grow overflow-hidden'>
+        <div className='bg-slate-200 flex flex-row h-full space-x-4'>
             <Sidebar components={components} />
             {rendered_component}
         </div>

@@ -65,7 +65,7 @@ export default function Signup()
 
     return (
         <div className='bg-slate-200 flex justify-center items-center h-full'>
-            <form className='bg-gray-400 flex flex-col justify-center p-16 rounded-md shadow-lg border-2 border-black h-2/3 w-2/3 xl:w-1/3 space-y-8' noValidate onSubmit={handle_submit}>
+            <form className='bg-gray-400 flex flex-col justify-center p-16 rounded-md shadow-lg border-2 border-black h-4/5 w-2/3 xl:w-1/3 space-y-8' noValidate onSubmit={handle_submit}>
                 <h1 className='text-center text-5xl p-4'>Sign up</h1>
                 <h1>Already have an account? <a className='underline text-white' href='/login'>Log in!</a></h1>
                 <input className={input_field_style} type='email' placeholder='Email' name='email' onChange={handle_change} />

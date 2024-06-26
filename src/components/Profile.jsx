@@ -43,11 +43,11 @@ export default function Profile({ user })
 
             :
 
-            <div className='bg-white w-full justify-center grid content-center'>
+            <div className='bg-slate-200 w-full justify-center grid content-center'>
 
-                <div className='bg-gray-400 p-16 rounded shadow-lg space-y-8 flex flex-col'>
+                <div className='bg-gray-400 p-16 border-2 border-black rounded shadow-lg space-y-8 flex flex-col'>
                     <h1 className='text-center text-5xl'>Profile</h1>
-                    <p className='text-center bg-gray-300 rounded p-2'>Email: {user.email}</p>
+                    <p className='text-center bg-gray-300 rounded p-2 border-2 border-black'>Email: {user.email}</p>
 
                     {
                         user.purchases?.length > 0 ?
@@ -57,12 +57,12 @@ export default function Profile({ user })
                             </div>
 
                             :
-                            <p className='text-center bg-gray-300 rounded p-2'>Purchases: None. Visit
+                            <p className='text-center bg-gray-300 rounded p-2 border-2 border-black'>Purchases: None. Visit
                                 <button className='text-center underline text-purple-600 p-1' onClick={() => navigate('/dashboard/shop')}>Shop!</button>
                             </p>
                     }
 
-                    <p className='text-center bg-gray-300 rounded p-2'>Referral code: {user.referral_code}</p>
+                    <p className='text-center bg-gray-300 rounded p-2 border-2 border-black'>Referral code: {user.referral_code}</p>
                     <button className='underline text-white text-center' onClick={logout_and_redirect_to_forgot}>Change password (will log you out)</button>
                 </div>
                 <p className='text-center text-red-300'>{error_message !== '' ? error_message : null}</p>

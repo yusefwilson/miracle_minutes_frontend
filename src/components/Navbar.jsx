@@ -22,7 +22,7 @@ export default function Navbar()
   }
 
   return (
-    <div className='flex shrink-0 flex-row bg-purple-300 justify-between p-2 z-10 border-b-2'>
+    <div className='sticky top-0 left-0 flex flex-row bg-purple-300 justify-between p-2 z-10'>
       <div className='flex items-center'>
         <img className='cursor-pointer' src='/img/hourglass_purple_transparent.png' alt='Logo' width='64' onClick={() => navigate('/')} />
         <Link className='text-2xl font-bold text-black ml-2' to='/'>Miracle Minutes</Link>

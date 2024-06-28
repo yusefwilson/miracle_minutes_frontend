@@ -14,6 +14,7 @@ import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import Plans from './pages/Plans';
 import { has_error } from './helpers';
+import Loading from './components/Loading';
 
 //declare contexts with filler values
 export const LOGIN_CONTEXT = createContext({ logged_in: false, set_logged_in: () => { } });
@@ -91,10 +92,8 @@ export default function App()
   return (
     logged_in === null ?
 
-      <div className='flex justify-center items-center h-screen bg-blue-100'>
-        <img src='/gif/breathing_hourglass.gif' alt='Loading...' width='512' />
-      </div>
-
+      <Loading/>
+      
       :
 
       <LOGIN_CONTEXT.Provider value={{ logged_in, set_logged_in }}>

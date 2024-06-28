@@ -3,6 +3,7 @@ import { LOGIN_CONTEXT } from '../App'
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Loading from './Loading';
 
 export default function Profile({ user })
 {
@@ -37,15 +38,13 @@ export default function Profile({ user })
     return (
         Object.keys(user).length === 0 ?
 
-            <div className='h-full w-full flex justify-center grid content-center'>
-                <img src='/gif/breathing_hourglass.gif' alt='Loading...' width='300'></img>
-            </div>
+            <Loading/>
 
             :
 
             <div className='bg-slate-200 w-full justify-center grid content-center'>
 
-                <div className='bg-gray-400 p-16 border-2 border-black rounded shadow-lg space-y-8 flex flex-col'>
+                <div className='bg-gray-400 p-16 border-2 border-black rounded shadow-lg space-y-8 flex flex-col h-full'>
                     <h1 className='text-center text-5xl'>Profile</h1>
                     <p className='text-center bg-gray-300 rounded p-2 border-2 border-black'>Email: {user.email}</p>
 

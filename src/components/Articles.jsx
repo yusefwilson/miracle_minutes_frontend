@@ -4,6 +4,7 @@ import { LOGIN_CONTEXT } from '../App';
 import Dropdown from './Dropdown';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import Loading from './Loading';
 
 const _get_utc_date = () =>
 {
@@ -66,9 +67,7 @@ export default function Articles()
     return (
         articles === null ?
 
-            <div className='h-full w-full flex justify-center grid content-center'>
-                <img src='/gif/breathing_hourglass.gif' alt='Loading...' width='300' />
-            </div>
+            <Loading/>
 
             :
 

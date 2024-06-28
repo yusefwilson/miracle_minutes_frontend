@@ -44,25 +44,25 @@ export default function Profile({ user })
 
             <div className='bg-slate-200 w-full justify-center grid content-center'>
 
-                <div className='bg-gray-400 p-16 border-2 border-black rounded shadow-lg space-y-8 flex flex-col h-full'>
-                    <h1 className='text-center text-5xl'>Profile</h1>
-                    <p className='text-center bg-gray-300 rounded p-2 border-2 border-black'>Email: {user.email}</p>
+                <div className='bg-gray-400 p-2 lg:p-16 border-2 border-black rounded shadow-lg space-y-8 flex flex-col h-full items-center'>
+                    <h1 className='text-center text-2xl lg:text-5xl'>Profile</h1>
+                    <p className='text-center bg-gray-300 rounded p-2 border-2 border-black w-3/5'>Email: {user.email}</p>
 
                     {
                         user.purchases?.length > 0 ?
-                            <div className='flex flex-row bg-gray-300 rounded'>
+                            <div className='flex flex-row bg-gray-300 rounded w-3/5'>
                                 <p className='text-center bg-gray-300 rounded p-2'>Purchases: {purchase_string}</p>
                                 <button className='text-center bg-purple-400 rounded-md p-1 border-2 border-gray-300 hover:bg-white' onClick={redirect_to_portal}>Manage</button>
                             </div>
 
                             :
-                            <p className='text-center bg-gray-300 rounded p-2 border-2 border-black'>Purchases: None. Visit
+                            <p className='text-center bg-gray-300 rounded p-2 border-2 border-black w-3/5'>Purchases: None. Visit
                                 <button className='text-center underline text-purple-600 p-1' onClick={() => navigate('/dashboard/shop')}>Shop!</button>
                             </p>
                     }
 
-                    <p className='text-center bg-gray-300 rounded p-2 border-2 border-black'>Referral code: {user.referral_code}</p>
-                    <button className='underline text-white text-center' onClick={logout_and_redirect_to_forgot}>Change password (will log you out)</button>
+                    <p className='text-center bg-gray-300 rounded p-2 border-2 border-black w-3/5'>Referral code: {user.referral_code}</p>
+                    <button className='underline text-white text-center w-3/5' onClick={logout_and_redirect_to_forgot}>Change password (will log you out)</button>
                 </div>
                 <p className='text-center text-red-300'>{error_message !== '' ? error_message : null}</p>
 

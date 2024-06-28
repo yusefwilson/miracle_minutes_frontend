@@ -52,7 +52,7 @@ export default function Login()
     }
 
     //styles
-    const login_button_style_string = 'bg-purple-300 hover:bg-black text-center text-black font-bold py-2 px-4 border-2 border-black hover:border-transparent hover:text-white rounded-full cursor-pointer mx-2';
+    const button_style_string = 'bg-purple-300 hover:bg-black text-center text-black font-bold py-2 px-4 border-2 border-black hover:border-transparent hover:text-white rounded-full cursor-pointer mx-2';
 
     return (
         <div className='bg-slate-200 flex justify-center items-center h-full'>
@@ -61,7 +61,7 @@ export default function Login()
                 <h2>Need an account? <a className='text-white underline' href='/signup'>Create one!</a></h2>
                 <input className='bg-gray-300 rounded h-12 p-4 border-gray-600 border-2 focus:outline-none' type='email' placeholder='Email' name='email' onChange={handle_change} />
                 <input className='bg-gray-300 rounded h-12 p-4 border-gray-600 border-2 focus:outline-none' type='password' placeholder='Password' name='password' onChange={handle_change} />
-                <button className={login_button_style_string} type='submit'>Log in</button>
+                <button className={button_style_string} type='submit'>Log in</button>
                 <h1 className='text-center'> <a className='underline text-white' href='/forgot'>Forgot your password?</a> </h1>
                 {error_message !== '' ? <p className='text-center text-red-300'>{error_message}</p> : null}
             </form>

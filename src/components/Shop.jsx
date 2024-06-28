@@ -81,8 +81,8 @@ export default function Shop({ user })
             <div className='bg-slate-200 w-full justify-center grid content-center'>
 
 
-                <div className='bg-gray-400 flex flex-col justify-center space-y-4 rounded p-16 border-2 border-black'>
-                    <h1 className='text-center text-5xl'>Shop</h1>
+                <div className='bg-gray-400 flex flex-col justify-center space-y-4 rounded p-2 lg:p-16 border-2 border-black'>
+                    <h1 className='text-center text-2xl lg:text-5xl'>Shop</h1>
                     {all_products?.map((product) =>
                     {
                         // if the user has already purchased the product, make the checkbox uncheckable

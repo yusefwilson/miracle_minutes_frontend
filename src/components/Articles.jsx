@@ -72,8 +72,8 @@ export default function Articles()
             :
 
             <div className='flex flex-col grid content-center justify-center bg-slate-200 p-4 w-full overflow-y-auto'>
-                <div className='bg-gray-400 rounded overflow-y-auto p-16 space-y-8 flex flex-col justify-center border-2 border-black'>
-                    <h1 className='text-center text-5xl'>Articles</h1>
+                <div className='bg-gray-400 rounded overflow-y-auto p-4 lg:p-16 space-y-8 flex flex-col justify-center border-2 border-black'>
+                    <h1 className='text-center text-2xl lg:text-5xl'>Articles</h1>
                     <input className='focus:outline-none border-2 border-black p-2 rounded-md' type='date' value={date} onChange={handle_date_change} />
                     <div className='flex flex-col space-y-8'>
                         {articles.map((article) => <Dropdown key={article.category} title={article.category} content={article.article} />)}

@@ -22,23 +22,34 @@ export default function Profile({ user })
 
     const redirect_to_portal = async () =>
     {
-        try {
+        try
+        {
             const access_token = Cookies.get('miracle_minutes_access_token');
             const portal_link_result = await axios.post('/portal', { access_token });
             window.open(portal_link_result.data.portal_url, '_blank', 'noopener,noreferrer');
         }
 
-        catch (error) {
+        catch (error)
+        {
             set_error_message('There has been an error. Please try again.');
         }
     }
 
-    const purchase_string = user.purchases?.join(', ');
+    const plan_names = {
+        0: 'None',
+        1: 'Basic',
+        2: 'Standard',
+        3: 'Premium'
+    };
+
+    //styles
+
+    const button_style_string = 'bg-purple-300 hover:bg-black text-center text-black font-bold py-2 px-4 border-2 border-black hover:border-transparent hover:text-white rounded-full cursor-pointer mx-2';
 
     return (
         Object.keys(user).length === 0 ?
 
-            <Loading/>
+            <Loading />
 
             :
 
@@ -46,23 +57,23 @@ export default function Profile({ user })
 
                 <div className='bg-gray-400 p-2 lg:p-16 border-2 border-black rounded shadow-lg space-y-8 flex flex-col h-full items-center'>
                     <h1 className='text-center text-2xl lg:text-5xl'>Profile</h1>
-                    <p className='text-center bg-gray-300 rounded p-2 border-2 border-black w-3/5'>Email: {user.email}</p>
+                    <p className='text-center bg-gray-300 rounded p-2 border-2 border-black'>Email: {user.email}</p>
 
                     {
-                        user.purchases?.length > 0 ?
-                            <div className='flex flex-row bg-gray-300 rounded w-3/5'>
-                                <p className='text-center bg-gray-300 rounded p-2'>Purchases: {purchase_string}</p>
-                                <button className='text-center bg-purple-400 rounded-md p-1 border-2 border-gray-300 hover:bg-white' onClick={redirect_to_portal}>Manage</button>
+                        user.plan.plan_id !== 0 ?
+                            <div className='flex flex-row items-center bg-gray-300 rounded p-2 border-2 border-black'>
+                                <p className='text-center bg-gray-300 rounded p-2'>Plan: {plan_names[user.plan.plan_id]}</p>
+                                <button className={button_style_string} onClick={redirect_to_portal}>Manage</button>
                             </div>
 
                             :
-                            <p className='text-center bg-gray-300 rounded p-2 border-2 border-black w-3/5'>Purchases: None. Visit
-                                <button className='text-center underline text-purple-600 p-1' onClick={() => navigate('/dashboard/shop')}>Shop!</button>
+                            <p className='text-center bg-gray-300 rounded p-2 border-2 border-black'>Plan: None. Visit
+                                <button className={button_style_string} onClick={() => navigate('/dashboard/shop')}>Shop!</button>
                             </p>
                     }
 
-                    <p className='text-center bg-gray-300 rounded p-2 border-2 border-black w-3/5'>Referral code: {user.referral_code}</p>
-                    <button className='underline text-white text-center w-3/5' onClick={logout_and_redirect_to_forgot}>Change password (will log you out)</button>
+                    <p className='text-center bg-gray-300 rounded p-2 border-2 border-black'>Referral code: {user.referral_code}</p>
+                    <button className='underline text-white text-center' onClick={logout_and_redirect_to_forgot}>Change password (will log you out)</button>
                 </div>
                 <p className='text-center text-red-300'>{error_message !== '' ? error_message : null}</p>
 

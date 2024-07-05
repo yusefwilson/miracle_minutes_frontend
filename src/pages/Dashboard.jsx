@@ -24,9 +24,10 @@ export default function Dashboard()
         {
             try {
                 const access_token = Cookies.get('miracle_minutes_access_token');
+                console.log('posting in dashboard with access token: ', access_token)
                 const user_response = await axios.post('/user', { access_token });
+                console.log('user_response: ', user_response.data);
                 let user_data = user_response.data;
-                user_data.purchases = user_data.purchases.map((purchase) => { return purchase.S });
                 setUser(user_data);
             }
 
@@ -40,6 +41,7 @@ export default function Dashboard()
         if (!logged_in) { navigate('/login'); return; }
 
         const new_current_component = params.component;
+        console.log('params.component: ', params.component)
         console.log('new_current_component: ', new_current_component);
         if (new_current_component) { set_current_component(new_current_component); }
 

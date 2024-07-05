@@ -48,3 +48,33 @@ export const has_error = (response) =>
 {
     return response.hasOwnProperty('error');
 }
+
+export const name_to_plan_id = (name) =>
+{
+    switch (name)
+    {
+        case 'Basic':
+            return 1;
+        case 'Standard':
+            return 2;
+        case 'Premium':
+            return 3;
+        default:
+            return 0;
+    }
+}
+
+export const plan_id_to_name = (plan_id) =>
+{
+    switch (plan_id)
+    {
+        case 1:
+            return 'Basic';
+        case 2:
+            return 'Standard';
+        case 3:
+            return 'Premium';
+        default:
+            return 'No plan';
+    }
+}

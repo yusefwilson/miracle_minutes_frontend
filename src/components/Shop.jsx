@@ -16,7 +16,9 @@ export default function Shop({ user })
             try
             {
                 const all_plans_response = await axios.get('/all_plans');
-                set_all_plans(all_plans_response.data.products);
+                console.log("ALL PLANS RESPONSE: ", all_plans_response);
+                set_all_plans(all_plans_response.data.plans);
+                console.log("ALL PLANS: ", all_plans_response.data.plans);
             }
 
             catch (error)
@@ -64,7 +66,7 @@ export default function Shop({ user })
     // take the user's purchases, subtract them from the current products, and only display the remaining products as checkboxes
     return (
 
-        all_plans.length === 0 ?
+        all_plans?.length === 0 ?
 
             <Loading />
 

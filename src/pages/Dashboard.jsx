@@ -8,13 +8,14 @@ import Sidebar from '../components/Sidebar';
 import Articles from '../components/Articles';
 import Profile from '../components/Profile';
 import Shop from '../components/Shop';
+import Topics from '../components/Topics';
 
 export default function Dashboard()
 {
     const navigate = useNavigate();
     const { logged_in } = useContext(LOGIN_CONTEXT);
-    const [user, setUser] = useState({});
-    const components = ['Profile', 'Articles', 'Shop'];
+    const [user, set_user] = useState({});
+    const components = ['Profile', 'Articles', 'Shop', 'Topics'];
     const [current_component, set_current_component] = useState('');
     const params = useParams();
 
@@ -28,7 +29,7 @@ export default function Dashboard()
                 const user_response = await axios.post('/user', { access_token });
                 console.log('user_response: ', user_response.data);
                 let user_data = user_response.data;
-                setUser(user_data);
+                set_user(user_data);
             }
 
             catch (error) {
@@ -57,6 +58,9 @@ export default function Dashboard()
             break;
         case 'shop':
             rendered_component = <Shop user={user} />;
+            break;
+        case 'topics':
+            rendered_component = <Topics user={user} />;
             break;
         default:
             rendered_component = <Profile user={user} />;

@@ -13,6 +13,7 @@ import Verify from './pages/Verify';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import Plans from './pages/Plans';
+import Topics from './components/Topics';
 import { has_error } from './helpers';
 import Loading from './components/Loading';
 
@@ -111,6 +112,7 @@ export default function App()
                 <Route path='/forgot' element={<ForgotPassword />} />
                 <Route path='/reset' element={<ResetPassword />} />
                 <Route path='/plans' element={<Plans />} />
+                <Route path='/topics' element={<Topics />} />
                 <Route path='*' element={<Navigate to='/' replace />} />
               </Routes>
             </div>

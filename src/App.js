@@ -32,12 +32,14 @@ const refresh_access_token = async () =>
 
     if (cookie_refresh_token)
     {
+      console.log('cookie refresh token found');
       const refresh_result = await axios.post('/refresh', { refresh_token: cookie_refresh_token });
       const access_token = refresh_result.data.access_token;
 
       return access_token;
     }
 
+    console.log('no refresh token found in cookies');
     return undefined;
   }
 
@@ -74,6 +76,7 @@ export default function App()
         if (token_valid)
         {
           set_user(user_token_result.data);
+          console.log('token valid, user: ', user_token_result.data);
         }
         set_logged_in(token_valid);
       }

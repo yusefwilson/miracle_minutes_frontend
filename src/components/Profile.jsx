@@ -44,7 +44,7 @@ export default function Profile({ user })
 
     //styles
 
-    const button_style_string = 'bg-purple-300 hover:bg-black text-center text-black font-bold py-2 px-4 border-2 border-black hover:border-transparent hover:text-white rounded-full cursor-pointer mx-2';
+    const button_style_string = 'bg-purple-300 hover:bg-black text-center text-black font-bold p-2 border-2 border-black hover:border-transparent hover:text-white rounded-full cursor-pointer mx-2';
 
     return (
         Object.keys(user).length === 0 ?
@@ -57,22 +57,22 @@ export default function Profile({ user })
 
                 <div className='bg-gray-400 p-2 lg:p-16 border-2 border-black rounded shadow-lg space-y-8 flex flex-col h-full items-center'>
                     <h1 className='text-center text-2xl lg:text-5xl'>Profile</h1>
-                    <p className='text-center bg-gray-300 rounded p-2 border-2 border-black'>Email: {user.email}</p>
+                    <p className='text-center bg-gray-300 rounded p-2 border-2 border-black w-full'>Email: {user.email}</p>
 
                     {
                         user.plan.plan_id !== 0 ?
-                            <div className='flex flex-row items-center bg-gray-300 rounded p-2 border-2 border-black'>
+                            <div className='flex flex-row items-center bg-gray-300 rounded p-2 border-2 border-black w-full'>
                                 <p className='text-center bg-gray-300 rounded p-2'>Plan: {plan_names[user.plan.plan_id]}</p>
-                                <button className={button_style_string} onClick={redirect_to_portal}>Manage</button>
+                                <button className={button_style_string} onClick={redirect_to_portal}>Upgrade/Cancel</button>
                             </div>
 
                             :
-                            <p className='text-center bg-gray-300 rounded p-2 border-2 border-black'>Plan: None. Visit
+                            <p className='text-center bg-gray-300 rounded p-2 border-2 border-black w-full'>Plan: None. Visit
                                 <button className={button_style_string} onClick={() => navigate('/dashboard/shop')}>Shop!</button>
                             </p>
                     }
 
-                    <p className='text-center bg-gray-300 rounded p-2 border-2 border-black'>Referral code: {user.referral_code}</p>
+                    <p className='text-center bg-gray-300 rounded p-2 border-2 border-black w-full'>Referral code: {user.referral_code}</p>
                     <button className='underline text-white text-center' onClick={logout_and_redirect_to_forgot}>Change password (will log you out)</button>
                 </div>
                 <p className='text-center text-red-300'>{error_message !== '' ? error_message : null}</p>

@@ -1,58 +1,53 @@
-import axios from 'axios';
-import { LOGIN_CONTEXT } from '../App';
+import { LOGIN_CONTEXT, USER_CONTEXT } from '../App';
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Cookies from 'js-cookie';
 
+//local
 import Sidebar from '../components/Sidebar';
 import Articles from '../components/Articles';
 import Profile from '../components/Profile';
 import Shop from '../components/Shop';
 import Topics from '../components/Topics';
+import Loading from '../components/Loading';
 
 export default function Dashboard()
 {
-    const navigate = useNavigate();
+    console.log('in dashboard');
+
     const { logged_in } = useContext(LOGIN_CONTEXT);
-    const [user, set_user] = useState({});
-    const components = ['Profile', 'Articles', 'Shop', 'Topics'];
+    const { user } = useContext(USER_CONTEXT);
+
+    const [components, set_components] = useState(['Profile', 'Articles', 'Topics']);
     const [current_component, set_current_component] = useState('');
+
+    const navigate = useNavigate();
     const params = useParams();
 
     useEffect(() =>
     {
-        const get_user_data = async () => 
-        {
-            try {
-                const access_token = Cookies.get('miracle_minutes_access_token');
-                console.log('posting in dashboard with access token: ', access_token)
-                const user_response = await axios.post('/user', { access_token });
-                console.log('user_response: ', user_response.data);
-                let user_data = user_response.data;
-                set_user(user_data);
-            }
+        console.log('in dashboard useEffect');
+        if (!logged_in) { navigate('/login'); return; }
+        console.log('user in dashboard: ', user);
 
-            catch (error) {
-                Cookies.remove('miracle_minutes_access_token');
-                Cookies.remove('miracle_minutes_refresh_token');
-                navigate('/login');
-            }
+        // only include the Shop component in the list if the user does not have a plan
+        if (user?.plan?.plan_id !== 0 && components.includes('Shop'))
+        {
+            set_components(components.filter(component => component !== 'Shop'));
+        }
+        else if (user?.plan?.plan_id === 0 && !components.includes('Shop'))
+        {
+            set_components(components.concat('Shop'));
         }
 
-        if (!logged_in) { navigate('/login'); return; }
-
         const new_current_component = params.component;
-        console.log('params.component: ', params.component)
-        console.log('new_current_component: ', new_current_component);
         if (new_current_component) { set_current_component(new_current_component); }
 
-        get_user_data();
-
-    }, [logged_in, navigate, params.component]);
+    }, [logged_in, navigate, params.component, user?.plan?.plan_id, components,  user]);
 
     let rendered_component = <div />;
 
-    switch (current_component.toLowerCase()) {
+    switch (current_component.toLowerCase())
+    {
         case 'articles':
             rendered_component = <Articles />;
             break;
@@ -68,9 +63,15 @@ export default function Dashboard()
     }
 
     return (
-        <div className='bg-slate-200 flex flex-row h-full'>
-            <Sidebar components={components} />
-            {rendered_component}
-        </div>
+        components !== null && components !== undefined ?
+
+            <div className='bg-slate-200 flex flex-row h-full'>
+                <Sidebar components={components} />
+                {rendered_component}
+            </div>
+
+            :
+
+            <Loading />
     );
 }

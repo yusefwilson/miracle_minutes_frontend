@@ -5,6 +5,7 @@ import Dropdown from './Dropdown';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import Loading from './Loading';
+import ErrorBox from './ErrorBox';
 
 const _get_utc_date = () =>
 {
@@ -71,7 +72,7 @@ export default function Articles()
 
             :
 
-            <div className='flex flex-col grid content-center justify-center bg-slate-200 p-4 w-full overflow-y-auto'>
+            <div className='flex flex-col grid content-center justify-center bg-slate-200 p-4 w-full overflow-y-auto space-y-4'>
                 <div className='bg-gray-400 rounded overflow-y-auto p-4 lg:p-16 space-y-8 flex flex-col justify-center border-2 border-black'>
                     <h1 className='text-center text-2xl lg:text-5xl'>Articles</h1>
                     <input className='focus:outline-none border-2 border-black p-2 rounded-md' type='date' value={date} onChange={handle_date_change} />
@@ -83,7 +84,7 @@ export default function Articles()
                             to buy some articles!</div> : null}
                     </div>
                 </div>
-                <div className='text-center text-red-300'>{error_message !== '' ? 'Error: ' + error_message : null}</div>
+                <ErrorBox error={error_message !== '' ? error_message : null} />
             </div>
     );
 }

@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from 'react';
-import { LOGIN_CONTEXT } from '../App';
+import { LOGIN_CONTEXT, USER_CONTEXT } from '../App';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -11,6 +11,7 @@ export default function Login()
     const { logged_in, set_logged_in } = useContext(LOGIN_CONTEXT);
     const [error_message, set_error_message] = useState('');
     const navigate = useNavigate();
+    const { set_user } = useContext(USER_CONTEXT);
 
     useEffect(() => { if (logged_in) { navigate('/dashboard'); } });
 
@@ -40,8 +41,14 @@ export default function Login()
 
             Cookies.set('miracle_minutes_refresh_token', response.data.refresh_token, { expires: 30, path: '/' });
             Cookies.set('miracle_minutes_access_token', response.data.access_token, { expires: 1, path: '/' });
+
+            let user_response = await axios.post('/user', { access_token: response.data.access_token });
+            
+            // important to set user here because the only other place it is set is when refreshing tokens
+            set_user(user_response.data);
             set_logged_in(true);
             set_error_message('');
+
             navigate('/dashboard');
         }
 

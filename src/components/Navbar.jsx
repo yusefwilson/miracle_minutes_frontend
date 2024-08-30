@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
-import { LOGIN_CONTEXT } from '../App';
+import { LOGIN_CONTEXT, USER_CONTEXT } from '../App';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,6 +8,7 @@ export default function Navbar()
 {
   //get the login state and the function to set the login state from the context
   const { logged_in, set_logged_in } = useContext(LOGIN_CONTEXT);
+  const { set_user } = useContext(USER_CONTEXT);
   const navigate = useNavigate();
 
   const transparent_button_style_string = 'bg-transparent hover:bg-black text-center text-black font-bold py-2 px-4 border-2 border-black hover:border-transparent hover:text-white rounded-full cursor-pointer mx-2';
@@ -16,6 +17,7 @@ export default function Navbar()
   const logout = () =>
   {
     set_logged_in(false);
+    set_user({});
     //remove the token cookies
     Cookies.remove('miracle_minutes_refresh_token');
     Cookies.remove('miracle_minutes_access_token');

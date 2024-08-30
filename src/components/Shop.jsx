@@ -16,9 +16,7 @@ export default function Shop({ user })
             try
             {
                 const all_plans_response = await axios.get('/all_plans');
-                console.log("ALL PLANS RESPONSE: ", all_plans_response);
                 set_all_plans(all_plans_response.data.plans);
-                console.log("ALL PLANS: ", all_plans_response.data.plans);
             }
 
             catch (error)
@@ -49,12 +47,9 @@ export default function Shop({ user })
     {
         const plan_checked = event.target.checked;
         const plan_id = parseInt(event.target.id);
-        console.log("PLAN ID: ", plan_id)
 
         //trigger refresh of checkboxes by changing the selected_plan state
         set_selected_plan_id(plan_checked ? plan_id : 0);
-
-        console.log("SELECTED PLAN: ", selected_plan_id)
     }
 
     if (Object.keys(user).length === 0) { return <Loading />; }
@@ -76,10 +71,10 @@ export default function Shop({ user })
 
                 <div className='bg-gray-400 flex flex-col justify-center space-y-4 rounded p-2 lg:p-16 border-2 border-black'>
                     <h1 className='text-center text-2xl lg:text-5xl'>Shop</h1>
-                    {all_plans?.map((plan) =>
+                    {all_plans?.filter((plan) => plan.plan_id !== 0).map((plan) =>
                     {
                         // if the user has already purchased the product, make the checkbox uncheckable
-                        let purchased = user.plan.plan_id === plan.id;
+                        let purchased = user.plan.plan_id === plan.plan_id;
                         return (
                             <div key={plan.name} className='flex flex-row space-x-4 justify-between bg-gray-200 rounded p-2 border-2 border-black'>
 
@@ -87,7 +82,7 @@ export default function Shop({ user })
 
                                 <div className='flex flex-row space-x-2'>
                                     <p className='text-center'>{'$' + (plan.price / 100).toString()}</p>
-                                    <input disabled={purchased} className={input_style_string} name={plan.name} id={plan.id} type='checkbox' onChange={on_toggle} checked={plan.id === selected_plan_id} />
+                                    <input disabled={purchased} className={input_style_string} name={plan.name} id={plan.plan_id} type='checkbox' onChange={on_toggle} checked={plan.plan_id === selected_plan_id} />
                                 </div>
 
                             </div>

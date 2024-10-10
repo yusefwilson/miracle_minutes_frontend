@@ -21,8 +21,8 @@ import Loading from './components/Loading';
 export const LOGIN_CONTEXT = createContext({ logged_in: false, set_logged_in: () => { } });
 export const USER_CONTEXT = createContext({ user: {}, set_user: () => { } });
 
-axios.defaults.baseURL = 'http://localhost:3001/api';
-//axios.defaults.baseURL = 'https://e8ps8qunza.execute-api.us-east-1.amazonaws.com/api';
+//axios.defaults.baseURL = 'http://localhost:3001/api';
+axios.defaults.baseURL = 'https://e8ps8qunza.execute-api.us-east-1.amazonaws.com/api';
 
 const refresh_access_token = async () =>
 {

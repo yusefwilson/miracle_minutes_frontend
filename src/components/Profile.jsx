@@ -56,12 +56,12 @@ export default function Profile({ user })
             <div className='bg-slate-200 w-full justify-center grid content-center'>
 
                 <div className='bg-gray-400 p-2 lg:p-16 border-2 border-black rounded shadow-lg space-y-8 flex flex-col h-full items-center'>
-                    <h1 className='text-center text-2xl lg:text-5xl'>Profile</h1>
-                    <p className='text-center bg-gray-300 rounded p-2 border-2 border-black w-full'>Email: {user.email}</p>
+                    <h1 className='text-center text-2xl lg:text-5xl font-bold'>Profile</h1>
+                    <p className='text-center bg-gray-300 rounded p-2 border-2 border-black w-full text-sm lg:text-base'>Email: {user.email}</p>
 
                     {
                         user.plan.plan_id !== 0 ?
-                            <div className='flex flex-row items-center bg-gray-300 rounded p-2 border-2 border-black w-full'>
+                            <div className='flex flex-col items-center bg-gray-300 rounded p-2 border-2 border-black w-full'>
                                 <p className='text-center bg-gray-300 rounded p-2'>Plan: {plan_names[user.plan.plan_id]}</p>
                                 <button className={button_style_string} onClick={redirect_to_portal}>Upgrade/Cancel</button>
                             </div>

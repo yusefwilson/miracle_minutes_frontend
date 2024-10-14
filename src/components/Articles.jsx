@@ -15,7 +15,6 @@ const _get_utc_date = () =>
     const utcDay = currentDate.getUTCDate().toString().padStart(2, '0');
 
     const utcDateString = `${utcYear}-${utcMonth}-${utcDay}`;
-    console.log('current utc date: ', utcDateString);
     return utcDateString;
 }
 
@@ -34,17 +33,13 @@ export default function Articles()
             //send access token and get article
             const access_token = Cookies.get('miracle_minutes_access_token');
 
-            console.log('posting date ' + date);
             const article_result = await axios.post('/articles', { date: date, access_token: access_token });
-            console.log(article_result.data.articles);
             const articles = article_result.data.articles;
             set_articles(articles);
-            console.log(articles);
             set_error_message('');
         }
         catch (error)
         {
-            console.log(error.response.data.error);
             set_articles([]);
             set_error_message(error.response.data.error);
         }
@@ -76,7 +71,7 @@ export default function Articles()
 
             <div className='flex flex-col grid content-center justify-center bg-slate-200 p-4 w-full overflow-y-auto space-y-4'>
                 <div className='bg-gray-400 rounded overflow-y-auto p-4 lg:p-16 space-y-8 flex flex-col justify-center border-2 border-black'>
-                    <h1 className='text-center text-2xl lg:text-5xl'>Articles</h1>
+                    <h1 className='text-center text-2xl lg:text-5xl font-bold'>Articles</h1>
                     <input className='focus:outline-none border-2 border-black p-2 rounded-md' type='date' min='2024-10-6' max={_get_utc_date()} value={date} onChange={handle_date_change} />
                     <div className='flex flex-col space-y-8'>
                         {articles.map((article_item) => <Dropdown key={article_item.topic} title={article_item.topic} content={article_item.article} />)}
@@ -87,7 +82,6 @@ export default function Articles()
                     </div>
                 </div>
                 {error_message !== '' ? <ErrorBox error={error_message} /> : null}
-                {console.log('error message: ' + error_message)}
             </div>
     );
 }

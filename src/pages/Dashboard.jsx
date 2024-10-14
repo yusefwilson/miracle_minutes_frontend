@@ -12,7 +12,6 @@ import Loading from '../components/Loading';
 
 export default function Dashboard()
 {
-    console.log('in dashboard');
 
     const { logged_in } = useContext(LOGIN_CONTEXT);
     const { user } = useContext(USER_CONTEXT);
@@ -25,9 +24,7 @@ export default function Dashboard()
 
     useEffect(() =>
     {
-        console.log('in dashboard useEffect');
         if (!logged_in) { navigate('/login'); return; }
-        console.log('user in dashboard: ', user);
 
         // only include the Shop component in the list if the user does not have a plan
         if (user?.plan?.plan_id !== 0 && components.includes('Shop'))
@@ -42,7 +39,7 @@ export default function Dashboard()
         const new_current_component = params.component;
         if (new_current_component) { set_current_component(new_current_component); }
 
-    }, [logged_in, navigate, params.component, user?.plan?.plan_id, components,  user]);
+    }, [logged_in, navigate, params.component, user?.plan?.plan_id, components, user]);
 
     let rendered_component = <div />;
 
@@ -65,7 +62,7 @@ export default function Dashboard()
     return (
         components !== null && components !== undefined ?
 
-            <div className='bg-slate-200 flex flex-row h-full'>
+            <div className='bg-slate-200 flex flex-row h-full overflow-y-auto'>
                 <Sidebar components={components} />
                 {rendered_component}
             </div>

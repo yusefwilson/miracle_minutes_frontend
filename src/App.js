@@ -96,8 +96,8 @@ export default function App()
   return (
     logged_in === null ?
 
-      <Loading/>
-      
+      <Loading />
+
       :
 
       <LOGIN_CONTEXT.Provider value={{ logged_in, set_logged_in }}>

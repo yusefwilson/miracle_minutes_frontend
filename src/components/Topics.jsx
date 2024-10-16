@@ -8,6 +8,7 @@ import TopicList from './TopicList';
 import Loading from './Loading';
 import ErrorBox from './ErrorBox';
 import FullTopicList from './FullTopicList';
+import PlanInfo from './PlanInfo';
 
 export default function Topics()
 {
@@ -16,10 +17,10 @@ export default function Topics()
     const navigate = useNavigate();
 
     // state
-    const [current_topics] = useState(user?.plan?.topics);
+    const [current_topics] = useState(user?.plan?.topics.sort());
     const [all_topics, set_all_topics] = useState([]);
     const [new_topics, set_new_topics] = useState([]);
-    const [resultant_topics, set_resultant_topics] = useState(current_topics);
+    const [resultant_topics, set_resultant_topics] = useState(current_topics.sort());
     const [non_resultant_topics, set_non_resultant_topics] = useState([]);
     const [error, set_error] = useState('');
 
@@ -35,16 +36,16 @@ export default function Topics()
                 //get all the possible topics from the backend
                 const all_topics_response = await axios.get('/all_topics');
                 let all_topics_data = all_topics_response.data.topics;
-                set_all_topics(all_topics_data);
+                set_all_topics(all_topics_data.sort());
 
                 //filter out topics that are already in the user's plan
                 const user_topics = user?.plan?.topics;
                 const new_topics = all_topics_data.filter((topic) => !user_topics.includes(topic));
 
                 const non_resultant_topics = all_topics_data.filter((topic) => !resultant_topics.includes(topic));
-                set_non_resultant_topics(non_resultant_topics);
+                set_non_resultant_topics(non_resultant_topics.sort());
 
-                set_new_topics(new_topics);
+                set_new_topics(new_topics.sort());
                 //set_current_topics(user_topics);
             }
 
@@ -65,23 +66,23 @@ export default function Topics()
         // toggle the existence of the toggled topic in the resultant topics array
         if (resultant_topics.includes(topic))
         {
-            set_resultant_topics(resultant_topics.filter((current_topic) => current_topic !== topic));
+            set_resultant_topics(resultant_topics.filter((current_topic) => current_topic !== topic).sort());
         }
 
         else
         {
-            set_resultant_topics([...resultant_topics, topic]);
+            set_resultant_topics([...resultant_topics, topic].sort());
         }
 
         //toggle the existence of the toggled topic in the non resultant topics array
         if (non_resultant_topics.includes(topic))
         {
-            set_non_resultant_topics(non_resultant_topics.filter((current_topic) => current_topic !== topic));
+            set_non_resultant_topics(non_resultant_topics.filter((current_topic) => current_topic !== topic).sort());
         }
 
         else
         {
-            set_non_resultant_topics([...non_resultant_topics, topic]);
+            set_non_resultant_topics([...non_resultant_topics, topic].sort());
         }
     }
 
@@ -105,11 +106,15 @@ export default function Topics()
     }
 
     const button_style_string = 'bg-purple-300 hover:bg-black text-center text-black font-bold py-2 px-4 border-2 border-black hover:border-transparent hover:text-white rounded-full cursor-pointer mx-2 lg:w-1/4';
-
     return (
         new_topics !== null && new_topics !== undefined && current_topics !== null && current_topics !== undefined ?
 
             <div className='bg-slate-200 flex flex-col justify-center items-center p-8 overflow-y-auto space-y-4 w-full pt-[800px] lg:pt-0'>
+                <PlanInfo
+                    name={user.plan.name}
+                    max_topics={user.plan.maximum_topics}
+                    used_topics={user.plan.topics.length}
+                    topics_left_to_use={user.plan.maximum_topics - user.plan.topics.length} />
                 <div className='flex flex-col gap-4 lg:flex-row '>
                     <TopicList title='Current Topics' topic_list={current_topics} handle_select_topic={toggle_resultant_topics} checkable={true} default_checked={true} />
                     <TopicList title='New Topics' topic_list={new_topics} handle_select_topic={toggle_resultant_topics} checkable={true} />

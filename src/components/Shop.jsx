@@ -11,6 +11,13 @@ export default function Shop({ user })
 
     useEffect(() =>
     {
+        //if the user does not have a plan, and localStorage has a recommended plan, set the recommended plan as the selected plan
+        if (user.plan.plan_id === 0 && localStorage.getItem('recommended_plan'))
+        {
+            const recommended_plan = JSON.parse(localStorage.getItem('recommended_plan'));
+            set_selected_plan_id(recommended_plan.plan_id);
+        }
+
         const get_all_products = async () =>
         {
             try
@@ -33,12 +40,14 @@ export default function Shop({ user })
         try
         {
             const access_token = Cookies.get('miracle_minutes_access_token');
-            const checkout_url_result = await axios.post('/checkout', { access_token, desired_plan_id: selected_plan_id });
+            console.log('about to send request with access token: ', access_token, ' and selected plan id: ', selected_plan_id, ' and domain: ', window.location.origin);
+            const checkout_url_result = await axios.post('/checkout', { access_token, desired_plan_id: selected_plan_id, domain: window.location.origin });
             window.location.href = checkout_url_result.data.checkout_url;
         }
 
         catch (error)
         {
+            console.log(error);
             set_error_message('There has been an error. Please try again.');
         }
     }

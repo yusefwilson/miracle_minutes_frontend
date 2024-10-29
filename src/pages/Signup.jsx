@@ -12,9 +12,6 @@ export default function Signup()
     const [error_message, set_error_message] = useState(''); //for displaying error messages
     const navigate = useNavigate();
 
-    const location = useLocation();
-    const plan_to_buy_id = new URLSearchParams(location.search).get('p');
-
     useEffect(() => { if (logged_in) { navigate('/dashboard'); } });
 
     const handle_change = (event) =>
@@ -47,10 +44,10 @@ export default function Signup()
                 return;
             }
 
-            await axios.post('/signup', { email: email, password: password });
+            await axios.post('/signup', { email, password });
 
             set_error_message('');
-            navigate('/verify?e=' + email + '&p=' + plan_to_buy_id);
+            navigate('/verify', { state: { email, password } });
         }
 
         catch (error)

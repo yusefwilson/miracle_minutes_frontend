@@ -25,8 +25,8 @@ export default function Profile({ user })
         try
         {
             const access_token = Cookies.get('miracle_minutes_access_token');
-            const portal_link_result = await axios.post('/portal', { access_token });
-            window.open(portal_link_result.data.portal_url, '_blank', 'noopener,noreferrer');
+            const portal_link_result = await axios.post('/portal', { access_token, domain: window.location.origin });
+            window.location.href = portal_link_result.data.portal_url;
         }
 
         catch (error)

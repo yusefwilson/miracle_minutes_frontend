@@ -1,26 +1,34 @@
 import { useState, useEffect, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { LOGIN_CONTEXT } from '../App';
+import Cookies from 'js-cookie';
 
-export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
+import { LOGIN_CONTEXT, USER_CONTEXT } from '../App';
+
+export default function Verify() 
 {
+    // states/contexts/react utilities
     const [email, set_email] = useState('');
     const [code, set_code] = useState('');
-    const [error_message, set_error_message] = useState(''); //for displaying error messages
-    const { logged_in } = useContext(LOGIN_CONTEXT); //get the login state and the function to set the login state from the context
+    const [password, set_password] = useState('');
+    const [error_message, set_error_message] = useState('');
+
+    const { logged_in, set_logged_in } = useContext(LOGIN_CONTEXT);
+    const { set_user } = useContext(USER_CONTEXT);
+
     const navigate = useNavigate();
     const location = useLocation();
-    const plan_to_buy_id = new URLSearchParams(location.search).get('p');
 
     useEffect(() =>
     {
+        // if the user is already logged in, redirect them to the dashboard
         if (logged_in) { navigate('/dashboard'); }
-        else
-        {
-            const e = new URLSearchParams(location.search).get('e');
-            set_email(e);
-        }
+
+        // try get email and password from location state. Should work if routed here from signup.
+        const { email, password } = location.state || {};
+        set_email(email);
+        set_password(password);
+
     }, [location.search, logged_in, navigate]);
 
     const handle_change = (event) =>
@@ -43,15 +51,40 @@ export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
         try
         {
             event.preventDefault(); //prevent refresh
+    
+            const verify_result = await axios.post('/verify', { email, code, password });
+            console.log('verify result: ', verify_result.data);
+            const access_token = verify_result.data.access_token;
+            const refresh_token = verify_result.data.refresh_token;
 
-            await axios.post('/verify', { email, code });
+            // in this case, the password was accepted and the user was authenticated
+            if (access_token && refresh_token)
+            {
+                set_error_message('');
 
-            set_error_message('');
-            navigate('/login?p=' + plan_to_buy_id);
+                Cookies.set('miracle_minutes_access_token', access_token, { expires: 1, path: '/' });
+                Cookies.set('miracle_minutes_refresh_token', refresh_token, { expires: 30, path: '/' });
+
+                //update login and user context
+                const user_response = await axios.post('/user', { access_token });
+                set_user(user_response.data);
+                set_logged_in(true);
+                set_error_message('');
+
+                navigate('/dashboard/shop');
+            }
+
+            // TODO: in this case, the password was not accepted and the user was not authenticated
+            else
+            {
+                set_error_message(verify_result.data.error);
+            }
+
         }
 
         catch (error)
         {
+            console.log('in verify error with error: ', error);
             set_error_message(error.response.data.error);
         }
 
@@ -61,7 +94,7 @@ export default function Verify() //NEED TO NAVIGATE TO HERE FROM SIGNUP EMAIL
     {
         try
         {
-            await axios.post('/reset', { email });
+            await axios.post('/resend', { email });
             set_error_message('');
         }
 

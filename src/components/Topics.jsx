@@ -133,11 +133,17 @@ export default function Topics()
         desired_topics_info && current_topics_info && user && !loading ?
 
             <div className='bg-slate-200 flex flex-col justify-center items-center p-8 overflow-y-auto space-y-4 w-full pt-[800px] lg:pt-0'>
-                <PlanInfo
-                    name={user.plan.name}
-                    max_topics={user.plan.maximum_topics}
-                    used_topics={user.plan.topics.length}
-                    topics_left_to_use={user.plan.maximum_topics - user.plan.topics.length} />
+                {
+                    user?.plan?.plan_id === 0 ?
+                        <h1 className='text-center text-2xl lg:text-2xl font-bold'>Please purchase a plan to access this feature</h1>
+                        :
+                        <PlanInfo
+                            name={user.plan.name}
+                            max_topics={user.plan.maximum_topics}
+                            used_topics={user.plan.topics.length}
+                            topics_left_to_use={user.plan.maximum_topics - user.plan.topics.length} />
+                }
+
                 <div className='flex flex-col gap-4 lg:flex-row '>
                     <FullTopicList title='Current' topics_info={current_topics_info} read_only={true} />
                     <FullTopicList title='Desired' topics_info={desired_topics_info} read_only={false} handle_change={toggle_desired_topic} />

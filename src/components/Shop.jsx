@@ -8,14 +8,22 @@ export default function Shop({ user })
     const [error_message, set_error_message] = useState('');
     const [all_plans, set_all_plans] = useState([]); // [ {name: 'product1', price: 1}, {name: 'product2', price: 2} ] (price is per month in cents)
     const [selected_plan_id, set_selected_plan_id] = useState(0);
+    const [loading, set_loading] = useState(false);
 
     useEffect(() =>
     {
-        //if the user does not have a plan, and localStorage has a recommended plan, set the recommended plan as the selected plan
+        //if the user does not have a plan, and localStorage has a recommended plan, and we didn't just come back from stripe,
+        //set the recommended plan as the selected plan and go to checkout
         if (user.plan.plan_id === 0 && localStorage.getItem('recommended_plan'))
         {
             const recommended_plan = JSON.parse(localStorage.getItem('recommended_plan'));
             set_selected_plan_id(recommended_plan.plan_id);
+
+            if (!window.location.href.includes('success') && !window.location.href.includes('cancel'))
+            {
+                set_loading(true);
+                redirect_to_checkout(recommended_plan.plan_id);
+            }
         }
 
         const get_all_products = async () =>
@@ -33,15 +41,15 @@ export default function Shop({ user })
         }
 
         get_all_products();
-    }, [user.purchases]);
+    }, [user.purchases, user.plan.plan_id]);
 
-    const redirect_to_checkout = async () =>
+    const redirect_to_checkout = async (desired_plan_id) =>
     {
         try
         {
             const access_token = Cookies.get('miracle_minutes_access_token');
             console.log('about to send request with access token: ', access_token, ' and selected plan id: ', selected_plan_id, ' and domain: ', window.location.origin);
-            const checkout_url_result = await axios.post('/checkout', { access_token, desired_plan_id: selected_plan_id, domain: window.location.origin });
+            const checkout_url_result = await axios.post('/checkout', { access_token, desired_plan_id, domain: window.location.origin });
             window.location.href = checkout_url_result.data.checkout_url;
         }
 
@@ -61,8 +69,6 @@ export default function Shop({ user })
         set_selected_plan_id(plan_checked ? plan_id : 0);
     }
 
-    if (Object.keys(user).length === 0) { return <Loading />; }
-
     //styles
     const button_style_string = 'bg-purple-300 hover:bg-black text-center text-black font-bold py-2 px-4 border-2 border-black hover:border-transparent hover:text-white rounded-full cursor-pointer mx-2';
     const input_style_string = 'appearance-none w-4 h-4 border-2 border-purple-200 rounded-full mt-1 bg-white checked:bg-purple-500 checked:border-0 disabled:border-gray-400 disabled:bg-gray-400';
@@ -70,7 +76,7 @@ export default function Shop({ user })
     // take the user's purchases, subtract them from the current products, and only display the remaining products as checkboxes
     return (
 
-        all_plans?.length === 0 ?
+        all_plans?.length === 0 || Object.keys(user).length === 0 || loading ?
 
             <Loading />
 
@@ -97,7 +103,7 @@ export default function Shop({ user })
                             </div>
                         );
                     })}
-                    <button className={button_style_string} onClick={redirect_to_checkout}>Checkout</button>
+                    <button className={button_style_string} onClick={() => redirect_to_checkout(selected_plan_id)}>Checkout</button>
 
                 </div>
                 <p className='text-center text-red-300'>{error_message !== '' ? error_message : null}</p>

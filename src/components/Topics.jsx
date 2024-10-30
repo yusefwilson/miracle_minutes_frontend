@@ -117,6 +117,8 @@ export default function Topics()
             localStorage.removeItem('interested_topics');
 
             set_loading(false);
+
+            navigate('/dashboard/articles');
         }
 
         catch (error)

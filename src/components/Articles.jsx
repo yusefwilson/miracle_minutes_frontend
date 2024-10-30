@@ -4,9 +4,9 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 import { LOGIN_CONTEXT } from '../App';
-import Dropdown from './Dropdown';
 import Loading from './Loading';
 import ErrorBox from './ErrorBox';
+import ArticleTeaser from './ArticleTeaser';
 
 const _get_utc_date = () =>
 {
@@ -22,8 +22,9 @@ const _get_utc_date = () =>
 export default function Articles()
 {
     const navigate = useNavigate();
-    const [articles, set_articles] = useState(null); // list of article
     const { logged_in } = useContext(LOGIN_CONTEXT);
+
+    const [articles, set_articles] = useState(null); // list of article
     const [error_message, set_error_message] = useState(''); // error message
     const [date, set_date] = useState(_get_utc_date());
 
@@ -70,17 +71,19 @@ export default function Articles()
 
             :
 
-            <div className='flex flex-col grid content-center justify-center bg-slate-200 p-4 w-full overflow-y-auto space-y-4'>
-                <div className='bg-gray-400 rounded overflow-y-auto p-4 lg:p-16 space-y-8 flex flex-col justify-center border-2 border-black'>
-                    <h1 className='text-center text-2xl lg:text-5xl font-bold'>Articles</h1>
-                    <input className='focus:outline-none border-2 border-black p-2 rounded-md' type='date' min='2024-10-6' max={_get_utc_date()} value={date} onChange={handle_date_change} />
-                    <div className='flex flex-col space-y-8'>
-                        {articles.map((article_item) => <Dropdown key={article_item.topic} title={article_item.topic} content={article_item.article} />)}
-                        {articles.length === 0 ? <div className='text-center text-white'>
-                            Nothing for today! Visit the
-                            <button className='p-1 text-black underline' onClick={() => navigate('/dashboard/shop')}>Shop</button>
-                            to buy some articles!</div> : null}
-                    </div>
+            <div className='flex flex-col p-4 w-full overflow-y-auto space-y-4'>
+                
+                <div className='flex flex-col w-full sm:w-1/3 space-y-4 self-center bg-gray-400 border-2 border-black rounded p-4'>
+                    <h1 className='text-2xl self-center lg:text-5xl font-bold'>Articles</h1>
+                    <input className='focus:outline-none self-center border-2 border-black p-2 rounded-md 2' type='date' min='2024-10-6' max={_get_utc_date()} value={date} onChange={handle_date_change} />
+                </div>
+
+                <div className='flex flex-wrap p-4 justify-between'>
+                    {articles.map((article_item) => <ArticleTeaser key={article_item.topic} title={article_item.topic} content={article_item.article} />)}
+                    {articles.length === 0 ? <div className='text-center text-white'>
+                        Nothing for today! Visit the
+                        <button className='p-1 text-black underline' onClick={() => navigate('/dashboard/shop')}>Shop</button>
+                        to buy some articles!</div> : null}
                 </div>
                 {error_message !== '' ? <ErrorBox error={error_message} /> : null}
             </div>

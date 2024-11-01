@@ -1,4 +1,4 @@
-export default function ErrorBox({ error, width='w-full' })
+export default function ErrorBox({ error, width })
 {
     return (
         <div className={'bg-red-200 flex flex-col border-2 border-black rounded-lg p-4 ' + width}>

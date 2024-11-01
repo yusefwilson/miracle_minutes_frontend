@@ -1,7 +1,9 @@
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+
 import { LOGIN_CONTEXT } from '../App';
+import ErrorBox from '../components/ErrorBox';
 
 export default function ForgotPassword()
 {
@@ -47,12 +49,12 @@ export default function ForgotPassword()
                 <h1>Forgot your password? Enter your email to receive a reset code.</h1>
                 <input className='bg-gray-300 rounded h-12 p-4 border-gray-600 border-2 focus:outline-none' placeholder='Email' onChange={handle_change}></input>
                 <button className={button_style_string} type='submit'>Send code</button>
+                {error_message !== '' ? <ErrorBox error={error_message} /> : null}
+                {submitted ?
+                    <h1 className='text-center'>A reset code has been sent to that email. You can use it <span></span>
+                        <a className='text-center text-purple-500 underline hover:text-black' href={'/reset?e=' + email}>here</a>.
+                    </h1> : null}
             </form>
-            {submitted ?
-                <h1 className='text-center'>Check your email for a reset code. You can use it <span></span>
-                    <a className='text-center text-purple-500 underline hover:text-black' href={'/reset?e=' + email}>here</a>.
-                </h1> : null}
-            {error_message !== '' ? <h1 className='text-center text-red-300'>{error_message}</h1> : null}
         </div>
     );
 }

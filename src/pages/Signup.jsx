@@ -42,12 +42,14 @@ export default function Signup()
     {
         try
         {
-            event.preventDefault(); //prevent refresh
+            //prevent refresh
+            event.preventDefault();
 
             if (password !== confirm_password)
             {
-                alert('Passwords do not match!');
-                return;
+                //temporary error handling
+                // eslint-disable-next-line
+                throw { response: { data: { error: 'Passwords do not match.' } } };
             }
 
             await axios.post('/signup', { email, password });

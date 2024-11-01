@@ -71,7 +71,6 @@ export default function Articles()
 
             :
 
-
             <div className='flex flex-col p-4 w-full overflow-y-auto space-y-4 justify-center items-center'>
 
                 <div className='flex flex-col w-full sm:w-1/3 space-y-4 self-center bg-gray-400 border-2 border-black rounded p-4'>

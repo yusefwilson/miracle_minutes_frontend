@@ -1,43 +1,26 @@
-import { useState, useEffect, useContext } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
 import { LOGIN_CONTEXT, USER_CONTEXT } from '../App';
+import ErrorBox from './ErrorBox';
 
-export default function Verify() 
+export default function Verify({ email, password }) 
 {
     // states/contexts/react utilities
-    const [email, set_email] = useState('');
     const [code, set_code] = useState('');
-    const [password, set_password] = useState('');
     const [error_message, set_error_message] = useState('');
 
-    const { logged_in, set_logged_in } = useContext(LOGIN_CONTEXT);
+    const { set_logged_in } = useContext(LOGIN_CONTEXT);
     const { set_user } = useContext(USER_CONTEXT);
 
     const navigate = useNavigate();
-    const location = useLocation();
-
-    useEffect(() =>
-    {
-        // if the user is already logged in, redirect them to the dashboard
-        if (logged_in) { navigate('/dashboard'); }
-
-        // try get email and password from location state. Should work if routed here from signup.
-        const { email, password } = location.state || {};
-        set_email(email);
-        set_password(password);
-
-    }, [location.search, logged_in, navigate]);
 
     const handle_change = (event) =>
     {
         switch (event.target.name)
         {
-            case 'email':
-                set_email(event.target.value);
-                break;
             case 'code':
                 set_code(event.target.value);
                 break;
@@ -51,9 +34,8 @@ export default function Verify()
         try
         {
             event.preventDefault(); //prevent refresh
-    
+
             const verify_result = await axios.post('/verify', { email, code, password });
-            console.log('verify result: ', verify_result.data);
             const access_token = verify_result.data.access_token;
             const refresh_token = verify_result.data.refresh_token;
 
@@ -109,17 +91,15 @@ export default function Verify()
     const input_style_string = 'bg-gray-300 rounded h-12 p-4 border-gray-600 border-2 focus:outline-none';
 
     return (
-        <div className='bg-slate-200 flex justify-center h-full grid content-center'>
-            <div className='bg-gray-400 flex flex-col justify-center p-16 rounded-md shadow-lg border-2 border-black space-y-8'>
-                <form className='flex flex-col grid content-center space-y-2' noValidate onSubmit={handle_submit}>
-                    <h1 className='text-center'>Check your inbox and input your email and verification code!</h1>
-                    <input className={input_style_string} type='email' placeholder='Email' name='email' onChange={handle_change} value={email} />
-                    <input className={input_style_string} type='code' placeholder='Code' name='code' onChange={handle_change} />
-                    <button className={button_style_string} type='submit'>Verify</button>
-                    <button className='underline text-white' onClick={handle_resend}>Didn't get your code? Resend.</button>
-                </form>
-            </div>
-            {error_message !== '' ? <p className='text-center text-red-300'>{error_message}</p> : null}
+        <div className='bg-gray-400 flex flex-col justify-center p-16 rounded-md shadow-lg border-2 border-black space-y-8 w-1/3'>
+            <form className='flex flex-col grid content-center space-y-2' noValidate onSubmit={handle_submit}>
+                <h1 className='text-center'>Check your inbox and input your email and verification code!</h1>
+                <input className={input_style_string} type='email' placeholder='Email' name='email' value={email} readOnly />
+                <input className={input_style_string} type='code' placeholder='Code' name='code' onChange={handle_change} />
+                <button className={button_style_string} type='submit'>Verify</button>
+                <button className='underline text-white' onClick={handle_resend}>Didn't get your code? Resend.</button>
+            </form>
+            {error_message !== '' ? <ErrorBox error={error_message} /> : null}
         </div>
     );
 }

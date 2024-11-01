@@ -9,7 +9,7 @@ import Signup from './pages/Signup';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import Dashboard from './pages/Dashboard';
-import Verify from './pages/Verify';
+import Verify from './components/Verify';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import Plans from './pages/Plans';

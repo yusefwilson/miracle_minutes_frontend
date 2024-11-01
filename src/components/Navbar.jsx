@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
-import { LOGIN_CONTEXT, USER_CONTEXT } from '../App';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+
+import { LOGIN_CONTEXT, USER_CONTEXT } from '../App';
 
 export default function Navbar()
 {
@@ -31,7 +32,7 @@ export default function Navbar()
       </div>
       <div className='flex items-center'>
         {logged_in ? <Link className={black_button_style_string} to='/dashboard'>Dashboard</Link> : <Link className={transparent_button_style_string} to='/login'>Log in</Link>}
-        {logged_in ? null : <Link className={black_button_style_string} to='/signup'>Sign up</Link>}
+        {/*logged_in ? null : <Link className={black_button_style_string} to='/signup'>Sign up</Link>*/}
         {logged_in ? <Link className={black_button_style_string} to='/' onClick={logout}>Log out</Link> : null}
       </div>
     </div>

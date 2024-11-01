@@ -150,7 +150,7 @@ export default function Topics()
                     <FullTopicList title='Current' topics_info={current_topics_info} read_only={true} />
                     <FullTopicList title='Desired' topics_info={desired_topics_info} read_only={false} handle_change={toggle_desired_topic} />
                 </div>
-                {error && <ErrorBox error={error} />}
+                {error && <ErrorBox error={error} width='w-1/3'/>}
                 <button className={button_style_string} onClick={handle_submit}>Submit</button>
             </div>
 

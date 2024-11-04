@@ -13,6 +13,7 @@ export default function Login()
     const [password, set_password] = useState('');
     const [error_message, set_error_message] = useState('');
     const [verify, set_verify] = useState(false);
+    const [show_password, set_show_password] = useState(false);
 
     const { set_user } = useContext(USER_CONTEXT);
     const { logged_in, set_logged_in } = useContext(LOGIN_CONTEXT);
@@ -69,8 +70,13 @@ export default function Login()
         }
     }
 
+    const toggle_show_password = () => { set_show_password(!show_password); }
+
     //styles
     const button_style_string = 'bg-purple-300 hover:bg-black text-center text-black font-bold py-2 px-4 border-2 border-black hover:border-transparent hover:text-white rounded-full cursor-pointer mx-2';
+    const input_field_style = 'bg-gray-300 rounded h-12 p-4 border-gray-600 border-2 focus:outline-none w-full max-w-full';
+    const input_container_style = 'relative flex flex-row justify-between';
+    const show_password_button_style = 'absolute right-2 top-1/2 transform -translate-y-1/2 w-auto h-auto pr-2';
 
     return (
         <div className='bg-slate-200 flex justify-center items-center h-full'>
@@ -81,14 +87,25 @@ export default function Login()
 
                     :
 
-
                     <form className='flex flex-col justify-center bg-gray-400 p-16 rounded-md shadow-lg border-2 border-black h-4/5 w-2/3 xl:w-1/3 space-y-8' noValidate onSubmit={handle_submit}>
+
                         <h1 className='text-center text-5xl p-4'>Log in</h1>
+
                         <h2>Need an account? <a className='text-white underline' href='/signup'>Create one!</a></h2>
+
                         <input className='bg-gray-300 rounded h-12 p-4 border-gray-600 border-2 focus:outline-none' type='email' placeholder='Email' name='email' onChange={handle_change} />
-                        <input className='bg-gray-300 rounded h-12 p-4 border-gray-600 border-2 focus:outline-none' type='password' placeholder='Password' name='password' onChange={handle_change} />
+
+                        <div className={input_container_style}>
+                            <input className={input_field_style + ' flex-grow pr-10 overflow-hidden'} type={show_password ? 'text' : 'password'} placeholder='Password' name='password' onChange={handle_change} />
+                            <button className={show_password_button_style} type='button' onClick={toggle_show_password}>
+                                <img className='h-6 w-6' alt='Show' src={show_password ? '/img/show.png' : '/img/hide.png'} />
+                            </button>
+                        </div>
+
                         <button className={button_style_string} type='submit'>Log in</button>
+
                         <h1 className='text-center'> <a className='underline text-white' href='/forgot'>Forgot your password?</a> </h1>
+
                         {error_message !== '' ? <ErrorBox error={error_message} /> : null}
                     </form>
             }

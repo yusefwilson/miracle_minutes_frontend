@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { CheckIcon, XMarkIcon } from '@heroicons/react/16/solid';
 
 export default function PasswordRequirements({ password })
 {
@@ -11,6 +12,7 @@ export default function PasswordRequirements({ password })
 
     const check_requirements = () =>
     {
+        console.log('new password: ', password);
         set_requirements((prevRequirements) =>
             prevRequirements.map((requirement) =>
             {
@@ -29,17 +31,26 @@ export default function PasswordRequirements({ password })
                 }
             })
         );
+
+        console.log('requirements: ', requirements);
     };
 
     useEffect(() => check_requirements(), [password]);
 
     return (
-        <ul>
+        <div>
             {requirements.map((requirement) => (
-                <li className={'font-bold ' + (requirement.satisfied ? 'text-green-300' : 'text-red-600')} key={requirement.id}>
-                    {requirement.text}
-                </li>
+                <div key={requirement.id} className="flex items-center space-x-2">
+                    {requirement.satisfied ? (
+                        <CheckIcon className="w-5 h-5 text-purple-600 transition-colors duration-500" />
+                    ) : (
+                        <XMarkIcon className="w-5 h-5 text-red-500 transition-colors duration-500" />
+                    )}
+                    <p className={'transition-colors duration-500 ' + (requirement.satisfied ? 'text-purple-700' : 'text-gray-700')}>
+                        {requirement.text}
+                    </p>
+                </div>
             ))}
-        </ul>
+        </div>
     );
 }

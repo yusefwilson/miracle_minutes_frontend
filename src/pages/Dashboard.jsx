@@ -1,4 +1,3 @@
-import { LOGIN_CONTEXT, USER_CONTEXT } from '../App';
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -9,10 +8,10 @@ import Profile from '../components/Profile';
 import Shop from '../components/Shop';
 import Topics from '../components/Topics';
 import Loading from '../components/Loading';
+import { LOGIN_CONTEXT, USER_CONTEXT } from '../App';
 
 export default function Dashboard()
 {
-
     const { logged_in } = useContext(LOGIN_CONTEXT);
     const { user } = useContext(USER_CONTEXT);
 

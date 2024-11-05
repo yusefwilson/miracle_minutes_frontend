@@ -1,9 +1,11 @@
+import { useState } from "react";
+
 export default function FullTopicList({ title, topics_info, read_only, handle_change })
 {
     //handle lack of handle_change prop
     if (!handle_change)
     {
-        handle_change = () => { };
+        handle_change = (topic) => { };
     }
 
     return (
@@ -18,8 +20,8 @@ export default function FullTopicList({ title, topics_info, read_only, handle_ch
                 {
                     return (
                         <div className='flex flex-row space-x-2' key={topic}>
-                            <input className='appearance-none w-4 h-4 border-2 border-purple-200 rounded-full mt-1 bg-white checked:bg-purple-500 checked:border-0 disabled:border-gray-400 disabled:bg-gray-400 flex flex-shrink-0' type='checkbox' checked={checked} readOnly={read_only} onChange={() => handle_change(topic)} />
-                            <p className='text-left'>{topic}</p>
+                            <input className='accent-purple-600 w-4 h-4 border-black rounded mt-1 disabled:border-gray-400 disabled:bg-gray-400 flex flex-shrink-0' type='checkbox' checked={checked} readOnly={read_only} onChange={() => handle_change(topic)} />
+                            <p className={'text-left transition-colors duration-500 ' + (topics_info[topic] ? 'text-purple-700' : 'text-black')}>{topic}</p>
                         </div>);
                 }
                 )}

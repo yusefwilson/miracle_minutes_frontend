@@ -1,5 +1,18 @@
+import { useState } from "react";
+
 export default function InitialTopicList({ title, topics, handle_change })
 {
+    const [checked_topics, set_checked_topics] = useState({});
+    const local_handle_change = (topic) =>
+    {
+        set_checked_topics((prev) =>
+        {
+            const new_checked_topics = { ...prev };
+            new_checked_topics[topic] = !new_checked_topics[topic];
+            return new_checked_topics;
+        })
+        handle_change(topic);
+    }
 
     return (
         <div className='bg-gray-400 flex flex-col border-2 border-black rounded-lg'>
@@ -15,8 +28,8 @@ export default function InitialTopicList({ title, topics, handle_change })
                 {
                     return (
                         <div className='flex flex-row space-x-2' key={topic}>
-                            <input className='appearance-none w-4 h-4 border-2 border-purple-200 rounded-full mt-1 bg-white checked:bg-purple-500 checked:border-0 disabled:border-gray-400 disabled:bg-gray-400 flex flex-shrink-0' type='checkbox' onChange={() => handle_change(topic)} />
-                            <p className='text-left'>{topic}</p>
+                            <input className='accent-purple-600 w-4 h-4 border-black rounded mt-1 disabled:border-gray-400 disabled:bg-gray-400 flex flex-shrink-0' type='checkbox' onChange={() => local_handle_change(topic)} />
+                            <p className={'text-left transition-colors duration-500 ' + (checked_topics[topic] ? 'text-purple-700' : 'text-black')}>{topic}</p>
                         </div>);
                 }
                 )}

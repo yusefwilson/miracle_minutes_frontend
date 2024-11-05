@@ -114,7 +114,6 @@ export default function Home()
     }, [interested_topics]);
 
     //TODO: If not logged in, show free trial signup, if logged in AND free account, show upgrade button, if logged in AND premium account, show nothing
-    const signup_button_style_string = 'bg-black hover:bg-purple-700 text-white font-bold py-2 px-4 border-2 border-black rounded-full cursor-pointer mx-2';
 
     return all_topics.length === 0 || all_plans.length === 0 ?
 
@@ -123,15 +122,15 @@ export default function Home()
         :
 
         (
-            <div className='bg-white h-full space-y-8 overflow-y-auto'>
+            <div className='bg-slate-200 h-full space-y-8 overflow-y-auto'>
                 <div className='flex flex-col items-center p-8 space-y-8'>
                     <h1 className='text-5xl text-center'>Save time, gain knowledge</h1>
                     <div className='flex flex-col sm:flex-row space-y-8 sm:space-y-0 space-x-8'>
                         {!logged_in && <InitialTopicList title='What topics are you interested in?' topics={all_topics} handle_change={handle_change} />}
                         {!logged_in && recommended_plan !== null && <InitialPlanCard name={recommended_plan.name} price={recommended_plan.price / 100} maximum_topics={recommended_plan.maximum_topics} features={[]} show_button={false} />}
                     </div>
-                    {logged_in ? null : <button className={signup_button_style_string} onClick={handle_submit}>Start your free trial now!</button>}
-                    {logged_in && user.plan_id === 0 ? <Link className={signup_button_style_string} to={'/signup?p=' + recommended_plan.plan_id}>Upgrade your account now!</Link> : null}
+                    {logged_in ? null : <button className='bg-black hover:bg-purple-700 text-white font-bold py-2 px-4 border-2 border-black rounded-full cursor-pointer mx-2' onClick={handle_submit}>Start your free trial now!</button>}
+                    {logged_in && user.plan_id === 0 ? <Link className='bg-black hover:bg-purple-700 text-white font-bold py-2 px-4 border-2 border-black rounded-full cursor-pointer mx-2' to={'/signup?p=' + recommended_plan.plan_id}>Upgrade your account now!</Link> : null}
                 </div>
             </div>
         );

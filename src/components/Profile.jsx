@@ -42,10 +42,6 @@ export default function Profile({ user })
         3: 'Premium'
     };
 
-    //styles
-
-    const button_style_string = 'bg-purple-300 hover:bg-black text-center text-black font-bold p-2 border-2 border-black hover:border-transparent hover:text-white rounded-full cursor-pointer mx-2';
-
     return (
         Object.keys(user).length === 0 ?
 
@@ -63,12 +59,12 @@ export default function Profile({ user })
                         user.plan.plan_id !== 0 ?
                             <div className='flex flex-col items-center bg-gray-300 rounded p-2 border-2 border-black w-full'>
                                 <p className='text-center bg-gray-300 rounded p-2'>Plan: {plan_names[user.plan.plan_id]}</p>
-                                <button className={button_style_string} onClick={redirect_to_portal}>Upgrade/Cancel</button>
+                                <button className='bg-purple-300 hover:bg-black text-center text-black font-bold p-2 border-2 border-black hover:border-transparent hover:text-white rounded-full cursor-pointer mx-2' onClick={redirect_to_portal}>Upgrade/Cancel</button>
                             </div>
 
                             :
                             <p className='text-center bg-gray-300 rounded p-2 border-2 border-black w-full'>Plan: None. Visit
-                                <button className={button_style_string} onClick={() => navigate('/dashboard/shop')}>Shop!</button>
+                                <button className='bg-purple-300 hover:bg-black text-center text-black font-bold p-2 border-2 border-black hover:border-transparent hover:text-white rounded-full cursor-pointer mx-2' onClick={() => navigate('/dashboard/shop')}>Shop!</button>
                             </p>
                     }
 

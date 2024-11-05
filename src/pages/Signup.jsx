@@ -5,6 +5,7 @@ import axios from 'axios';
 import { LOGIN_CONTEXT } from '../App';
 import ErrorBox from '../components/ErrorBox';
 import Verify from '../components/Verify';
+import PasswordRequirements from '../components/PasswordRequirements';
 
 export default function Signup()
 {
@@ -74,7 +75,7 @@ export default function Signup()
     const show_password_button_style = 'absolute right-2 top-1/2 transform -translate-y-1/2 w-auto h-auto pr-2';
 
     return (
-        <div className='bg-slate-200 flex justify-center items-center h-full overflow-y-auto'>
+        <div className='bg-slate-200 flex justify-center items-center h-full'>
             {
                 verify ?
 
@@ -82,7 +83,7 @@ export default function Signup()
 
                     :
 
-                    <form className='bg-gray-400 flex flex-col justify-center p-16 rounded-md shadow-lg border-2 border-black h-4/5 w-2/3 xl:w-1/3 space-y-8' noValidate onSubmit={handle_submit}>
+                    <form className='bg-gray-400 flex flex-col justify-center p-16 rounded-md shadow-lg border-2 border-black w-2/3 xl:w-1/3 space-y-8' noValidate onSubmit={handle_submit}>
                         <h1 className='text-center text-5xl p-4'>Sign up</h1>
                         <h1>Already have an account? <a className='underline text-white' href='/login'>Log in!</a></h1>
                         <input className={input_field_style} type='email' placeholder='Email' name='email' onChange={handle_change}></input>
@@ -95,7 +96,10 @@ export default function Signup()
                         </div>
 
                         <input className={input_field_style} type={show_password ? 'text' : 'password'} placeholder='Confirm Password' name='confirm_password' onChange={handle_change} />
+                        
+                        <h2>Password requirements:</h2>
 
+                        <PasswordRequirements password={password} />
 
                         <button className={signup_button_style} type='submit'>Sign up</button>
                         {error_message !== '' ? <ErrorBox error={error_message} /> : null}

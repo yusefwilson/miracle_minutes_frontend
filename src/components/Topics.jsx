@@ -129,7 +129,6 @@ export default function Topics()
         }
     }
 
-    const button_style_string = 'bg-purple-300 hover:bg-black text-center text-black font-bold py-2 px-4 border-2 border-black hover:border-transparent hover:text-white rounded-full cursor-pointer mx-2 lg:w-1/4';
     return (
 
         desired_topics_info && current_topics_info && user && !loading ?
@@ -150,8 +149,8 @@ export default function Topics()
                     <FullTopicList title='Current' topics_info={current_topics_info} read_only={true} />
                     <FullTopicList title='Desired' topics_info={desired_topics_info} read_only={false} handle_change={toggle_desired_topic} />
                 </div>
-                {error && <ErrorBox error={error} width='w-1/3'/>}
-                <button className={button_style_string} onClick={handle_submit}>Submit</button>
+                {error && <ErrorBox error={error} width='w-1/3' />}
+                <button className='bg-purple-300 hover:bg-black text-center text-black font-bold py-2 px-4 border-2 border-black hover:border-transparent hover:text-white rounded-full cursor-pointer mx-2 lg:w-1/4' onClick={handle_submit}>Submit</button>
             </div>
 
             :

@@ -86,17 +86,13 @@ export default function Verify({ email, password })
         }
     }
 
-    //styles
-    const button_style_string = 'bg-purple-300 hover:bg-black text-center text-black font-bold py-2 px-4 border-2 border-black hover:border-transparent hover:text-white rounded-full cursor-pointer mx-2';
-    const input_style_string = 'bg-gray-300 rounded h-12 p-4 border-gray-600 border-2 focus:outline-none';
-
     return (
-        <div className='bg-gray-400 flex flex-col justify-center p-16 rounded-md shadow-lg border-2 border-black space-y-8 w-1/3'>
-            <form className='flex flex-col grid content-center space-y-2' noValidate onSubmit={handle_submit}>
+        <div className='bg-white flex flex-col justify-center items-center h-full w-full'>
+            <form className='flex flex-col p-16 rounded-md shadow-lg bg-gray-400 border-2 border-black space-y-8 sm:w-1/3' noValidate onSubmit={handle_submit}>
                 <h1 className='text-center'>Check your inbox and input your email and verification code!</h1>
-                <input className={input_style_string} type='email' placeholder='Email' name='email' value={email} readOnly />
-                <input className={input_style_string} type='code' placeholder='Code' name='code' onChange={handle_change} />
-                <button className={button_style_string} type='submit'>Verify</button>
+                <input className='bg-gray-300 rounded h-12 p-4 border-gray-600 border-2 focus:outline-none' type='email' placeholder='Email' name='email' value={email} readOnly />
+                <input className='bg-gray-300 rounded h-12 p-4 border-gray-600 border-2 focus:outline-none' type='code' placeholder='Code' name='code' onChange={handle_change} />
+                <button className='bg-purple-300 hover:bg-black text-center text-black font-bold py-2 px-4 border-2 border-black hover:border-transparent hover:text-white rounded-full cursor-pointer mx-2' type='submit'>Verify</button>
                 <button className='underline text-white' onClick={handle_resend}>Didn't get your code? Resend.</button>
             </form>
             {error_message !== '' ? <ErrorBox error={error_message} /> : null}

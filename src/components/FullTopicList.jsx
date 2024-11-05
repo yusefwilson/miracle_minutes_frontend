@@ -1,7 +1,5 @@
 export default function FullTopicList({ title, topics_info, read_only, handle_change })
 {
-    const input_style_string = 'appearance-none w-4 h-4 border-2 border-purple-200 rounded-full mt-1 bg-white checked:bg-purple-500 checked:border-0 disabled:border-gray-400 disabled:bg-gray-400 flex flex-shrink-0';
-
     //handle lack of handle_change prop
     if (!handle_change)
     {
@@ -20,7 +18,7 @@ export default function FullTopicList({ title, topics_info, read_only, handle_ch
                 {
                     return (
                         <div className='flex flex-row space-x-2' key={topic}>
-                            <input className={input_style_string} type='checkbox' checked={checked} readOnly={read_only} onChange={() => handle_change(topic)} />
+                            <input className='appearance-none w-4 h-4 border-2 border-purple-200 rounded-full mt-1 bg-white checked:bg-purple-500 checked:border-0 disabled:border-gray-400 disabled:bg-gray-400 flex flex-shrink-0' type='checkbox' checked={checked} readOnly={read_only} onChange={() => handle_change(topic)} />
                             <p className='text-left'>{topic}</p>
                         </div>);
                 }

@@ -69,10 +69,6 @@ export default function Shop({ user })
         set_selected_plan_id(plan_checked ? plan_id : 0);
     }
 
-    //styles
-    const button_style_string = 'bg-purple-300 hover:bg-black text-center text-black font-bold py-2 px-4 border-2 border-black hover:border-transparent hover:text-white rounded-full cursor-pointer mx-2';
-    const input_style_string = 'appearance-none w-4 h-4 border-2 border-purple-200 rounded-full mt-1 bg-white checked:bg-purple-500 checked:border-0 disabled:border-gray-400 disabled:bg-gray-400';
-
     // take the user's purchases, subtract them from the current products, and only display the remaining products as checkboxes
     return (
 
@@ -97,13 +93,13 @@ export default function Shop({ user })
 
                                 <div className='flex flex-row space-x-2'>
                                     <p className='text-center'>{'$' + (plan.price / 100).toString()}</p>
-                                    <input disabled={purchased} className={input_style_string} name={plan.name} id={plan.plan_id} type='checkbox' onChange={on_toggle} checked={plan.plan_id === selected_plan_id} />
+                                    <input className='appearance-none w-4 h-4 border-2 border-purple-200 rounded-full mt-1 bg-white checked:bg-purple-500 checked:border-0 disabled:border-gray-400 disabled:bg-gray-400' disabled={purchased} name={plan.name} id={plan.plan_id} type='checkbox' onChange={on_toggle} checked={plan.plan_id === selected_plan_id} />
                                 </div>
 
                             </div>
                         );
                     })}
-                    <button className={button_style_string} onClick={() => redirect_to_checkout(selected_plan_id)}>Checkout</button>
+                    <button className='bg-purple-300 hover:bg-black text-center text-black font-bold py-2 px-4 border-2 border-black hover:border-transparent hover:text-white rounded-full cursor-pointer mx-2' onClick={() => redirect_to_checkout(selected_plan_id)}>Checkout</button>
 
                 </div>
                 <p className='text-center text-red-300'>{error_message !== '' ? error_message : null}</p>

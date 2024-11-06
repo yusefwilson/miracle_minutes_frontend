@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/16/solid';
 
 import { LOGIN_CONTEXT } from '../App';
 import ErrorBox from '../components/ErrorBox';
@@ -84,7 +85,7 @@ export default function Signup()
                         <div className='relative flex flex-row justify-between'>
                             <input className='bg-gray-300 rounded h-12 p-4 border-gray-600 border-2 focus:outline-none w-full max-w-full flex-grow pr-10 overflow-hidden' type={show_password ? 'text' : 'password'} placeholder='Password' name='password' onChange={handle_change} />
                             <button className='absolute right-2 top-1/2 transform -translate-y-1/2 w-auto h-auto pr-2' type='button' onClick={toggle_show_password}>
-                                <img className='h-6 w-6' alt='Show' src={show_password ? '/img/show.png' : '/img/hide.png'} />
+                                {show_password ? <EyeIcon className='h-6 w-6' /> : <EyeSlashIcon className='h-6 w-6' />}
                             </button>
                         </div>
 

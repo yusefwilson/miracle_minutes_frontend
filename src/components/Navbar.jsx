@@ -29,7 +29,6 @@ export default function Navbar()
       </div>
       <div className='flex items-center'>
         {logged_in ? <Link className='bg-black hover:bg-purple-700 text-center text-white font-bold py-2 px-4 border-2 border-black rounded-full cursor-pointer mx-2' to='/dashboard'>Dashboard</Link> : <Link className='bg-transparent hover:bg-black text-center text-black font-bold py-2 px-4 border-2 border-black hover:border-transparent hover:text-white rounded-full cursor-pointer mx-2' to='/login'>Log in</Link>}
-        {/*logged_in ? null : <Link className='bg-black hover:bg-purple-700 text-center text-white font-bold py-2 px-4 border-2 border-black rounded-full cursor-pointer mx-2' to='/signup'>Sign up</Link>*/}
         {logged_in ? <Link className='bg-black hover:bg-purple-700 text-center text-white font-bold py-2 px-4 border-2 border-black rounded-full cursor-pointer mx-2' to='/' onClick={logout}>Log out</Link> : null}
       </div>
     </div>

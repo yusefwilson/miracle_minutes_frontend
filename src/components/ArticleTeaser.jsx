@@ -1,6 +1,6 @@
 import Dropdown from './Dropdown';
 
-export default function ArticleTeaser({ title, content })
+export default function ArticleTeaser({ title, content, video_ids })
 {
     return (
         <div className='bg-gray-400 rounded p-4 space-y-8 flex flex-col w-full md:w-1/4 justify-center border-2 border-black mx-4 my-4'>
@@ -8,7 +8,7 @@ export default function ArticleTeaser({ title, content })
             <div className='w-48 overflow-hidden whitespace-nowrap text-ellipsis'>
                 {content}
             </div>
-            <Dropdown title='Read More' content={content} />
+            <Dropdown title='Read More' content={content} video_ids={video_ids} />
         </div>
     );
 }

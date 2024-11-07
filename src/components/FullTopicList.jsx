@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 export default function FullTopicList({ title, topics_info, read_only, handle_change })
 {
     //handle lack of handle_change prop

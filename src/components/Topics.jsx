@@ -133,8 +133,8 @@ export default function Topics()
 
         desired_topics_info && current_topics_info && user && !loading ?
 
-            <div className='bg-slate-200 flex flex-col justify-center items-center p-8 overflow-y-auto space-y-4 w-full lg:pt-0'>
-                <div className='p-4 space-y-4 overflow-y-auto h-full flex flex-col items-center'>
+            <div className='bg-slate-200 flex flex-col justify-center items-center p-8 overflow-y-auto scrollbar scrollbar-thumb-rounded-full scrollbar-thumb-gray-400 space-y-4 w-full lg:pt-0'>
+                <div className='p-4 space-y-4 overflow-y-auto scrollbar scrollbar-thumb-rounded-full scrollbar-thumb-gray-400 h-full flex flex-col items-center'>
                     {
                         user?.plan?.plan_id === 0 ?
                             <h1 className='text-center text-2xl lg:text-2xl font-bold'>Please purchase a plan to access this feature</h1>
@@ -150,7 +150,7 @@ export default function Topics()
                         <FullTopicList title='Current' topics_info={current_topics_info} read_only={true} />
                         <FullTopicList title='Desired' topics_info={desired_topics_info} read_only={false} handle_change={toggle_desired_topic} />
                     </div>
-                    {error && <ErrorBox error={error} width='w-1/3' />}
+                    {error && <ErrorBox error={error} />}
                     <button className='bg-purple-300 hover:bg-black text-center text-black font-bold py-2 px-4 border-2 border-black hover:border-transparent hover:text-white rounded-full cursor-pointer mx-2 lg:w-1/4' onClick={handle_submit}>Submit</button>
                 </div>
             </div>

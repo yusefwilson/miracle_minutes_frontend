@@ -19,7 +19,7 @@ const _get_utc_date = () =>
     return utcDateString;
 }
 
-export default function Articles()
+export default function Articles({ user })
 {
     const navigate = useNavigate();
     const { logged_in } = useContext(LOGIN_CONTEXT);
@@ -71,23 +71,25 @@ export default function Articles()
 
             :
 
-            <div className='flex flex-col p-4 w-full overflow-y-auto space-y-4 justify-center items-center'>
-                <div className='p-4 space-y-4 overflow-y-auto h-full flex flex-col items-center'>
-                    <div className='flex flex-col space-y-4 self-center bg-gray-400 border-2 border-black rounded p-4'>
+            <div className='flex flex-col w-full space-y-4 justify-center items-center'>
+                <div className='p-4 space-y-4 overflow-y-auto h-full flex flex-col items-center scrollbar scrollbar-thumb-rounded-full scrollbar-thumb-gray-400'>
+
+                    <div className='flex flex-col space-y-4 self-center bg-gray-400 border-2 border-black rounded p-4 sm:p-16'>
                         <h1 className='text-2xl self-center lg:text-5xl font-bold'>Articles</h1>
                         <input className='focus:outline-none self-center border-2 border-black p-2 rounded-md 2' type='date' min='2024-10-6' max={_get_utc_date()}
                             value={date} onChange={handle_date_change} />
+                        {user?.plan?.plan_id === 0 ? <div className='text-center text-white'>
+                            In order to access articles, visit
+                            <button className='p-1 text-black underline' onClick={() => navigate('/dashboard/shop')}>Shop</button>
+                            to start a plan!</div> : null}
+                        {error_message !== '' ? <ErrorBox error={error_message} /> : null}
                     </div>
 
                     <div className='flex flex-wrap p-4 justify-between'>
                         {articles.map((article_item) => <ArticleTeaser key={article_item.topic} title={article_item.topic} content={article_item.article}
                             video_ids={article_item.video_ids} />)}
-                        {articles.length === 0 ? <div className='text-center text-gray-400'>
-                            Nothing for today! Visit the
-                            <button className='p-1 text-black underline' onClick={() => navigate('/dashboard/shop')}>Shop</button>
-                            to buy some articles!</div> : null}
                     </div>
-                    {error_message !== '' ? <ErrorBox error={error_message} /> : null}
+
                 </div>
             </div>
     );

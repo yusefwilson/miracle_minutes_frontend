@@ -45,7 +45,7 @@ export default function Dashboard()
     switch (current_component.toLowerCase())
     {
         case 'articles':
-            rendered_component = <Articles />;
+            rendered_component = <Articles user={user} />;
             break;
         case 'shop':
             rendered_component = <Shop user={user} />;
@@ -61,7 +61,7 @@ export default function Dashboard()
     return (
         components !== null && components !== undefined ?
 
-            <div className='bg-slate-200 flex flex-row h-full overflow-y-auto'>
+            <div className='bg-slate-200 flex flex-row h-full overflow-y-auto scrollbar scrollbar-thumb-rounded-full scrollbar-thumb-gray-400'>
                 <Sidebar components={components} />
                 {rendered_component}
             </div>

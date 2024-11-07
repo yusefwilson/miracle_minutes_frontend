@@ -122,7 +122,7 @@ export default function Home()
         :
 
         (
-            <div className='bg-slate-200 h-full space-y-8 overflow-y-auto'>
+            <div className='bg-slate-200 h-full space-y-8 overflow-y-auto scrollbar scrollbar-thumb-rounded-full scrollbar-thumb-gray-400'>
                 <div className='flex flex-col items-center p-8 space-y-8'>
                     <h1 className='text-5xl text-center'>Save time, gain knowledge</h1>
                     <div className='flex flex-col sm:flex-row space-y-8 sm:space-y-0 space-x-8'>

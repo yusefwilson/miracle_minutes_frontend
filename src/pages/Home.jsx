@@ -66,6 +66,9 @@ export default function Home()
 
     useEffect(() =>
     {
+
+        if (logged_in) { navigate('/dashboard'); return; }
+        
         const get_all_topics = async () => 
         {
             try
@@ -115,13 +118,13 @@ export default function Home()
 
     //TODO: If not logged in, show free trial signup, if logged in AND free account, show upgrade button, if logged in AND premium account, show nothing
 
-    return all_topics.length === 0 || all_plans.length === 0 ?
+    return (
+        all_topics.length === 0 || all_plans.length === 0 ?
 
-        <Loading />
+            <Loading />
 
-        :
+            :
 
-        (
             <div className='bg-slate-200 h-full space-y-8 overflow-y-auto scrollbar scrollbar-thumb-rounded-full scrollbar-thumb-gray-400'>
                 <div className='flex flex-col items-center p-8 space-y-8'>
                     <h1 className='text-5xl text-center'>Save time, gain knowledge</h1>
@@ -133,5 +136,5 @@ export default function Home()
                     {logged_in && user.plan_id === 0 ? <Link className='bg-black hover:bg-purple-700 text-white font-bold py-2 px-4 border-2 border-black rounded-full cursor-pointer mx-2' to={'/signup?p=' + recommended_plan.plan_id}>Upgrade your account now!</Link> : null}
                 </div>
             </div>
-        );
+    );
 }
